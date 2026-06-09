@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dashboard Revamp — replacing a data-analyst tool with a researcher-native dashboard, from creation to sharing.">
+    <title>Revamped Dashboard Experience · Dan Peng</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/tokens.css">
+    <link rel="stylesheet" href="assets/css/header.css">
+    <link rel="stylesheet" href="assets/css/sidebar.css">
+    <link rel="stylesheet" href="assets/css/footer.css">
+    <link rel="stylesheet" href="assets/css/carousel.css">
+    <link rel="stylesheet" href="assets/css/before-after.css">
+    <link rel="stylesheet" href="assets/css/image-card.css">
+    <link rel="stylesheet" href="assets/css/section-pull.css">
+    <link rel="stylesheet" href="assets/css/dot-nav.css">
+    <link rel="stylesheet" href="assets/css/scroll-top.css">
+    <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script defer src="assets/js/include.js"></script>
+    <script defer src="assets/js/scroll-spy.js"></script>
+    <script defer src="assets/js/dot-nav.js"></script>
+    <script defer src="assets/js/scroll-top.js"></script>
+    <script defer src="assets/js/footer-email.js"></script>
+    <script defer src="assets/js/carousel.js"></script>
+    <style>
+        /* --- Layout --- */
+        .main-content {
+            flex: 1;
+            min-width: 0;
+            padding: var(--spacing-2xl) var(--layout-gutter);
+            transition: padding 0.3s ease;
+        }
+
+        @media (max-width: 720px) {
+            .main-content { padding: var(--spacing-xl) var(--layout-gutter-mobile); }
+        }
+
+        /* --- Breadcrumbs --- */
+        .breadcrumbs {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .breadcrumbs a { color: var(--text-secondary); text-decoration: none; }
+        .breadcrumbs a:hover { color: var(--action-sage); }
+        .breadcrumbs span.current { color: var(--text-primary); font-weight: 600; }
+
+        /* --- Hero --- */
+        .case-hero { margin-bottom: var(--spacing-xl); }
+
+        .case-hero-eyebrow {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--action-sage);
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .case-hero h1 {
+            margin: 0 0 var(--spacing-md) 0;
+        }
+
+/* --- Metadata strip --- */
+        .metadata-strip {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-lg);
+            padding: var(--spacing-lg);
+            background-color: var(--bg-porcelain);
+            border: var(--border-clean);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .metadata-row {
+            display: grid;
+            gap: var(--spacing-lg);
+        }
+
+        .metadata-row--identity,
+        .metadata-row--engagement { grid-template-columns: repeat(3, 1fr); }
+
+        @media (max-width: 720px) {
+            .metadata-row--identity,
+            .metadata-row--engagement { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .metadata-cell .metadata-label {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-secondary);
+            margin-bottom: 0.35rem;
+        }
+
+        .metadata-cell .metadata-value {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        /* --- Hero media --- */
+        .hero-media {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-height: 480px;
+            background-color: var(--primary-mint-light);
+            border-radius: var(--radius-lg);
+            color: var(--action-sage);
+            margin-bottom: var(--spacing-xl);
+            padding: 24px;
+            gap: 12px;
+        }
+
+        .hero-media__scroll {
+            flex: 1 1 auto;
+            min-height: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .hero-media img,
+        .hero-media video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .hero-media .caption {
+            flex-shrink: 0;
+            margin: 0;
+        }
+
+        /* --- TL;DR card --- */
+        .tldr-card {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-xl);
+            padding: var(--spacing-xl);
+            background-color: var(--bg-card);
+            border: var(--border-clean);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .tldr-col .tldr-label {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--action-sage);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .tldr-col p { font-size: 0.95rem; line-height: 1.55; margin: 0; }
+
+        @media (max-width: 720px) {
+            .tldr-card { grid-template-columns: 1fr; gap: var(--spacing-lg); }
+        }
+
+        /* --- Sections --- */
+        .case-section {
+            margin-bottom: var(--spacing-2xl);
+            scroll-margin-top: calc(var(--header-height) + var(--spacing-md));
+        }
+
+        .case-section h2 {
+            margin: 0 0 var(--spacing-md) 0;
+        }
+
+        .case-section h3 {
+            margin: var(--spacing-lg) 0 var(--spacing-sm) 0;
+        }
+
+        .case-section p {
+            font-size: 1rem;
+            line-height: 1.65;
+            color: var(--text-primary);
+            margin: 0 0 var(--spacing-md) 0;
+        }
+
+        .case-section ol,
+        .case-section ul {
+            margin: 0 0 var(--spacing-md) 1.25rem;
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .case-section li { margin-bottom: 0.3rem; }
+
+        /* --- Split layout: text left, media right --- */
+        .split {
+            display: grid;
+            grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+            gap: var(--spacing-2xl);
+            align-items: start;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .split:last-child { margin-bottom: 0; }
+
+        .split-text > *:last-child { margin-bottom: 0; }
+        .split-text > h3:first-child { margin-top: 0; }
+        .split-media > .carousel { margin-top: 0; }
+
+        .split-media { position: sticky; top: calc(var(--header-height) + var(--spacing-md)); }
+
+        @media (max-width: 900px) {
+            .split { grid-template-columns: 1fr; gap: var(--spacing-lg); }
+            .split-media { position: static; }
+        }
+
+        /* --- Decision sub-blocks --- */
+        .decision-block {
+            margin-top: var(--spacing-xl);
+            padding-top: var(--spacing-xl);
+            border-top: 1px dashed var(--grey-300);
+        }
+
+        .decision-block:first-of-type {
+            border-top: none;
+            padding-top: var(--spacing-md);
+        }
+
+        .decision-eyebrow {
+            display: inline-block;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--action-sage);
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+        }
+
+        .decision-title {
+            font-weight: 700;
+            margin: 0 0 var(--spacing-sm) 0;
+        }
+
+        /* --- Media placeholder --- */
+        .media-placeholder {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            background-color: var(--grey-100);
+            border: 1px dashed var(--grey-300);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--grey-500);
+            font-size: 0.8rem;
+            text-align: center;
+            padding: var(--spacing-md);
+        }
+
+        .media-placeholder + .caption { margin-top: 0.5rem; }
+
+        .media-stack > * + * { margin-top: var(--spacing-md); }
+
+        .caption {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-align: center;
+            margin: 0;
+        }
+
+        /* --- User Flow Diagram (full width exception) --- */
+        .flowchart {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0;
+            padding: var(--spacing-lg);
+            background-color: var(--bg-card);
+            border: var(--border-clean);
+            border-radius: var(--radius-md);
+            margin: var(--spacing-md) 0;
+        }
+
+        .flow-step,
+        .flow-terminator {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            background-color: var(--bg-card);
+            border: 1px solid var(--action-sage);
+            padding: var(--spacing-sm) var(--spacing-md);
+            min-height: 56px;
+        }
+
+        .flow-step { border-radius: var(--radius-md); min-width: 120px; }
+
+        .flow-terminator {
+            border-radius: var(--radius-pill);
+            background-color: var(--primary-mint-light);
+            min-width: 100px;
+        }
+
+        .flow-decision {
+            flex-shrink: 0;
+            position: relative;
+            width: 96px;
+            height: 96px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .flow-decision::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            margin: auto;
+            width: 68px;
+            height: 68px;
+            transform: rotate(45deg);
+            background-color: var(--bg-card);
+            border: 1px solid var(--action-sage);
+            border-radius: var(--radius-sm);
+        }
+
+        .flow-decision-label {
+            position: relative;
+            z-index: 1;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-align: center;
+            max-width: 84px;
+            line-height: 1.2;
+            color: var(--text-primary);
+        }
+
+        .flow-arrow {
+            flex-shrink: 0;
+            color: var(--action-sage);
+            display: inline-flex;
+            align-items: center;
+        }
+
+        /* --- Compare image (user flow before/after) --- */
+        .compare-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border: var(--border-clean);
+            border-radius: var(--radius-md);
+            background-color: var(--bg-card);
+            cursor: zoom-in;
+        }
+
+        /* --- Quote callout --- */
+        .quote-callout {
+            padding: var(--spacing-xl);
+            background-color: var(--primary-mint-light);
+            border-radius: var(--radius-lg);
+            border: var(--border-clean);
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        /* Context section uses tighter spacing between sub-blocks */
+        #context .quote-callout {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .quote-callout svg { margin-bottom: 1rem; }
+
+        .quote-callout blockquote {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            line-height: 1.4;
+            color: var(--text-primary);
+            margin: 0 0 0.5rem 0;
+        }
+
+        .quote-callout cite {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        /* --- Metrics row --- */
+        .metrics-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: var(--spacing-lg);
+            margin: var(--spacing-md) 0 var(--spacing-lg) 0;
+        }
+
+        .metric-tile {
+            padding: var(--spacing-lg);
+            background-color: var(--bg-porcelain);
+            border: var(--border-clean);
+            border-radius: var(--radius-md);
+        }
+
+        .metric-value {
+            display: block;
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--action-sage);
+            line-height: 1.15;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label { font-size: 0.875rem; color: var(--text-secondary); }
+
+        /* --- Forward-looking note --- */
+        .forward-note {
+            padding: var(--spacing-xl);
+            background-color: var(--bg-card);
+            border: 1px solid var(--grey-300);
+            border-left: 4px solid var(--gold-500);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .forward-note .forward-eyebrow {
+            display: inline-block;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-secondary);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .forward-note h2 { margin-bottom: var(--spacing-md); }
+        .forward-note p { font-size: 0.95rem; line-height: 1.6; }
+
+        /* --- Tooltip component --- */
+        .tooltip-wrapper {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .tooltip-trigger {
+            display: inline-flex;
+            align-items: center;
+            color: var(--action-sage);
+            cursor: help;
+            background: none;
+            border: none;
+            padding: 0;
+            font: inherit;
+        }
+
+        .tooltip-trigger.text-trigger {
+            color: var(--text-primary);
+            text-decoration: underline dotted var(--action-sage);
+            text-underline-offset: 4px;
+        }
+
+        .tooltip-bubble {
+            position: absolute;
+            z-index: 10;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            background-color: var(--text-primary);
+            color: var(--bg-card);
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 500;
+            line-height: 1.4;
+            border-radius: var(--radius-sm);
+            white-space: nowrap;
+            box-shadow: var(--shadow-subtle);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.15s ease, visibility 0.15s ease;
+            pointer-events: none;
+        }
+
+        .tooltip-bubble::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: inherit;
+            transform: rotate(45deg);
+        }
+
+        .tooltip--top {
+            bottom: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .tooltip--top::after {
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+        }
+
+        .tooltip-wrapper:hover .tooltip-bubble,
+        .tooltip-wrapper:focus-within .tooltip-bubble {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Rich-content bubble: allow wrapping and HTML children.
+           width: max-content prevents shrink-to-fit on absolutely-positioned elements;
+           max-width then caps and triggers wrapping at 400px. */
+        .tooltip-bubble.tooltip--rich {
+            white-space: normal;
+            width: max-content;
+            max-width: 400px;
+            line-height: 1.5;
+        }
+
+        /* --- Prev / Next nav --- */
+        .case-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            gap: var(--spacing-lg);
+            padding-top: var(--spacing-xl);
+            border-top: 1px solid var(--grey-300);
+            margin-top: var(--spacing-2xl);
+        }
+
+        .case-nav a {
+            text-decoration: none;
+            color: var(--text-primary);
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            transition: color 0.2s ease;
+        }
+
+        .case-nav a:hover { color: var(--action-sage); }
+
+        .case-nav-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35em;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-secondary);
+        }
+
+        .case-nav-title {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .case-nav .next { text-align: right; }
+        .case-nav .next .case-nav-label { justify-content: flex-end; }
+
+        @media (max-width: 720px) {
+            .case-nav { gap: 1rem; }
+            .case-nav a { flex: 1; min-width: 0; }
+            .case-nav-title { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body data-page="work">
+    <div data-include="partials/header.html"></div>
+
+    <div class="page-body">
+
+        <aside class="sidebar" id="sidebar">
+            <button class="sidebar-mobile-toggle" type="button" aria-expanded="false" aria-controls="sidebar">
+                <i data-lucide="chevron-down" class="sidebar-mobile-chevron" width="18" height="18" stroke-width="2"></i>
+                <span class="sidebar-mobile-label">
+                    <span class="sidebar-mobile-eyebrow">On this page</span>
+                    <span class="sidebar-active-label">Context</span>
+                </span>
+            </button>
+            <div class="sidebar-header">
+                <h2 class="sidebar-title hide-on-collapse">On This Page</h2>
+                <button class="sidebar-toggle" aria-label="Collapse sidebar" onclick="toggleSidebar()">
+                    <i data-lucide="menu" width="18" height="18" stroke-width="2"></i>
+                </button>
+            </div>
+
+            <nav class="nested-nav hide-on-collapse" aria-label="Case study sections">
+                <a href="#intro" class="nested-link active">Intro</a>
+                <a href="#context" class="nested-link">Context</a>
+                <a href="#process" class="nested-link">Process</a>
+                <a href="#alignment" class="nested-link">Alignment &amp; Handoff</a>
+                <a href="#outcome" class="nested-link">Outcome</a>
+                <a href="#next-step" class="nested-link">Next Step</a>
+            </nav>
+        </aside>
+
+        <main class="main-content" id="main">
+            <section class="snap-intro" id="intro">
+            <div class="breadcrumbs">
+                <a href="projects.html">Projects</a>
+                <span>/</span>
+                <span class="current">Revamped Dashboard Experience</span>
+            </div>
+
+            <header class="case-hero">
+                <p class="case-hero-eyebrow">Research Community Platform · Dashboard</p>
+                <h1>Revamped Dashboard Experience</h1>
+                <p class="case-hero-tagline">Replacing a data-analyst tool with a researcher-friendly dashboard.</p>
+            </header>
+
+            <div class="hero-media">
+                <div class="hero-media__scroll">
+                    <img src="assets/img/dashboard-revamp/thumbnail-dashboard.png" alt="Dashboard Revamp — final dashboard with mixed tile types">
+                </div>
+                <p class="caption">Final dashboard with mixed tile types.</p>
+            </div>
+
+            <section class="metadata-strip" aria-label="Project metadata">
+                <div class="metadata-row metadata-row--identity">
+                    <div class="metadata-cell"><span class="metadata-label">Product</span><p class="metadata-value">Research Community Platform</p></div>
+                    <div class="metadata-cell"><span class="metadata-label">Area</span><p class="metadata-value">Dashboard</p></div>
+                    <div class="metadata-cell"><span class="metadata-label">Timeline</span><p class="metadata-value">March – April 2026</p></div>
+                </div>
+                <div class="metadata-row metadata-row--engagement">
+                    <div class="metadata-cell"><span class="metadata-label">Role</span><p class="metadata-value">Product Designer</p></div>
+                    <div class="metadata-cell"><span class="metadata-label">Team</span><p class="metadata-value">1 Designer · 1 PM · 8–10 Engineers</p></div>
+                    <div class="metadata-cell"><span class="metadata-label">Tools</span><p class="metadata-value">Figma, Cursor (prototyping)</p></div>
+                </div>
+            </section>
+
+            <section class="tldr-card" aria-label="TL;DR summary">
+                <div class="tldr-col">
+                    <span class="tldr-label">Problem</span>
+                    <p>A Looker-based legacy dashboard built for data analysts, used by researchers who don't think like analysts.</p>
+                </div>
+                <div class="tldr-col">
+                    <span class="tldr-label">Approach</span>
+                    <p>A guided creation flow, researcher-friendly tile configurations, and familiar functions they've been using in survey reports.</p>
+                </div>
+                <div class="tldr-col">
+                    <span class="tldr-label">Result</span>
+                    <p>Received positive customer reception during prototype walkthroughs. Besides, the Figma-to-Cursor workflow became a shared team resource.</p>
+                </div>
+            </section>
+
+            </section><!-- /#intro -->
+
+            <!-- §1 Context -->
+            <section class="case-section snap-section" id="context">
+                <h2>Context</h2>
+                <aside class="quote-callout" aria-label="Stakeholder quote">
+                    <i data-lucide="quote" width="24" height="24" fill="var(--action-sage)" stroke="var(--action-sage)" stroke-width="2"></i>
+                    <blockquote>"Dashboards are hard to use today in general. I think that's the biggest thing."</blockquote>
+                    <cite>— UX Researcher, Global Creative Software Company</cite>
+                </aside>
+                <div class="split">
+                    <div class="split-text">
+                        <h3>User pain point</h3>
+                        <p>Most of our users are not SQL writers. The Looker-flavored interface forced them to learn data-analyst concepts just to configure a tile.</p>
+                        <h3>Business objective</h3>
+                        <p>Legacy dashboards were being deprecated. The new dashboard had to run on the new reporting architecture and also support multi-source data.</p>
+                    </div>
+                    <div class="split-media">
+                        <div class="carousel" data-carousel aria-roledescription="carousel" aria-label="Legacy Looker dashboard screens">
+                            <div class="carousel-viewport">
+                                <ol class="carousel-track">
+                                    <li class="carousel-slide">
+                                        <div class="carousel-media">
+                                            <img src="assets/img/dashboard-revamp/looker-3_add-tile.png" alt="Legacy Looker — Add Tile screen, exposing Dimension and Measure configuration">
+                                        </div>
+                                        <div class="carousel-caption">
+                                            <span class="carousel-step">Legacy · Add a New Tile</span>
+                                            <p>Adding a new tile dropped researchers straight into Looker's data-analyst configuration interface.</p>
+                                        </div>
+                                    </li>
+                                    <li class="carousel-slide">
+                                        <div class="carousel-media">
+                                            <img src="assets/img/dashboard-revamp/looker-4_edit-tile.png" alt="Legacy Looker — Edit Tile screen, showing Dimension / Measure terminology">
+                                        </div>
+                                        <div class="carousel-caption">
+                                            <span class="carousel-step">Legacy · Edit Tile</span>
+                                            <p>Editing a tile required understanding analyst concepts — Dimensions, Measures.</p>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                            <div class="carousel-controls">
+                                <button class="carousel-btn carousel-prev" aria-label="Previous screen">
+                                    <i data-lucide="chevron-left" width="16" height="16" stroke-width="2.25"></i>
+                                </button>
+                                <div class="carousel-meta">
+                                    <div class="carousel-dots" role="tablist"></div>
+                                    <span class="carousel-counter">1 / 2</span>
+                                </div>
+                                <button class="carousel-btn carousel-next" aria-label="Next screen">
+                                    <i data-lucide="chevron-right" width="16" height="16" stroke-width="2.25"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- §2 Process -->
+            <section class="case-section snap-section" id="process">
+                <h2>Process</h2>
+                <p>Collaborating with PM and engineering leads, we addressed user pain points, translating frustration into the foundation of the new design.</p>
+
+                <h3 style="margin-top: var(--spacing-xl);">User flow — dashboard creation</h3>
+                <figure class="compare compare--vertical">
+                    <div class="compare-frame compare-before">
+                        <span class="compare-label">Before</span>
+                        <div class="compare-media">
+                            <img src="assets/img/dashboard-revamp/user-flow_before.png" alt="Before — legacy dashboard creation flow: Create New → Enter a Name → Select Access Level → Select Data Sources → Empty Dashboard → Add Tile → Configure Tile → Save → More tiles? → Done">
+                        </div>
+                    </div>
+                    <div class="compare-arrow" aria-hidden="true">
+                        <i data-lucide="arrow-right" width="24" height="24" stroke-width="2"></i>
+                    </div>
+                    <div class="compare-frame compare-after">
+                        <span class="compare-label">After</span>
+                        <div class="compare-media">
+                            <img src="assets/img/dashboard-revamp/user-flow_after.png" alt="After — revamped dashboard creation flow: Create New → Select Data Sources → Add Data Tiles (optional, with bulk pre-filling) → Dashboard Settings → Dashboard with selected Tiles → optional tile edits → Dashboard Ready to Share">
+                        </div>
+                        <div class="compare-note">
+                            <span class="compare-note-eyebrow">What changed</span>
+                            <ul style="margin: 0; padding-left: 1.1rem;">
+                                <li><strong>Efficiency:</strong> Drastically reduces "Time to Dashboard," making the dashboard easier to set up.</li>
+                                <li><strong>Reduced Friction:</strong> Automated pre-filling eliminates the need for manual tile configuration, saving significant user time.</li>
+                                <li><strong>Flexibility:</strong> Prevents setup fatigue by allowing users to add or modify tiles at any stage with the same assistance.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </figure>
+
+                <!-- Decision 1 -->
+                <div class="decision-block">
+                    <div class="split">
+                        <div class="split-text">
+                            <span class="decision-eyebrow">Key Point 1</span>
+                            <h3 class="decision-title">Moving technical complexity behind the UI</h3>
+                            <p>When <strong>selecting data sources</strong>, I had to bridge the gap between a strict backend logic and the simplified experience.</p>
+                            <p><strong>The Challenge:</strong> Backend logic required users to manually designate a "primary source" when pulling from multiple data streams. Feedback from customer interviews showed that the initial design using UI copy and a default selection didn't resolve the underlying conceptual friction.</p>
+                            <p><strong>The Strategy:</strong> I led a cross-functional conversation with PM and engineering leads to analyze every valid use case. We discovered that "<span class="tooltip-wrapper"><button class="tooltip-trigger text-trigger" aria-describedby="tt-profile-var-1">Profile Variables</button><span class="tooltip-bubble tooltip--top tooltip--rich" role="tooltip" id="tt-profile-var-1"><strong>A data field stored against a member</strong> — demographics, behavioral data, or custom business-specific attributes. Used for <strong>targeting, segmentation, and analysis</strong>.</span></span>" were the logical primary source for all core scenarios.</p>
+                            <p><strong>The Pivot:</strong> We identified that the only "edge case" requiring a different primary source (external-only data) fell outside our product scope. By focusing on our core audience, we decided to automate the selection.</p>
+                            <p><strong>The Result:</strong> I eliminated a major friction point, allowing users to complete the flow without needing to understand or configure complex backend requirements.</p>
+                        </div>
+                        <div class="split-media">
+                            <div class="carousel" data-carousel aria-roledescription="carousel" aria-label="Decision 1 — primary source before and after">
+                                <div class="carousel-viewport">
+                                    <ol class="carousel-track">
+                                        <li class="carousel-slide">
+                                            <div class="carousel-media">
+                                                <img src="assets/img/dashboard-revamp/decision-1_primary-source_initial.png" alt="Before — Select Data Sources screen requiring users to manually designate a primary source">
+                                            </div>
+                                        </li>
+                                        <li class="carousel-slide">
+                                            <div class="carousel-media">
+                                                <img src="assets/img/dashboard-revamp/decision-1_primary-source_final.png" alt="After — Select Data Sources screen with primary source auto-set behind the scenes">
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                                <div class="carousel-captions">
+                                    <div class="carousel-caption">
+                                        <span class="carousel-step">Initial Design</span>
+                                        <p>Users had to manually pick a "primary source" — a backend concept surfaced in the UI.</p>
+                                    </div>
+                                    <div class="carousel-caption" hidden>
+                                        <span class="carousel-step">Final Design</span>
+                                        <p><span class="tooltip-wrapper"><button class="tooltip-trigger text-trigger" aria-describedby="tt-profile-var-2">Profile Variables</button><span class="tooltip-bubble tooltip--top tooltip--rich" role="tooltip" id="tt-profile-var-2"><strong>A data field stored against a member</strong> — demographics, behavioral data, or custom business-specific attributes. Used for <strong>targeting, segmentation, and analysis</strong>.</span></span> are auto-set as the primary source; the decision is to remove it from the UI.</p>
+                                    </div>
+                                </div>
+                                <div class="carousel-controls">
+                                    <button class="carousel-btn carousel-prev" aria-label="Previous screen">
+                                        <i data-lucide="chevron-left" width="16" height="16" stroke-width="2.25"></i>
+                                    </button>
+                                    <div class="carousel-meta">
+                                        <div class="carousel-dots" role="tablist"></div>
+                                        <span class="carousel-counter">1 / 2</span>
+                                    </div>
+                                    <button class="carousel-btn carousel-next" aria-label="Next screen">
+                                        <i data-lucide="chevron-right" width="16" height="16" stroke-width="2.25"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Decision 2 -->
+                <div class="decision-block">
+                    <div class="split">
+                        <div class="split-text">
+                            <span class="decision-eyebrow">Key Point 2</span>
+                            <h3 class="decision-title">Streamlining tile creation</h3>
+                            <p>To lower the barrier for non-analysts, I redesigned the tile configuration flow to eliminate technical jargon like "dimensions" and "measures."</p>
+                            <p><strong>Automated Setup:</strong> Users simply select a survey question or <span class="tooltip-wrapper"><button class="tooltip-trigger text-trigger" aria-describedby="tt-profile-var-3">profile variable</button><span class="tooltip-bubble tooltip--top tooltip--rich" role="tooltip" id="tt-profile-var-3"><strong>A data field stored against a member</strong> — demographics, behavioral data, or custom business-specific attributes. Used for <strong>targeting, segmentation, and analysis</strong>.</span></span>; the system then pre-fills essential parameters for the tile.</p>
+                            <p><strong>Simplified Configuration:</strong> Replaced legacy feature bloat with a curated set of essential tools, removing friction to significantly decrease time-to-insight.</p>
+                        </div>
+                        <div class="split-media">
+                            <div class="carousel" data-carousel aria-roledescription="carousel" aria-label="Tile configurations">
+                                <div class="carousel-viewport">
+                                    <ol class="carousel-track">
+                                        <li class="carousel-slide">
+                                            <div class="carousel-media">
+                                                <img src="assets/img/dashboard-revamp/decision-2_edit-tile.png" alt="New — Edit Tile screen with researcher-friendly configuration">
+                                            </div>
+                                            <div class="carousel-caption">
+                                                <span class="carousel-step">New · Edit Tile</span>
+                                                <p>Simplified editing interface using plain language.</p>
+                                            </div>
+                                        </li>
+                                        <li class="carousel-slide">
+                                            <div class="carousel-media">
+                                                <img src="assets/img/dashboard-revamp/looker-4_edit-tile.png" alt="Legacy — Edit Tile screen with Dimension / Measure terminology">
+                                            </div>
+                                            <div class="carousel-caption">
+                                                <span class="carousel-step">Legacy · Edit Tile</span>
+                                                <p>Editing a tile required understanding analyst concepts — Dimensions, Measures.</p>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                                <div class="carousel-controls">
+                                    <button class="carousel-btn carousel-prev" aria-label="Previous configuration">
+                                        <i data-lucide="chevron-left" width="16" height="16" stroke-width="2.25"></i>
+                                    </button>
+                                    <div class="carousel-meta">
+                                        <div class="carousel-dots" role="tablist"></div>
+                                        <span class="carousel-counter">1 / 2</span>
+                                    </div>
+                                    <button class="carousel-btn carousel-next" aria-label="Next configuration">
+                                        <i data-lucide="chevron-right" width="16" height="16" stroke-width="2.25"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Decision 3 -->
+                <div class="decision-block">
+                    <div class="split">
+                        <div class="split-text">
+                            <span class="decision-eyebrow">Key Point 3</span>
+                            <h3 class="decision-title">Flexible dashboard layouts</h3>
+                            <p><strong>Prototyping for Clarity:</strong> Developed a Cursor prototype for tile drag-and-resize and reordering, allowing the team to iterate rapidly and align with customers and engineers without relying on lengthy written documentation.</p>
+                            <p><strong>Design System Integration:</strong> Translated the Figma design system into Cursor rules. This established a shared resource for the design team.</p>
+                        </div>
+                        <div class="split-media">
+                            <div class="carousel" data-carousel aria-roledescription="carousel" aria-label="Decision 3 — Cursor prototype">
+                                <div class="carousel-viewport">
+                                    <ol class="carousel-track">
+                                        <li class="carousel-slide">
+                                            <div class="carousel-media">
+                                                <img src="assets/img/dashboard-revamp/cursor-prototype.gif" alt="Cursor prototype — tile drag-to-resize and reordering">
+                                            </div>
+                                            <div class="carousel-caption">
+                                                <span class="carousel-step">Cursor Prototype</span>
+                                                <p>A working prototype showing the interaction.</p>
+                                            </div>
+                                        </li>
+                                        <li class="carousel-slide">
+                                            <div class="carousel-media">
+                                                <img src="assets/img/dashboard-revamp/cursor_design-system.png" alt="Figma design system translated into Cursor rules">
+                                            </div>
+                                            <div class="carousel-caption">
+                                                <span class="carousel-step">Design System in Cursor</span>
+                                                <p>Figma design tokens translated into Cursor rules — a shared resource for the design team.</p>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                                <div class="carousel-controls">
+                                    <button class="carousel-btn carousel-prev" aria-label="Previous screen">
+                                        <i data-lucide="chevron-left" width="16" height="16" stroke-width="2.25"></i>
+                                    </button>
+                                    <div class="carousel-meta">
+                                        <div class="carousel-dots" role="tablist"></div>
+                                        <span class="carousel-counter">1 / 2</span>
+                                    </div>
+                                    <button class="carousel-btn carousel-next" aria-label="Next screen">
+                                        <i data-lucide="chevron-right" width="16" height="16" stroke-width="2.25"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- §3 Driving Alignment -->
+            <section class="case-section snap-section" id="alignment">
+                <h2>Driving Alignment & Handoff</h2>
+                <p>With 8–10 engineers building in parallel and a single designer holding the spec, undocumented details created a high risk of product drift. To mitigate this, I established alignment through two communication rhythms:</p>
+                <p><strong>Comprehensive Kickoffs:</strong> I held two 1-hour kickoff calls with the full dev team. During these sessions, I anchored every conversation in the basic end-to-end workflow first, then branched into edge cases, ensuring every engineer saw the workflow as a user would before owning a piece of it.</p>
+                <p><strong>Targeted Syncs:</strong> I maintained ongoing, small syncs with PM and engineer leads, scoped strictly to features currently in flight.</p>
+                <figure class="image-card" style="margin-top: var(--spacing-md);">
+                    <div class="image-card-media">
+                        <img src="assets/img/dashboard-revamp/figma-design-for-handoff.png" alt="Figma design with annotations prepared for engineering handoff">
+                    </div>
+                    <figcaption class="image-card-caption">
+                        <span class="image-card-label">Figma · Handoff</span>
+                        <p>Figma design with annotations prepared for engineering handoff.</p>
+                    </figcaption>
+                </figure>
+            </section>
+
+            <!-- §4 Outcome -->
+            <section class="case-section snap-section" id="outcome">
+                <h2>Outcome</h2>
+                <div class="metrics-row">
+                    <div class="metric-tile">
+                        <span class="metric-value">Highly Positive</span>
+                        <span class="metric-label">Customer reception in prototype walkthroughs</span>
+                    </div>
+                    <div class="metric-tile">
+                        <span class="metric-value">Stay Tuned...</span>
+                        <span class="metric-label">Tracking user adoption after launch</span>
+                    </div>
+                    <div class="metric-tile">
+                        <span class="metric-value">Workflow Optimized</span>
+                        <span class="metric-label">Design rules for Cursor adopted by the design team</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Next Step -->
+            <section class="snap-section" id="next-step">
+                <aside class="forward-note" aria-label="Next step observation">
+                    <span class="forward-eyebrow">Next Step</span>
+                    <h2>The "Show Your Value" Problem</h2>
+                    <p>During the interviews, researchers consistently asked for platform usage data, like surveys sent, response rates, and engagement. On the surface, a feature request. Underneath: they need to show their executives that the platform is working and the team's investment is justified.</p>
+                    <p>A direction worth exploring: a lightweight "research team report" for the researcher communicating upward. Not a data view, a value narrative.</p>
+                </aside>
+            </section>
+
+            <nav class="case-nav" aria-label="Project navigation">
+                <a href="project_report-migration.html" class="prev">
+                    <span class="case-nav-label"><i data-lucide="arrow-left" width="14" height="14" stroke-width="2.25"></i> Previous</span>
+                    <span class="case-nav-title">Reporting System Migration</span>
+                </a>
+                <a href="project_video-insights.html" class="next">
+                    <span class="case-nav-label">Next <i data-lucide="arrow-right" width="14" height="14" stroke-width="2.25"></i></span>
+                    <span class="case-nav-title">Multi-Video Insights</span>
+                </a>
+            </nav>
+        </main>
+
+    </div>
+
+    <div data-include="partials/footer.html"></div>
+    <!-- #region agent log -->
+    <script>
+    (function () {
+        function dbg(payload) {
+            fetch('http://127.0.0.1:7785/ingest/eb338d6a-010e-409b-bb8d-ba605c25d3ea', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': '7550b3' },
+                body: JSON.stringify(Object.assign({ sessionId: '7550b3', timestamp: Date.now() }, payload))
+            }).catch(function () {});
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            var ctx = document.querySelector('#context');
+            var carousel = ctx && ctx.querySelector('.carousel');
+            var viewport = carousel && carousel.querySelector('.carousel-viewport');
+            var track = carousel && carousel.querySelector('.carousel-track');
+            var firstMedia = carousel && carousel.querySelector('.carousel-media');
+            function rect(el) {
+                if (!el) return null;
+                var r = el.getBoundingClientRect();
+                return { width: r.width, height: r.height, top: r.top, left: r.left };
+            }
+            dbg({
+                hypothesisId: 'H5',
+                location: 'project_dashboard-revamp.html:DOMContentLoaded',
+                message: 'page protocol + context carousel layout',
+                data: {
+                    protocol: window.location.protocol,
+                    viewportRect: rect(viewport),
+                    firstMediaRect: rect(firstMedia),
+                    trackTransform: track ? track.style.transform || '(computed unset)' : null
+                }
+            });
+            var imgs = carousel ? carousel.querySelectorAll('img') : [];
+            imgs.forEach(function (img, index) {
+                function onLoad() {
+                    dbg({
+                        hypothesisId: img.naturalWidth > 0 ? 'H4' : 'H2',
+                        location: 'project_dashboard-revamp.html:img',
+                        message: img.naturalWidth > 0 ? 'image decoded OK' : 'image complete but zero dimensions',
+                        data: { index: index, src: img.currentSrc || img.src, naturalWidth: img.naturalWidth, naturalHeight: img.naturalHeight }
+                    });
+                }
+                function onError() {
+                    dbg({
+                        hypothesisId: 'H1',
+                        location: 'project_dashboard-revamp.html:img',
+                        message: 'image load error',
+                        data: { index: index, src: img.currentSrc || img.src }
+                    });
+                }
+                if (img.complete) {
+                    if (img.naturalWidth > 0) onLoad();
+                    else onError();
+                } else {
+                    img.addEventListener('load', onLoad);
+                    img.addEventListener('error', onError);
+                }
+            });
+        });
+    })();
+    </script>
+    <!-- #endregion -->
+</body>
+</html>

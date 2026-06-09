@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio homepage.">
+    <title>Dan Peng · Product Designer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/tokens.css">
+    <link rel="stylesheet" href="assets/css/header.css">
+    <link rel="stylesheet" href="assets/css/footer.css">
+    <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script defer src="assets/js/include.js"></script>
+    <script defer src="assets/js/footer-email.js"></script>
+    <style>
+        .hero {
+            min-height: calc(100vh - var(--header-height));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: var(--spacing-2xl);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-texture {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+
+        .hero-content {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: var(--spacing-2xl);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 64rem;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--action-sage);
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .hero h1 {
+            max-width: 34ch;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .hero-tagline {
+            font-size: 1.125rem;
+            max-width: 58ch;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body data-page="home">
+    <div data-include="partials/header.html"></div>
+
+    <main id="main">
+        <!-- TODO: real content -->
+        <section class="hero">
+            <canvas class="hero-texture" aria-hidden="true"></canvas>
+            <div class="hero-content">
+                <span class="hero-eyebrow"><span style="color: #EAB308;">DAN PENG</span> · Product Designer</span>
+                <h1>Simplifying enterprise complexity through intuitive design.</h1>
+                <p class="hero-tagline">4 years of experience empowering researchers to effortlessly analyze complex data and AI-generated insights.</p>
+                <div class="hero-ctas">
+                    <a href="projects.html" class="btn btn-gold">See my projects</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div data-include="partials/footer.html"></div>
+    <script>
+    (function () {
+        const canvas = document.querySelector('.hero-texture');
+        if (!canvas) return;
+
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // Brand palettes (mint-50→400, sage-100/300/500), brightest last.
+        const MINT = ['#EAF6F4','#D3EDE9','#B2DFDB','#8ECFC8','#66BDB3'];
+        const SAGE = ['#CFE6E2','#7FBCB3','#3A9289'];
+
+        const GOLD = ['#FFE9A3','#FFD54F'];
+
+        const RADIUS      = 4;
+        const SPACING     = 14;
+        const INFLUENCE_X = 36;
+        const INFLUENCE_Y = 36;
+
+        function rng(seed) {
+            let s = seed;
+            return function () { s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; };
+        }
+
+        const ctx = canvas.getContext('2d');
+        let dots = [];
+        let w = 0, h = 0;
+
+        // Rebuild the seeded grid (positions + base color/brighter neighbour).
+        function build() {
+            w = canvas.width  = canvas.offsetWidth;
+            h = canvas.height = canvas.offsetHeight;
+
+            const r = rng(42);
+            const cols = Math.ceil(w / SPACING) + 1;
+            const rows = Math.ceil(h / SPACING) + 1;
+            dots = [];
+
+            for (let row = 0; row < rows; row++) {
+                for (let col = 0; col < cols; col++) {
+                    const palette = r() < 0.5 ? MINT : SAGE;
+                    const idx = Math.floor(r() * palette.length);
+                    dots.push({
+                        x: col * SPACING,
+                        y: row * SPACING,
+                        base: palette[idx],
+                        bright: palette[Math.min(idx + 1, palette.length - 1)],
+                        gold: GOLD[Math.floor(r() * GOLD.length)]
+                    });
+                }
+            }
+        }
+
+        function paint(pointer) {
+            ctx.clearRect(0, 0, w, h);
+            for (const d of dots) {
+                let radius = RADIUS;
+                let color = d.base;
+                let dx = 0, dy = 0;
+
+                if (pointer) {
+                    const distX = d.x - pointer.x;
+                    const distY = d.y - pointer.y;
+                    const norm = Math.hypot(distX / INFLUENCE_X, distY / INFLUENCE_Y);
+                    if (norm < 1) {
+                        color = d.gold;
+                    }
+                }
+
+                ctx.beginPath();
+                ctx.arc(d.x + dx, d.y + dy, radius, 0, Math.PI * 2);
+                ctx.fillStyle = color;
+                ctx.fill();
+            }
+        }
+
+        build();
+        paint(null);
+
+        const ro = new ResizeObserver(() => { build(); paint(reduceMotion ? null : current); });
+        ro.observe(canvas.parentElement);
+
+        if (reduceMotion) return;   // static field only
+
+        // Pointer-driven animation loop, idle when settled.
+        let current = null;       // target pointer (canvas coords) or null
+        let eased = null;         // eased pointer actually rendered
+        let rafId = null;
+
+        function loop() {
+            if (current) {
+                if (!eased) eased = { x: current.x, y: current.y };
+                eased.x += (current.x - eased.x) * 0.2;
+                eased.y += (current.y - eased.y) * 0.2;
+                paint(eased);
+                rafId = requestAnimationFrame(loop);
+            } else if (eased) {
+                eased = null;
+                paint(null);
+                rafId = null;
+            } else {
+                rafId = null;
+            }
+        }
+
+        function kick() { if (rafId == null) rafId = requestAnimationFrame(loop); }
+
+        const hero = canvas.parentElement;
+hero.addEventListener('pointermove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            current = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+            kick();
+        });
+        hero.addEventListener('pointerleave', () => { current = null; kick(); });
+    })();
+    </script>
+</body>
+</html>

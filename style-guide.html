@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Style Guide · Dan Peng</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/tokens.css">
+    <link rel="stylesheet" href="assets/css/header.css">
+    <link rel="stylesheet" href="assets/css/sidebar.css">
+    <link rel="stylesheet" href="assets/css/footer.css">
+    <link rel="stylesheet" href="assets/css/carousel.css">
+    <link rel="stylesheet" href="assets/css/before-after.css">
+    <link rel="stylesheet" href="assets/css/image-card.css">
+    <link rel="stylesheet" href="assets/css/section-pull.css">
+    <link rel="stylesheet" href="assets/css/callout.css">
+    <link rel="stylesheet" href="assets/css/card.css">
+    <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script defer src="assets/js/include.js"></script>
+    <script defer src="assets/js/footer-email.js"></script>
+    <script defer src="assets/js/carousel.js"></script>
+    <style>
+        /* Page-specific styles for the Style Guide */
+        .main-content {
+            flex: 1;
+            min-width: 0;
+            padding: 3rem 4rem;
+            transition: padding 0.3s ease;
+        }
+
+        @media (max-width: 1100px) {
+            .main-content {
+                padding: 2.5rem;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .main-content {
+                padding: 2rem 1.25rem;
+            }
+        }
+
+        /* --- Components --- */
+        .card {
+            background-color: var(--bg-card);
+            border: var(--border-clean);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn-sm svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .btn-tertiary {
+            background-color: transparent;
+            color: var(--action-sage);
+        }
+
+        .btn-tertiary:hover:not(:disabled) {
+            background-color: var(--primary-mint-light);
+        }
+
+        .btn-danger {
+            background-color: var(--semantic-error);
+            color: var(--bg-card);
+        }
+
+        .btn-danger:hover:not(:disabled) {
+            opacity: 0.9;
+        }
+
+        .btn-gold {
+            background-color: var(--gold-500);
+            color: var(--text-primary);
+        }
+
+        .btn-gold:hover:not(:disabled), .btn-gold.force-hover {
+            background-color: var(--gold-700);
+        }
+
+        .btn-gold:focus-visible, .btn-gold.force-focus {
+            outline-color: var(--gold-700);
+        }
+
+        .btn:disabled {
+            background-color: var(--grey-100);
+            color: var(--grey-500);
+            border-color: var(--grey-300);
+            cursor: not-allowed;
+        }
+
+        .btn-sm {
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-lg);
+            font-size: 0.8125rem;
+        }
+
+        .breadcrumbs {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .breadcrumbs span.current {
+            color: var(--action-sage);
+            font-weight: 600;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            max-width: 300px;
+        }
+
+        .input-field {
+            padding: 0.75rem 1rem;
+            border: var(--border-clean);
+            border-radius: var(--radius-md);
+            font-family: var(--font-body);
+            color: var(--text-primary);
+            outline: none;
+        }
+
+        .input-field:focus {
+            box-shadow: 0 0 0 2px var(--primary-mint-light);
+            border-color: var(--action-sage-hover);
+        }
+
+        .text-link {
+            font-size: 1rem;
+            color: var(--action-sage);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .text-link:hover {
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+
+        /* --- Documentation Utilities --- */
+        .state-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            align-items: start;
+        }
+
+        .state-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        /* --- Portfolio Elements --- */
+        .metadata-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--spacing-lg);
+            padding: var(--spacing-lg);
+            background-color: var(--bg-porcelain);
+            border-radius: var(--radius-md);
+            border: var(--border-clean);
+        }
+
+        .metadata-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+            display: block;
+        }
+
+
+        /* --- Typography Showcase --- */
+        .type-specimen {
+            border-bottom: var(--border-clean);
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .type-specimen:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .type-label {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 0.5rem;
+            display: block;
+        }
+
+        /* --- Browser Chrome Component --- */
+        .browser-mockup {
+            border: var(--border-clean);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            background-color: var(--bg-card);
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .browser-header {
+            background-color: var(--primary-mint-light);
+            padding: 0.75rem 1rem;
+            display: flex;
+            gap: 0.5rem;
+            border-bottom: var(--border-clean);
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--action-sage);
+            opacity: 0.5;
+        }
+
+        .browser-body {
+            padding: 2rem;
+            min-height: 250px;
+            background-color: var(--bg-porcelain);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* --- Annotation Components --- */
+        .annotation-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .mock-ui-element {
+            background: white;
+            border: 1px dashed var(--action-sage);
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            text-align: center;
+        }
+
+        .annotation-circle {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: calc(100% + 40px);
+            height: calc(100% + 40px);
+            pointer-events: none;
+        }
+
+        .annotation-arrow {
+            position: absolute;
+            top: -60px;
+            right: -80px;
+            width: 100px;
+            height: 80px;
+            pointer-events: none;
+        }
+
+        .annotation-text {
+            position: absolute;
+            top: -80px;
+            right: -140px;
+            font-family: 'Comic Sans MS', cursive, sans-serif; /* Fallback for handwritten feel */
+            color: var(--action-sage);
+            font-weight: bold;
+            font-size: 0.9rem;
+            transform: rotate(5deg);
+        }
+
+        /* --- User Flow Diagram --- */
+        .flowchart {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0;
+            padding: var(--spacing-lg);
+            background-color: var(--bg-card);
+            border: var(--border-clean);
+            border-radius: var(--radius-md);
+        }
+
+        .flow-step,
+        .flow-terminator {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            background-color: var(--bg-card);
+            border: 1px solid var(--action-sage);
+            padding: var(--spacing-sm) var(--spacing-md);
+            min-height: 56px;
+        }
+
+        .flow-step {
+            border-radius: var(--radius-md);
+            min-width: 120px;
+        }
+
+        .flow-terminator {
+            border-radius: var(--radius-pill);
+            background-color: var(--primary-mint-light);
+            min-width: 100px;
+        }
+
+        .flow-decision {
+            flex-shrink: 0;
+            position: relative;
+            width: 96px;
+            height: 96px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .flow-decision::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            margin: auto;
+            width: 68px;
+            height: 68px;
+            transform: rotate(45deg);
+            background-color: var(--bg-card);
+            border: 1px solid var(--action-sage);
+            border-radius: var(--radius-sm);
+        }
+
+        .flow-decision-label {
+            position: relative;
+            z-index: 1;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-align: center;
+            max-width: 84px;
+            line-height: 1.2;
+            color: var(--text-primary);
+        }
+
+        .flow-arrow {
+            flex-shrink: 0;
+            color: var(--action-sage);
+            display: inline-flex;
+            align-items: center;
+        }
+
+        /* Layout Grid for Colors */
+        .color-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .color-swatch {
+            width: 120px;
+            border-radius: var(--radius-md);
+            border: var(--border-clean);
+            overflow: hidden;
+        }
+
+        .color-fill {
+            height: 80px;
+            width: 100%;
+        }
+
+        .color-label {
+            padding: 0.5rem;
+            font-size: 0.75rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        /* --- Tooltip Component --- */
+        .tooltip-wrapper {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .tooltip-trigger {
+            display: inline-flex;
+            align-items: center;
+            color: var(--action-sage);
+            cursor: help;
+            background: none;
+            border: none;
+            padding: 0;
+            font: inherit;
+        }
+
+        .tooltip-trigger.text-trigger {
+            color: var(--text-primary);
+            text-decoration: underline dotted var(--action-sage);
+            text-underline-offset: 4px;
+        }
+
+        .tooltip-bubble {
+            position: absolute;
+            z-index: 10;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            background-color: var(--text-primary);
+            color: var(--bg-card);
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 500;
+            line-height: 1.4;
+            border-radius: var(--radius-sm);
+            white-space: nowrap;
+            box-shadow: var(--shadow-subtle);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.15s ease, visibility 0.15s ease;
+            pointer-events: none;
+        }
+
+        /* Arrow (8px square rotated) */
+        .tooltip-bubble::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: inherit;
+            transform: rotate(45deg);
+        }
+
+        /* --- Position modifiers --- */
+        .tooltip--top {
+            bottom: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .tooltip--top::after {
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+        }
+
+        .tooltip--bottom {
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .tooltip--bottom::after {
+            top: -4px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+        }
+
+        .tooltip--right {
+            left: calc(100% + 8px);
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .tooltip--right::after {
+            left: -4px;
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+        }
+
+        .tooltip--left {
+            right: calc(100% + 8px);
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .tooltip--left::after {
+            right: -4px;
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+        }
+
+        /* --- Style variant: Soft --- */
+        .tooltip-bubble.tooltip--soft {
+            background-color: var(--bg-card);
+            color: var(--text-primary);
+            border: var(--border-clean);
+        }
+
+        .tooltip-bubble.tooltip--soft::after {
+            background-color: var(--bg-card);
+        }
+        .tooltip--top.tooltip--soft::after {
+            border-right: 1px solid var(--action-sage);
+            border-bottom: 1px solid var(--action-sage);
+            border-top: none;
+            border-left: none;
+        }
+        .tooltip--bottom.tooltip--soft::after {
+            border-top: 1px solid var(--action-sage);
+            border-left: 1px solid var(--action-sage);
+            border-right: none;
+            border-bottom: none;
+        }
+        .tooltip--right.tooltip--soft::after {
+            border-top: 1px solid var(--action-sage);
+            border-left: 1px solid var(--action-sage);
+            border-right: none;
+            border-bottom: none;
+        }
+        .tooltip--left.tooltip--soft::after {
+            border-right: 1px solid var(--action-sage);
+            border-bottom: 1px solid var(--action-sage);
+            border-top: none;
+            border-left: none;
+        }
+
+        /* --- Show on hover/focus (live) --- */
+        .tooltip-wrapper:hover .tooltip-bubble,
+        .tooltip-wrapper:focus-within .tooltip-bubble {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Rich-content bubble: allow wrapping and HTML children */
+        .tooltip-bubble.tooltip--rich {
+            white-space: normal;
+            max-width: 400px;
+            line-height: 1.5;
+        }
+
+        /* --- Force-show for static documentation --- */
+        .tooltip-bubble.tooltip--show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Demo layout: give the four-position grid breathing room so static tooltips don't clip */
+        .tooltip-position-demo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 4rem 2rem;
+            padding: 3rem 1rem;
+            place-items: center;
+        }
+
+    </style>
+</head>
+<body data-page="style-guide">
+
+<!-- Global Header -->
+    <div data-include="partials/header.html"></div>
+
+    <div class="page-body">
+
+    <!-- Style Guide Sidebar (secondary nav) -->
+    <aside class="sidebar" id="sidebar">
+        <button class="sidebar-mobile-toggle" type="button" aria-expanded="false" aria-controls="sidebar">
+            <i data-lucide="chevron-down" class="sidebar-mobile-chevron" width="18" height="18" stroke-width="2"></i>
+            <span class="sidebar-mobile-label">
+                <span class="sidebar-mobile-eyebrow">On this page</span>
+                <span class="sidebar-active-label">Color Palette</span>
+            </span>
+        </button>
+        <div class="sidebar-header">
+            <h2 class="sidebar-title hide-on-collapse">Style Guide</h2>
+            <button class="sidebar-toggle" aria-label="Collapse sidebar" onclick="toggleSidebar()">
+                <i data-lucide="menu" width="18" height="18" stroke-width="2"></i>
+            </button>
+        </div>
+
+        <nav class="nested-nav hide-on-collapse" aria-label="Components">
+            <div class="sidebar-group">
+                <span class="sidebar-group-label">Foundations</span>
+                <a href="#color-palette" class="nested-link active">Color Palette</a>
+                <a href="#radius-padding" class="nested-link">Radius & Padding</a>
+                <a href="#typography" class="nested-link">Typography</a>
+            </div>
+            <div class="sidebar-group">
+                <span class="sidebar-group-label">Components</span>
+                <a href="#bullet-list" class="nested-link">Bullet List</a>
+                <a href="#buttons" class="nested-link">Buttons</a>
+                <a href="#image-card" class="nested-link">Image Card</a>
+                <a href="#project-card" class="nested-link">Project Card</a>
+                <a href="#tags" class="nested-link">Tags</a>
+                <a href="#tooltips" class="nested-link">Tooltips</a>
+            </div>
+            <div class="sidebar-group">
+                <span class="sidebar-group-label">Portfolio Patterns</span>
+                <a href="#before-after" class="nested-link">Before / After</a>
+                <a href="#carousel" class="nested-link">Carousel</a>
+                <a href="#case-study-metadata" class="nested-link">Case Study Metadata</a>
+                <a href="#insight-callout" class="nested-link">Insight Callout</a>
+                <a href="#data-callout" class="nested-link">Data Callout</a>
+                <a href="#section-pull" class="nested-link">Section Pull</a>
+                <a href="#user-flow" class="nested-link">User Flow</a>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content" id="main">
+        <!-- Breadcrumbs -->
+        <div class="breadcrumbs">
+            <span>Portfolio</span>
+            <span>/</span>
+            <span class="current">Style Guide</span>
+        </div>
+
+        <h1 style="margin-bottom: 32px;">Style Guide</h1>
+
+        <!-- Color Palette -->
+        <section class="card" id="color-palette">
+            <h2>Color Palette</h2>
+            <p>Soft minimalism relying on natural hues and high-contrast text for readability.</p>
+            <div class="color-grid">
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--primary-mint);"></div>
+                    <div class="color-label">Mint<br>#B2DFDB</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--action-sage);"></div>
+                    <div class="color-label">Sage<br>#3A9289</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--text-primary);"></div>
+                    <div class="color-label">Primary Text<br>#1A2E2C</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--text-secondary);"></div>
+                    <div class="color-label">Secondary Text<br>#3A5B56</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--bg-porcelain);"></div>
+                    <div class="color-label" style="border-top: var(--border-clean);">Background<br>#F7F9F8</div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Mint scale</h3>
+            <p>Tonal ramp anchored on Mint 200 — used for soft fills, hover backgrounds, and decorative tints.</p>
+            <div class="color-grid">
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--mint-50);"></div>
+                    <div class="color-label" style="border-top: var(--border-clean);">Mint 50<br>#EAF6F4</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--mint-100);"></div>
+                    <div class="color-label" style="border-top: var(--border-clean);">Mint 100<br>#D3EDE9</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--mint-200);"></div>
+                    <div class="color-label">Mint 200 ★<br>#B2DFDB</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--mint-300);"></div>
+                    <div class="color-label">Mint 300<br>#8ECFC8</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--mint-400);"></div>
+                    <div class="color-label">Mint 400<br>#66BDB3</div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Sage scale</h3>
+            <p>Tonal ramp anchored on Sage 500 — used for actions, borders, and primary-text relationships.</p>
+            <div class="color-grid">
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--sage-100);"></div>
+                    <div class="color-label" style="border-top: var(--border-clean);">Sage 100<br>#CFE6E2</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--sage-300);"></div>
+                    <div class="color-label">Sage 300<br>#7FBCB3</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--sage-500);"></div>
+                    <div class="color-label">Sage 500 ★<br>#3A9289</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--sage-700);"></div>
+                    <div class="color-label">Sage 700<br>#255E57</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--sage-900);"></div>
+                    <div class="color-label">Sage 900<br>#112A26</div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Semantic colors</h3>
+            <p>Muted functional colors for alerts, statuses, and system feedback.</p>
+            <div class="color-grid">
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--semantic-success);"></div>
+                    <div class="color-label">Success<br>#4A9370</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--semantic-warning);"></div>
+                    <div class="color-label">Warning<br>#E89A3C</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--semantic-error);"></div>
+                    <div class="color-label">Error<br>#D65D5D</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--semantic-info);"></div>
+                    <div class="color-label">Info<br>#508CB8</div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Neutral greys</h3>
+            <p>Cool-toned greys infused with subtle teal to seamlessly blend with the primary palette. Used for borders, disabled states, and secondary backgrounds.</p>
+            <div class="color-grid">
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--grey-100);"></div>
+                    <div class="color-label">Grey 100<br>#F0F4F3</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--grey-300);"></div>
+                    <div class="color-label">Grey 300<br>#D2DDDC</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--grey-500);"></div>
+                    <div class="color-label">Grey 500<br>#98AEA9</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--grey-700);"></div>
+                    <div class="color-label">Grey 700<br>#5F7A76</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--grey-900);"></div>
+                    <div class="color-label">Grey 900<br>#2A3F3D</div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Gold / Accent</h3>
+            <p>Warm amber scale used for accent numerals, highlights, and decorative emphasis.</p>
+            <div class="color-grid">
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--gold-100);"></div>
+                    <div class="color-label" style="border-top: var(--border-clean);">Gold 100<br>#FFF8DC</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--gold-300);"></div>
+                    <div class="color-label" style="border-top: var(--border-clean);">Gold 300<br>#FFE9A3</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--gold-500);"></div>
+                    <div class="color-label">Gold 500 ★<br>#FFD54F</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--gold-700);"></div>
+                    <div class="color-label">Gold 700<br>#F6BB20</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--gold-900);"></div>
+                    <div class="color-label">Gold 900<br>#D09605</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Radius & Padding -->
+        <section class="card" id="radius-padding">
+            <h2>Radius & Padding</h2>
+            <p>Our spatial system uses consistent rules for corner radii and internal padding to maintain a clean, approachable UI.</p>
+
+            <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Radius rules</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+                <div style="padding: 1.5rem; border: var(--border-clean); border-radius: var(--radius-sm);">
+                    <h4 style="margin-bottom: 0.5rem;">Small (4px)</h4>
+                    <p style="font-size: 0.875rem; margin: 0;">Used for small components like checkboxes, tags, or tooltips. It provides a subtle hint of softness without losing a "precise" feel.</p>
+                </div>
+                <div style="padding: 1.5rem; border: var(--border-clean); border-radius: var(--radius-md);">
+                    <h4 style="margin-bottom: 0.5rem;">Medium (16px)</h4>
+                    <p style="font-size: 0.875rem; margin: 0;">The "sweet spot" for buttons, input fields, and standard cards. This is usually the signature "look" of the brand.</p>
+                </div>
+                <div style="padding: 1.5rem; border: var(--border-clean); border-radius: var(--radius-lg);">
+                    <h4 style="margin-bottom: 0.5rem;">Large (24px)</h4>
+                    <p style="font-size: 0.875rem; margin: 0;">Used for avatars, chips, or prominent "Call to Action" buttons.</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Padding rules</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+                <div style="padding: var(--spacing-sm); border: var(--border-clean); border-radius: var(--radius-sm);">
+                    <h4 style="margin-bottom: 0.5rem;">Tight (4px - 8px)</h4>
+                    <p style="font-size: 0.875rem; margin: 0;">Internal element spacing, like the gap between an icon and text, or tightly grouped list items.</p>
+                </div>
+                <div style="padding: var(--spacing-md); border: var(--border-clean); border-radius: var(--radius-md);">
+                    <h4 style="margin-bottom: 0.5rem;">Standard (16px - 24px)</h4>
+                    <p style="font-size: 0.875rem; margin: 0;">Component padding for buttons, input fields, and standard lists. Pairs perfectly with Medium radii.</p>
+                </div>
+                <div style="padding: var(--spacing-xl); border: var(--border-clean); border-radius: var(--radius-lg);">
+                    <h4 style="margin-bottom: 0.5rem;">Spacious (32px - 48px)</h4>
+                    <p style="font-size: 0.875rem; margin: 0;">Container padding used for cards, modals, and major section breaks to let the UI breathe.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 2.5rem; padding: var(--spacing-xl); background-color: var(--primary-mint-light); border-radius: var(--radius-lg); border: var(--border-clean);">
+                <h4 style="margin-bottom: 0.5rem; color: var(--text-primary);">Visual Harmony Principle</h4>
+                <p style="font-size: 0.875rem; margin-bottom: 1.5rem; color: var(--text-secondary);">To maintain visual harmony when one rounded element is inside another, the outer radius must be larger than the inner radius.</p>
+
+                <div style="background-color: var(--bg-card); padding: var(--spacing-lg); border-radius: var(--radius-lg); border: var(--border-clean); display: inline-block;">
+                    <span style="font-size: 0.75rem; color: var(--text-secondary); display: block; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">Outer Card: 24px Radius / 24px Padding</span>
+                    <button class="btn btn-primary" style="border-radius: var(--radius-md); pointer-events: none;">Inner Button: 16px Radius</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Typograph -->
+        <section class="card" id="typography">
+            <h2>Typography</h2>
+            <p>Montserrat for approachable, humanized headings paired with Open Sans for dense, highly legible B2B data.</p>
+
+            <div style="margin-top: 2rem;">
+                <div class="type-specimen">
+                    <span style="display: block; font-size: 0.875rem; color: var(--action-sage); text-transform: uppercase; letter-spacing: 0.12em; font-weight: 600;">Eyebrow Label</span>
+                    <span class="type-label">Montserrat / --action-sage / 0.875rem / UPPERCASE / letter-spacing 0.12em / weight 600 — used above hero or section headings for industry · year metadata, decision tags, and short kickers</span>
+                </div>
+
+                <div class="type-specimen">
+                    <h1 style="color: var(--text-primary); margin: 0;">Heading 1 Display</h1>
+                    <span class="type-label">Montserrat / --text-primary / 3rem / UPPERCASE / letter-spacing 0.05em</span>
+                </div>
+
+                <div class="type-specimen">
+                    <h2 style="color: var(--text-primary); margin: 0;">Heading 2 Section</h2>
+                    <span class="type-label">Montserrat / --text-primary / 2rem / Title Case / letter-spacing 0.05em</span>
+                </div>
+
+                <div class="type-specimen">
+                    <h3 style="color: var(--text-primary); margin: 0;">Heading 3 component</h3>
+                    <span class="type-label">Montserrat / --text-primary / 1.5rem / Sentence case</span>
+                </div>
+
+                <div class="type-specimen">
+                    <p style="font-size: 1rem; color: var(--text-secondary); margin: 0; max-width: 800px;">
+                        <strong>Body Text:</strong> Used for standard paragraph content, long-form descriptions, and case study narratives. It relies on Open Sans for maximum readability, slightly muted to reduce eye strain when reading long passages.
+                    </p>
+                    <span class="type-label">Open Sans / --text-secondary / 1rem</span>
+                </div>
+
+                <div class="type-specimen">
+                    <span style="font-size: 0.875rem; color: var(--text-assistive); display: block; margin-bottom: 0.25rem;">
+                        Assistive Text: Used for input hints, timestamps, and secondary metadata.
+                    </span>
+                    <span class="type-label">Open Sans / --text-assistive / 0.875rem</span>
+                </div>
+
+                <div class="type-specimen">
+                    <a href="#" class="text-link">
+                        Hyperlinked text
+                    </a>
+                    <span class="type-label">Open Sans / --action-sage / 1rem</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bullet List -->
+        <section class="card" id="bullet-list">
+            <h2>Bullet List</h2>
+            <p><strong>The "Detail" Component:</strong> Used inside work entries, education entries, or any content block that needs a compact scannable list. The dot inherits the brand sage color via a <code>::before</code> pseudo-element — no extra markup needed.</p>
+
+            <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Default</h3>
+            <ul class="bullet-list">
+                <li>Designed 2 App logos based on competitive research in the App Store</li>
+                <li>Created App Store screenshots for both iPhone and iPad size requirements</li>
+                <li>Maintained design system standards across deliverables</li>
+            </ul>
+
+            <h3 style="margin-top: 2rem; margin-bottom: 1rem;">With bold label prefix</h3>
+            <ul class="bullet-list">
+                <li><strong>Major Courses:</strong> UI/UX Design, User Research, Front-end Development, HCI, etc.</li>
+                <li><strong>Academic Performance:</strong> Dean's Honour Roll for consecutive semesters; graduated with Distinction.</li>
+            </ul>
+        </section>
+
+        <!-- Buttons -->
+        <section class="card" id="buttons">
+            <h2>Buttons</h2>
+            <p><strong>The "Action" Component:</strong> Primary tasks that change the state of the system or navigate the user. Best for submitting forms, launching modals, or major actions.</p>
+
+            <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Icon configurations</h3>
+            <div class="state-grid">
+                <div>
+                    <span class="state-label">No Icon</span>
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <button class="btn btn-primary">Primary</button>
+                        <button class="btn btn-outline">Secondary</button>
+                        <button class="btn btn-gold">Gold Accent</button>
+                    </div>
+                </div>
+                <div>
+                    <span class="state-label">Left Icon</span>
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <button class="btn btn-primary">
+                            <i data-lucide="plus"></i>
+                            Add New
+                        </button>
+                        <button class="btn btn-outline">
+                            <i data-lucide="plus"></i>
+                            Add New
+                        </button>
+                        <button class="btn btn-gold">
+                            <i data-lucide="plus"></i>
+                            Add New
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <span class="state-label">Right Icon</span>
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <button class="btn btn-primary">
+                            Continue
+                            <i data-lucide="arrow-right"></i>
+                        </button>
+                        <button class="btn btn-outline">
+                            Continue
+                            <i data-lucide="arrow-right"></i>
+                        </button>
+                        <button class="btn btn-gold">
+                            Continue
+                            <i data-lucide="arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <span class="state-label">Both Icons</span>
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <button class="btn btn-primary">
+                            <i data-lucide="settings"></i>
+                            Settings
+                            <i data-lucide="chevron-down"></i>
+                        </button>
+                        <button class="btn btn-outline">
+                            <i data-lucide="settings"></i>
+                            Settings
+                            <i data-lucide="chevron-down"></i>
+                        </button>
+                        <button class="btn btn-gold">
+                            <i data-lucide="settings"></i>
+                            Settings
+                            <i data-lucide="chevron-down"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Interactive states</h3>
+            <div class="state-grid">
+                <div>
+                    <span class="state-label">Default</span>
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <button class="btn btn-primary">Primary</button>
+                        <button class="btn btn-outline">Secondary</button>
+                        <button class="btn btn-gold">Gold Accent</button>
+                    </div>
+                </div>
+                <div>
+                    <span class="state-label">Hover</span>
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <button class="btn btn-primary force-hover">Primary</button>
+                        <button class="btn btn-outline force-hover">Secondary</button>
+                        <button class="btn btn-gold force-hover">Gold Accent</button>
+                    </div>
+                </div>
+                <div>
+                    <span class="state-label">Focused</span>
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <button class="btn btn-primary force-focus">Primary</button>
+                        <button class="btn btn-outline force-focus">Secondary</button>
+                        <button class="btn btn-gold force-focus">Gold Accent</button>
+                    </div>
+                </div>
+                <div>
+                    <span class="state-label">Disabled</span>
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <button class="btn btn-primary" disabled>Primary</button>
+                        <button class="btn btn-outline" disabled>Secondary</button>
+                        <button class="btn btn-gold" disabled>Gold Accent</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Image Card -->
+        <section class="card" id="image-card">
+            <h2>Image Card</h2>
+            <p>Fixed-height media card with 16px padding on all four sides of the image. When the image is AI-generated, add <code>.image-card-ai-icon</code> as the last child inside <code>.image-card-media</code> — it pins a sparkle icon to the bottom-right; hovering reveals an attribution tooltip.</p>
+            <p><strong>Image preview:</strong> When <code>.image-card-media</code> contains an <code>&lt;img&gt;</code>, clicking anywhere in the media area opens a full-size lightbox (same modal used by the carousel). To opt out, add <code>data-no-lightbox</code> to <code>.image-card-media</code>.</p>
+
+            <h3 style="margin-top: 2rem; margin-bottom: 1rem;">With AI attribution</h3>
+            <div class="image-card-strip">
+                <figure class="image-card">
+                    <div class="image-card-media">
+                        <img src="assets/img/placeholder.jpg" alt="AI-generated illustration placeholder">
+                        <span class="image-card-ai-icon" aria-label="Image generated with Gemini"><i data-lucide="sparkles" width="13" height="13" stroke-width="2"></i><span class="image-card-ai-tooltip">Image generated with Gemini</span></span>
+                    </div>
+                    <figcaption class="image-card-caption">
+                        <span class="image-card-label">With lightbox</span>
+                        <p>Default. Click the media area to open a full-size preview.</p>
+                    </figcaption>
+                </figure>
+                <figure class="image-card">
+                    <div class="image-card-media" data-no-lightbox>
+                        <img src="assets/img/placeholder.jpg" alt="AI-generated illustration placeholder">
+                        <span class="image-card-ai-icon" aria-label="Image generated with Gemini"><i data-lucide="sparkles" width="13" height="13" stroke-width="2"></i><span class="image-card-ai-tooltip">Image generated with Gemini</span></span>
+                    </div>
+                    <figcaption class="image-card-caption">
+                        <span class="image-card-label">Without lightbox</span>
+                        <p>Add <code>data-no-lightbox</code> to <code>.image-card-media</code> to suppress the zoom cursor and click behaviour.</p>
+                    </figcaption>
+                </figure>
+            </div>
+
+            <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Without AI attribution</h3>
+            <div class="image-card-strip">
+                <figure class="image-card">
+                    <div class="image-card-media">
+                        <img src="assets/img/placeholder.jpg" alt="Screenshot placeholder">
+                    </div>
+                    <figcaption class="image-card-caption">
+                        <span class="image-card-label">With lightbox</span>
+                        <p>Default. Omit the AI icon for screenshots, photographs, or hand-drawn work.</p>
+                    </figcaption>
+                </figure>
+                <figure class="image-card">
+                    <div class="image-card-media" data-no-lightbox>
+                        <img src="assets/img/placeholder.jpg" alt="Screenshot placeholder">
+                    </div>
+                    <figcaption class="image-card-caption">
+                        <span class="image-card-label">Without lightbox</span>
+                        <p>Add <code>data-no-lightbox</code> to <code>.image-card-media</code> to suppress the zoom cursor and click behaviour.</p>
+                    </figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- Project Card -->
+        <section class="card" id="project-card">
+            <h2>Project Card</h2>
+            <p>Thumbnail cards designed for the portfolio index. Built using the Visual Harmony Principle (Large outer radius + Medium inner radius).</p>
+
+            <div style="margin-top: 2rem;">
+                <div class="project-card-wrapper">
+                    <div class="project-card">
+                        <div class="project-card-image">
+                            <img src="assets/img/placeholder.jpg" alt="Project thumbnail placeholder">
+                        </div>
+                        <div class="project-card-content">
+                            <div class="tag-list">
+                                <span class="tag">UX Research</span>
+                                <span class="tag">Interaction Design</span>
+                                <span class="tag">Design System</span>
+                            </div>
+                            <div class="project-card-body">
+                                <h2>Global dashboard redesign</h2>
+                                <p style="font-size: 0.875rem;">Streamlining complex data filtering for enterprise logistics users, resulting in a 40% reduction in task completion time.</p>
+                            </div>
+                            <span class="assistive-text">March - April 2026</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tags -->
+        <section class="card" id="tags">
+            <h2>Tags</h2>
+            <p><strong>The "Metadata" Component:</strong> Small labels used to organize, categorize, or describe the status of an item. Typically uses color to convey semantic meaning.</p>
+
+            <div style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 1.5rem;">
+                <div>
+                    <span class="state-label">Default List</span>
+                    <div class="tag-list">
+                        <span class="tag">UX Research</span>
+                        <span class="tag">Interaction Design</span>
+                        <span class="tag">Design System</span>
+                    </div>
+                </div>
+                <div>
+                    <span class="state-label">With Icons (Status)</span>
+                    <div class="tag-list">
+                        <span class="tag" style="display: inline-flex; align-items: center; gap: 4px;">
+                            <i data-lucide="clock" width="12" height="12" stroke-width="2"></i>
+                            In Progress
+                        </span>
+                        <span class="tag" style="display: inline-flex; align-items: center; gap: 4px;">
+                            <i data-lucide="check-circle" width="12" height="12" stroke-width="2"></i>
+                            Completed
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tooltips -->
+        <section class="card" id="tooltips">
+            <h2>Tooltips</h2>
+            <p><strong>The "Contextual Help" Component:</strong> Brief, transient messages that clarify icons, surface terminology, or provide just-in-time guidance. Tooltips appear on hover or keyboard focus and use the smallest radius (4px) per the system's radius rules.</p>
+
+            <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Position variants (dark)</h3>
+            <p style="font-size: 0.875rem; color: var(--text-secondary);">Tooltips can anchor to four sides of the trigger. Shown statically below; in production they appear on hover or focus.</p>
+            <div class="tooltip-position-demo">
+                <div class="tooltip-wrapper">
+                    <button class="tooltip-trigger" aria-describedby="tt-top">
+                        <i data-lucide="info" width="18" height="18" stroke-width="2"></i>
+                    </button>
+                    <span class="tooltip-bubble tooltip--top tooltip--show" role="tooltip" id="tt-top">Top placement</span>
+                </div>
+                <div class="tooltip-wrapper">
+                    <button class="tooltip-trigger" aria-describedby="tt-right">
+                        <i data-lucide="info" width="18" height="18" stroke-width="2"></i>
+                    </button>
+                    <span class="tooltip-bubble tooltip--right tooltip--show" role="tooltip" id="tt-right">Right placement</span>
+                </div>
+                <div class="tooltip-wrapper">
+                    <button class="tooltip-trigger" aria-describedby="tt-bottom">
+                        <i data-lucide="info" width="18" height="18" stroke-width="2"></i>
+                    </button>
+                    <span class="tooltip-bubble tooltip--bottom tooltip--show" role="tooltip" id="tt-bottom">Bottom placement</span>
+                </div>
+                <div class="tooltip-wrapper">
+                    <button class="tooltip-trigger" aria-describedby="tt-left">
+                        <i data-lucide="info" width="18" height="18" stroke-width="2"></i>
+                    </button>
+                    <span class="tooltip-bubble tooltip--left tooltip--show" role="tooltip" id="tt-left">Left placement</span>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Style variants</h3>
+            <div class="state-grid">
+                <div>
+                    <span class="state-label">Dark (Default)</span>
+                    <div class="tooltip-position-demo" style="padding: 2rem 0; gap: 0;">
+                        <div class="tooltip-wrapper">
+                            <button class="tooltip-trigger" aria-describedby="tt-style-dark">
+                                <i data-lucide="info" width="18" height="18" stroke-width="2"></i>
+                            </button>
+                            <span class="tooltip-bubble tooltip--top tooltip--show" role="tooltip" id="tt-style-dark">High contrast</span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <span class="state-label">Soft</span>
+                    <div class="tooltip-position-demo" style="padding: 2rem 0; gap: 0;">
+                        <div class="tooltip-wrapper">
+                            <button class="tooltip-trigger" aria-describedby="tt-style-soft">
+                                <i data-lucide="info" width="18" height="18" stroke-width="2"></i>
+                            </button>
+                            <span class="tooltip-bubble tooltip--top tooltip--soft tooltip--show" role="tooltip" id="tt-style-soft">Matches brand voice</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Trigger types (live — hover or focus)</h3>
+            <div class="state-grid">
+                <div>
+                    <span class="state-label">Icon Trigger</span>
+                    <div style="padding: 1rem 0;">
+                        <span class="tooltip-wrapper">
+                            Filter results
+                            <button class="tooltip-trigger" aria-describedby="tt-icon">
+                                <i data-lucide="info" width="16" height="16" stroke-width="2"></i>
+                            </button>
+                            <span class="tooltip-bubble tooltip--top" role="tooltip" id="tt-icon">Narrow results by category</span>
+                        </span>
+                    </div>
+                </div>
+                <div>
+                    <span class="state-label">Text Trigger</span>
+                    <div style="padding: 1rem 0;">
+                        Tap the
+                        <span class="tooltip-wrapper">
+                            <button class="tooltip-trigger text-trigger" aria-describedby="tt-text">heuristic score</button>
+                            <span class="tooltip-bubble tooltip--top" role="tooltip" id="tt-text">A weighted measure of usability friction</span>
+                        </span>
+                        to drill in.
+                    </div>
+                </div>
+                <div>
+                    <span class="state-label">Button Trigger</span>
+                    <div style="padding: 1rem 0;">
+                        <span class="tooltip-wrapper">
+                            <button class="btn btn-outline btn-sm" aria-describedby="tt-btn">Export</button>
+                            <span class="tooltip-bubble tooltip--top" role="tooltip" id="tt-btn">Download as CSV</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Before / After Comparison -->
+        <section class="card" id="before-after">
+            <h2>Before / After</h2>
+            <p><strong>The "Comparison" Component:</strong> Two frames showing the original and the redesign, with an optional "what changed" note attached to the Before frame so the rationale travels with the original. Pick the layout that fits the content — side-by-side when frames stay legible at half-width, stacked when each image needs the full width to read.</p>
+
+            <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Side-by-side (horizontal)</h3>
+            <figure class="compare compare--horizontal">
+                <div class="compare-frame compare-before">
+                    <span class="compare-label">Before</span>
+                    <div class="compare-media">
+                        <img src="assets/img/placeholder.jpg" alt="Original screen">
+                    </div>
+                    <p class="compare-note">
+                        <span class="compare-note-eyebrow">What changed</span>
+                        Replaced the open canvas with a guided 3-step wizard. Step 1's primary-source decision was auto-set instead of explained.
+                    </p>
+                </div>
+                <div class="compare-arrow" aria-hidden="true">
+                    <svg width="32" height="20" viewBox="0 0 32 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="10" x2="24" y2="10"></line><polyline points="18 4 24 10 18 16"></polyline></svg>
+                </div>
+                <div class="compare-frame compare-after">
+                    <span class="compare-label">After</span>
+                    <div class="compare-media">
+                        <img src="assets/img/placeholder.jpg" alt="Redesigned screen">
+                    </div>
+                </div>
+            </figure>
+
+            <h3 style="margin-top: 2.5rem; margin-bottom: 1rem;">Stacked (vertical)</h3>
+            <figure class="compare compare--vertical">
+                <div class="compare-frame compare-before">
+                    <span class="compare-label">Before</span>
+                    <div class="compare-media">
+                        <img src="assets/img/placeholder.jpg" alt="Original screen — full width">
+                    </div>
+                    <p class="compare-note">
+                        <span class="compare-note-eyebrow">What changed</span>
+                        Filters were buried behind a modal. Surface area was high but discoverability was low.
+                    </p>
+                </div>
+                <div class="compare-arrow" aria-hidden="true">
+                    <svg width="32" height="20" viewBox="0 0 32 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="10" x2="24" y2="10"></line><polyline points="18 4 24 10 18 16"></polyline></svg>
+                </div>
+                <div class="compare-frame compare-after">
+                    <span class="compare-label">After</span>
+                    <div class="compare-media">
+                        <img src="assets/img/placeholder.jpg" alt="Redesigned screen — full width">
+                    </div>
+                </div>
+            </figure>
+
+            <p style="margin-top: 1.5rem; font-size: 0.875rem; color: var(--text-secondary);">Use <code>.compare--horizontal</code> for side-by-side or <code>.compare--vertical</code> for stacked. Horizontal collapses to stacked at ≤720px automatically. The <code>.compare-note</code> inside the Before frame is optional — drop it for a clean two-frame comparison.</p>
+        </section>
+
+        <!-- Carousel -->
+        <section class="card" id="carousel">
+            <h2>Carousel</h2>
+            <p><strong>The "Iteration Showcase" Component:</strong> Walks the reader through multiple versions of the same idea — early sketches, A/B explorations, refined final — with a comment on each frame explaining what changed and why. One slide visible at a time keeps focus; arrows, dots, and ←/→ keys move between iterations. <strong>Click any image</strong> to open a full-size preview in a modal (close with ✕, the backdrop, or Escape).</p>
+            <p class="type-label" style="margin-top: -0.5rem;">Step label (<code>.carousel-step</code>): Montserrat / --action-sage / 14px / UPPERCASE / letter-spacing 0.1em / weight 700</p>
+
+            <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--spacing-xl); align-items: start;" class="carousel-pair">
+            <div class="carousel" data-carousel aria-roledescription="carousel" aria-label="Iteration walkthrough demo">
+                <div class="carousel-viewport">
+                    <ol class="carousel-track">
+                        <li class="carousel-slide">
+                            <div class="carousel-media">
+                                <img src="assets/img/placeholder.jpg" alt="Iteration 1 — first sketch placeholder">
+                            </div>
+                            <div class="carousel-caption">
+                                <span class="carousel-step">Iteration 1</span>
+                                <p>Started with a single-column list. Quick to build, but it buried the comparison the user actually needed.</p>
+                            </div>
+                        </li>
+                        <li class="carousel-slide">
+                            <div class="carousel-media">
+                                <img src="assets/img/placeholder.jpg" alt="Iteration 2 — side-by-side placeholder">
+                            </div>
+                            <div class="carousel-caption">
+                                <span class="carousel-step">Iteration 2</span>
+                                <p>Tried a side-by-side layout. Comparison improved, but the right column ran out of room on smaller screens.</p>
+                            </div>
+                        </li>
+                        <li class="carousel-slide">
+                            <div class="carousel-media">
+                                <img src="assets/img/placeholder.jpg" alt="Iteration 3 — grouped tiles placeholder">
+                            </div>
+                            <div class="carousel-caption">
+                                <span class="carousel-step">Iteration 3</span>
+                                <p>Grouped tiles by source. Cleaner hierarchy, but users couldn't tell which tiles were active.</p>
+                            </div>
+                        </li>
+                        <li class="carousel-slide">
+                            <div class="carousel-media">
+                                <img src="assets/img/placeholder.jpg" alt="Iteration 4 — final placeholder">
+                            </div>
+                            <div class="carousel-caption">
+                                <span class="carousel-step">Iteration 4 · Final</span>
+                                <p>Kept the grouping, added a colored status pill per tile. Comparison stays scannable; active state is unambiguous.</p>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+                <div class="carousel-controls">
+                    <button class="carousel-btn carousel-prev" aria-label="Previous iteration">
+                        <i data-lucide="chevron-left" width="16" height="16" stroke-width="2.25"></i>
+                    </button>
+                    <div class="carousel-meta">
+                        <div class="carousel-dots" role="tablist"></div>
+                        <span class="carousel-counter">1 / 4</span>
+                    </div>
+                    <button class="carousel-btn carousel-next" aria-label="Next iteration">
+                        <i data-lucide="chevron-right" width="16" height="16" stroke-width="2.25"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="carousel" data-carousel aria-roledescription="carousel" aria-label="Exploration walkthrough demo">
+                <div class="carousel-viewport">
+                    <ol class="carousel-track">
+                        <li class="carousel-slide">
+                            <div class="carousel-media">
+                                <img src="assets/img/placeholder.jpg" alt="Exploration A — first direction placeholder">
+                            </div>
+                            <div class="carousel-caption">
+                                <span class="carousel-step">Exploration A</span>
+                                <p>First direction — wide layout. Easy to scan, but pushed the primary action below the fold on common viewport heights.</p>
+                            </div>
+                        </li>
+                        <li class="carousel-slide">
+                            <div class="carousel-media">
+                                <img src="assets/img/placeholder.jpg" alt="Exploration B — compact direction placeholder">
+                            </div>
+                            <div class="carousel-caption">
+                                <span class="carousel-step">Exploration B</span>
+                                <p>Compact direction — tightened spacing. Action stayed visible, but the relationship between fields got harder to read.</p>
+                            </div>
+                        </li>
+                        <li class="carousel-slide">
+                            <div class="carousel-media">
+                                <img src="assets/img/placeholder.jpg" alt="Exploration C — final direction placeholder">
+                            </div>
+                            <div class="carousel-caption">
+                                <span class="carousel-step">Exploration C · Final</span>
+                                <p>Kept compact spacing, restored field grouping with a subtle divider. Action visible, hierarchy clear.</p>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+                <div class="carousel-controls">
+                    <button class="carousel-btn carousel-prev" aria-label="Previous exploration">
+                        <i data-lucide="chevron-left" width="16" height="16" stroke-width="2.25"></i>
+                    </button>
+                    <div class="carousel-meta">
+                        <div class="carousel-dots" role="tablist"></div>
+                        <span class="carousel-counter">1 / 3</span>
+                    </div>
+                    <button class="carousel-btn carousel-next" aria-label="Next exploration">
+                        <i data-lucide="chevron-right" width="16" height="16" stroke-width="2.25"></i>
+                    </button>
+                </div>
+            </div>
+            </div>
+
+            <style>
+                @media (max-width: 900px) {
+                    .carousel-pair { grid-template-columns: 1fr !important; }
+                }
+            </style>
+
+        </section>
+
+        <!-- Case Study Metadata -->
+        <section class="card" id="case-study-metadata">
+            <h2>Case Study Metadata</h2>
+            <p>A compact key-value grid placed at the top of a case study to orient the reader — role, timeline, team size, and platform at a glance.</p>
+            <div class="metadata-grid">
+                <div>
+                    <span class="metadata-label">Role</span>
+                    <p style="font-weight: 500; margin: 0; font-size: 0.875rem;">Lead Product Designer</p>
+                </div>
+                <div>
+                    <span class="metadata-label">Timeline</span>
+                    <p style="font-weight: 500; margin: 0; font-size: 0.875rem;">12 Weeks (Q3 2025)</p>
+                </div>
+                <div>
+                    <span class="metadata-label">Team</span>
+                    <p style="font-weight: 500; margin: 0; font-size: 0.875rem;">1 PM, 3 Engineers</p>
+                </div>
+                <div>
+                    <span class="metadata-label">Platform</span>
+                    <p style="font-weight: 500; margin: 0; font-size: 0.875rem;">Desktop Web App</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Insight Callout -->
+        <section class="card" id="insight-callout">
+            <h2>Insight Callout</h2>
+            <p>A highlighted quote block for surfacing verbatim user research findings or key insights. The mint fill signals importance without competing with body text.</p>
+            <div class="insight-callout">
+                <i data-lucide="quote" width="24" height="24" fill="var(--action-sage)" stroke="var(--action-sage)" stroke-width="2"></i>
+                <p class="insight-callout-statement">"We spend 45 minutes just configuring the filters before we can even see the shipments that need immediate attention."</p>
+                <span class="insight-callout-cite">— Senior Logistics Coordinator</span>
+            </div>
+        </section>
+
+        <!-- Data Callout -->
+        <section class="card" id="data-callout">
+            <h2>Data Callout</h2>
+            <p>A gold variant of the Insight Callout, without the quote icon. Use it to surface a key metric or adoption summary — the gold fill ties it to the year-end usage / data moments in case studies. Add the <code>data-callout--media</code> modifier with a <code>data-callout-media</code> block to lead with an image (e.g. a Pendo chart) — it is click-to-zoom, same as image cards.</p>
+            <div class="data-callout">
+                <p class="data-callout-statement">By the end of 2024, recoding inside the report had gone from nonexistent to a regular part of how researchers built their analysis.</p>
+                <span class="data-callout-cite">Pendo · Recode usage · 2024</span>
+            </div>
+            <div class="data-callout data-callout--media">
+                <div class="data-callout-media">
+                    <img src="assets/img/placeholder.jpg" alt="Pendo chart of average duration per account, new vs. legacy report">
+                </div>
+                <p class="data-callout-statement">Time spent per account in the new report pulled ahead of legacy by year-end: ~30 min vs. ~20 min.</p>
+                <span class="data-callout-cite">Pendo · Average duration · End of 2025</span>
+            </div>
+        </section>
+
+        <!-- Section Pull -->
+        <section class="card" id="section-pull">
+            <h2>Section Pull</h2>
+            <p><strong>The "Pull Tagline" Component:</strong> A left-bordered accent line used inside case study sections to surface the single most important takeaway — a recruiter-facing one-liner that stands out from body copy. Uses the heading font at a slightly reduced size.</p>
+            <div>
+                <p class="section-pull">With evidence, not opinions — we brought design upstream of engineering.</p>
+                <p class="section-pull">Designed for trust — every AI insight is one click from its source.</p>
+            </div>
+        </section>
+
+
+        <!-- User Flow -->
+        <section class="card" id="user-flow">
+            <h2>User Flow</h2>
+            <p>Shapes for diagramming a user journey through a product. A pill marks an entry/exit point, a rectangle is an action or screen, and a diamond is a decision. Connectors indicate direction.</p>
+
+            <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Shape library</h3>
+            <div style="display: flex; flex-wrap: wrap; gap: var(--spacing-2xl); align-items: flex-start; padding: var(--spacing-lg) 0;">
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 0.75rem;">
+                    <div class="flow-terminator">Start / End</div>
+                    <span class="state-label" style="margin: 0;">Terminator</span>
+                </div>
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 0.75rem;">
+                    <div class="flow-step">Action / Screen</div>
+                    <span class="state-label" style="margin: 0;">Process</span>
+                </div>
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 0.75rem;">
+                    <div class="flow-decision"><span class="flow-decision-label">Decision?</span></div>
+                    <span class="state-label" style="margin: 0;">Decision</span>
+                </div>
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 0.75rem;">
+                    <svg class="flow-arrow" width="40" height="20" viewBox="0 0 40 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-top: 18px;"><line x1="2" y1="10" x2="32" y2="10"></line><polyline points="26 4 32 10 26 16"></polyline></svg>
+                    <span class="state-label" style="margin: 0;">Connector</span>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Example flow</h3>
+            <div class="flowchart">
+                <div class="flow-terminator">Login</div>
+                <svg class="flow-arrow" width="32" height="20" viewBox="0 0 32 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="10" x2="24" y2="10"></line><polyline points="18 4 24 10 18 16"></polyline></svg>
+                <div class="flow-step">View Dashboard</div>
+                <svg class="flow-arrow" width="32" height="20" viewBox="0 0 32 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="10" x2="24" y2="10"></line><polyline points="18 4 24 10 18 16"></polyline></svg>
+                <div class="flow-decision"><span class="flow-decision-label">Needs filter?</span></div>
+                <svg class="flow-arrow" width="32" height="20" viewBox="0 0 32 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="10" x2="24" y2="10"></line><polyline points="18 4 24 10 18 16"></polyline></svg>
+                <div class="flow-step">Apply Filters</div>
+                <svg class="flow-arrow" width="32" height="20" viewBox="0 0 32 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="10" x2="24" y2="10"></line><polyline points="18 4 24 10 18 16"></polyline></svg>
+                <div class="flow-terminator">Take Action</div>
+            </div>
+        </section>
+
+    </main>
+
+    </div><!-- /.page-body -->
+
+    <div data-include="partials/footer.html"></div>
+
+    <script defer src="assets/js/scroll-spy.js"></script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Selected work and case studies.">
+    <title>Projects · Dan Peng</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/tokens.css">
+    <link rel="stylesheet" href="assets/css/header.css">
+    <link rel="stylesheet" href="assets/css/footer.css">
+    <link rel="stylesheet" href="assets/css/card.css">
+    <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script defer src="assets/js/include.js"></script>
+    <script defer src="assets/js/footer-email.js"></script>
+    <style>
+        .work-wrapper {
+            max-width: var(--layout-outer-max);
+            margin: 0 auto;
+            padding: var(--spacing-2xl) var(--layout-gutter);
+        }
+
+        .work-header {
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .work-header h1 {
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .work-header p {
+            font-size: 1.125rem;
+            max-width: 60ch;
+        }
+
+        .work-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-xl);
+        }
+
+        @media (max-width: 720px) {
+            .work-wrapper {
+                padding: var(--spacing-xl) var(--layout-gutter-mobile);
+            }
+        }
+    </style>
+</head>
+<body data-page="work">
+    <div data-include="partials/header.html"></div>
+
+    <main id="main">
+        <div class="work-wrapper">
+            <div class="work-header">
+                <h1>Projects</h1>
+                <p>A curated set of achievements I have made in the past.</p>
+            </div>
+
+            <div class="work-grid">
+                <div class="project-card-wrapper">
+                    <a href="project_dashboard-revamp.html" class="project-card">
+                        <div class="project-card-image">
+                            <img src="assets/img/dashboard-revamp/thumbnail-dashboard.png" alt="Dashboard Revamp — final dashboard with mixed tile types">
+                        </div>
+                        <div class="project-card-content">
+                            <div class="tag-list">
+                                <span class="tag">Research Community Platform</span>
+                                <span class="tag">Dashboard</span>
+                            </div>
+                            <div class="project-card-body">
+                                <h2>Revamped Dashboard Experience</h2>
+                                <p>Replacing a data-analyst tool with a researcher-friendly dashboard.</p>
+                            </div>
+                            <span class="assistive-text">March - April 2026</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="project-card-wrapper">
+                    <a href="project_video-insights.html" class="project-card">
+                        <div class="project-card-image">
+                            <img src="assets/img/video-insights/thumbnail-video-insights.png" alt="Multi-Video Insights — final reporting view with AI-generated summary">
+                        </div>
+                        <div class="project-card-content">
+                            <div class="tag-list">
+                                <span class="tag">Research Community Platform</span>
+                                <span class="tag">AI</span>
+                            </div>
+                            <div class="project-card-body">
+                                <h2>Multi-Video Insights</h2>
+                                <p>Turning hours of video into minutes of insight.</p>
+                            </div>
+                            <span class="assistive-text">January - February 2026</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="project-card-wrapper">
+                    <a href="project_report-migration.html" class="project-card">
+                        <div class="project-card-image">
+                            <img src="assets/img/report-migration/thumbnail-after.gif" alt="Reporting System Migration — new modern report with usability test analysis">
+                        </div>
+                        <div class="project-card-content">
+                            <div class="tag-list">
+                                <span class="tag">Research Community Platform</span>
+                                <span class="tag">Survey Report</span>
+                                <span class="tag">AI Chatbot</span>
+                            </div>
+                            <div class="project-card-body">
+                                <h2>Reporting System Migration</h2>
+                                <p>The migration that reduced Excel exports for 60% of active researchers.</p>
+                            </div>
+                            <span class="assistive-text">2024 – 2026</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div data-include="partials/footer.html"></div>
+</body>
+</html>

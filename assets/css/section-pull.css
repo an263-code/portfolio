@@ -1,0 +1,11 @@
+/* --- Section Pull (recruiter-facing pull tagline inside case studies) --- */
+.section-pull {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    line-height: 1.4;
+    color: var(--text-primary);
+    border-left: 3px solid var(--action-sage);
+    padding-left: var(--spacing-md);
+    margin: var(--spacing-md) 0 var(--spacing-lg) 0;
+    max-width: 60ch;
+}

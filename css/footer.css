@@ -1,0 +1,159 @@
+/* --- Global Site Footer --- */
+.site-footer {
+    background-color: var(--bg-card);
+    border-top: 1px solid var(--grey-300);
+    /* Horizontal gutter shared with sections + case-nav (see tokens.css). */
+    padding: var(--spacing-xl) var(--layout-gutter);
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.site-footer-inner {
+    max-width: var(--layout-content-max);
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--spacing-xl);
+}
+
+.site-footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    flex: 0 0 30%;
+}
+
+.site-footer-name {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--text-primary);
+    font-size: 1rem;
+}
+
+.site-footer-tagline {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.site-footer-columns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-2xl);
+}
+
+.site-footer-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    min-width: 120px;
+}
+
+.site-footer-heading {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-primary);
+    margin: 0 0 var(--spacing-xs) 0;
+}
+
+.site-footer-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.15s ease;
+}
+
+.site-footer-link:hover {
+    color: var(--action-sage);
+}
+
+.site-footer-bottom {
+    max-width: var(--layout-content-max);
+    margin: var(--spacing-xl) auto 0;
+    padding-top: var(--spacing-md);
+    /* Alternating sage/mint dashed divider — matches the timeline rail in project_report-migration.html */
+    background-image: url("data:image/svg+xml,%3Csvg width='16' height='4' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0' y='0' width='4' height='4' rx='2' fill='%233A9289'/%3E%3Crect x='8' y='0' width='4' height='4' rx='2' fill='%23B2DFDB'/%3E%3C/svg%3E");
+    background-size: 16px 4px;
+    background-repeat: repeat-x;
+    background-position: top left;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+@media (max-width: 720px) {
+    .site-footer {
+        padding: var(--spacing-xl) var(--layout-gutter-mobile);
+    }
+
+    .site-footer-brand {
+        flex: 0 0 100%;
+    }
+
+    .site-footer-columns {
+        gap: var(--spacing-xl);
+    }
+}
+
+/* --- Tooltip (minimal rules for footer email; canonical version lives in style-guide.html) --- */
+.tooltip-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.tooltip-bubble {
+    position: absolute;
+    z-index: 10;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background-color: var(--text-primary);
+    color: var(--bg-card);
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1.4;
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.15s ease, visibility 0.15s ease;
+    pointer-events: none;
+}
+
+.tooltip-bubble::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background-color: inherit;
+    transform: rotate(45deg);
+}
+
+.tooltip--top {
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.tooltip--top::after {
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+}
+
+.tooltip-wrapper:hover .tooltip-bubble,
+.tooltip-wrapper:focus-within .tooltip-bubble {
+    opacity: 1;
+    visibility: visible;
+}
+
+.footer-email-trigger {
+    cursor: copy;
+}

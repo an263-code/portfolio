@@ -1,0 +1,265 @@
+/* --- Design Tokens --- */
+:root {
+    /* Colors */
+    --bg-porcelain: #F7F9F8;
+    --bg-card: #FFFFFF;
+    --primary-mint: #B2DFDB;
+    --primary-mint-light: #E0F2F1;
+    --action-sage: #3A9289;
+    --action-sage-hover: #2E746D;
+    --text-primary: #1A2E2C;
+    --text-secondary: #3A5B56;
+
+    /* Mint Scale */
+    --mint-50: #EAF6F4;
+    --mint-100: #D3EDE9;
+    --mint-200: #B2DFDB;
+    --mint-300: #8ECFC8;
+    --mint-400: #66BDB3;
+
+    /* Sage Scale */
+    --sage-100: #CFE6E2;
+    --sage-300: #7FBCB3;
+    --sage-500: #3A9289;
+    --sage-700: #255E57;
+    --sage-900: #112A26;
+
+    /* Gold / Accent */
+    --gold-100: #FFF8DC;
+    --gold-300: #FFE9A3;
+    --gold-500: #FFD54F;
+    --gold-700: #F6BB20;
+    --gold-900: #D09605;
+
+    /* Semantic Colors */
+    --semantic-success: #4A9370;
+    --semantic-warning: #E89A3C;
+    --semantic-error: #D65D5D;
+    --semantic-info: #508CB8;
+
+    /* Neutral Greys (Cool Undertones) */
+    --grey-100: #F0F4F3;
+    --grey-300: #D2DDDC;
+    --grey-500: #98AEA9;
+    --grey-700: #5F7A76;
+    --grey-900: #2A3F3D;
+
+    /* Typography */
+    --font-heading: 'Montserrat', sans-serif;
+    --font-body: 'Open Sans', sans-serif;
+
+    /* Shape Language */
+    --radius-sm: 4px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --radius-pill: 9999px;
+
+    /* Spacing & Padding */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    --spacing-2xl: 48px;
+
+    /* --- Page layout (single source of truth for horizontal alignment) ---
+       Used by the global footer, dot-nav snap-sections, and case-nav so
+       their content edges line up at every viewport size. Edit here to
+       reflow all three together. */
+    --layout-content-max: 1080px;
+    --layout-gutter: var(--spacing-2xl);
+    --layout-gutter-mobile: var(--spacing-md);
+    --layout-outer-max: calc(var(--layout-content-max) + var(--layout-gutter) * 2);
+
+    /* Shadows */
+    --shadow-subtle: 0 8px 16px rgba(0, 0, 0, 0.06);
+
+    /* Borders (Replacing Shadows) */
+    --border-clean: 1px solid var(--action-sage);
+
+    /* Global Header Height (used to offset sticky sub-navs) */
+    --header-height: 64px;
+}
+
+::selection {
+    background-color: var(--gold-300);
+    color: var(--text-primary);
+}
+
+/* --- Base Reset & Typography --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-porcelain);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+    color: var(--text-primary);
+    margin-bottom: 0.5em;
+}
+
+h1 {
+    font-size: 3rem; /* 48px */
+    text-transform: capitalize;
+    letter-spacing: 0.05em;
+    line-height: 1.15;
+}
+
+h2 {
+    font-size: 2rem; /* 32px */
+    letter-spacing: 0.05em;
+    line-height: 1.2;
+}
+
+h3 {
+    font-size: 1.5rem; /* 24px */
+    line-height: 1.3;
+}
+
+@media (max-width: 720px) {
+    h1 { font-size: 36px; }
+    h2 { font-size: 26px; }
+    h3 { font-size: 20px; }
+}
+
+p {
+    font-size: 1rem; /* 16px */
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+}
+
+/* --- Shared Button Primitives (used by header CTA + page content) --- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-family: var(--font-body);
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+    text-decoration: none;
+}
+
+.btn:focus-visible, .btn.force-focus {
+    outline: 2px solid var(--action-sage);
+    outline-offset: 2px;
+}
+
+.btn svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.btn-primary {
+    background-color: var(--action-sage);
+    color: var(--bg-card);
+}
+
+.btn-primary:hover:not(:disabled), .btn-primary.force-hover {
+    background-color: var(--action-sage-hover);
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: var(--border-clean);
+    color: var(--action-sage);
+}
+
+.btn-outline:hover:not(:disabled), .btn-outline.force-hover {
+    background-color: var(--primary-mint-light);
+}
+
+.btn-gold {
+    background-color: var(--gold-500);
+    color: var(--text-primary);
+}
+
+.btn-gold:hover:not(:disabled), .btn-gold.force-hover {
+    background-color: var(--gold-700);
+}
+
+.btn-gold:focus-visible, .btn-gold.force-focus {
+    outline-color: var(--gold-700);
+}
+
+/* --- Skip Link (Accessibility) --- */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: var(--spacing-md);
+    background: var(--action-sage);
+    color: var(--bg-card);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    z-index: 200;
+    transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+    top: var(--spacing-sm);
+}
+
+/* --- Case Study Shared Components --- */
+.case-hero-tagline {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    max-width: 70ch;
+    margin: 0;
+}
+
+/* --- Bullet List --- */
+.bullet-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.bullet-list li {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    padding-left: var(--spacing-md);
+    position: relative;
+    line-height: 1.5;
+}
+
+.bullet-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.5em;
+    width: 6px;
+    height: 6px;
+    border-radius: var(--radius-pill);
+    background: var(--action-sage);
+}
+
+/* --- Custom Cursor --- */
+* {
+    cursor: url("../img/mouse-cursor_gold.svg") 1 1,
+            url("../img/mouse-cursor_gold.png") 1 1,
+            auto;
+}

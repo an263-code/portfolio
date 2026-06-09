@@ -1,0 +1,131 @@
+/* --- Before / After Comparison --- */
+/* Two layout modifiers: .compare--horizontal (side-by-side) and .compare--vertical (stacked).
+   Either frame (Before or After) can carry a .compare-note below its media.
+   Rules:
+     1. Notes are optional and can appear under Before, After, or both.
+     2. Each bullet point inside a note should open with a <strong>Bolded Title:</strong> followed by the detail.
+   Tone variants: default (sage) for improvements; .compare-note--pain (red) for pain points. */
+
+.compare {
+    display: flex;
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg);
+    background-color: var(--bg-card);
+    border: var(--border-clean);
+    border-radius: var(--radius-lg);
+    margin: var(--spacing-md) 0;
+    align-items: stretch;
+}
+
+.compare--horizontal { flex-direction: row; }
+.compare--vertical   { flex-direction: column; }
+
+/* Stacked layout — frames are full-width; height is driven by image natural dimensions. */
+
+.compare-frame {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.compare-label {
+    align-self: flex-start;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    background-color: var(--grey-100);
+    color: var(--text-secondary);
+    border: 1px solid var(--grey-300);
+}
+
+.compare-after .compare-label {
+    background-color: var(--primary-mint-light);
+    color: var(--action-sage);
+    border-color: var(--action-sage);
+}
+
+.compare-media {
+    position: relative;
+    width: 100%;
+    background-color: var(--bg-card);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--action-sage);
+}
+
+.compare-media.has-lightbox:has(img) {
+    cursor: zoom-in;
+}
+
+.compare-media img,
+.compare-media video {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.compare-media.is-placeholder {
+    background-color: var(--grey-100);
+    color: var(--grey-500);
+    font-size: 0.875rem;
+    text-align: center;
+    padding: var(--spacing-md);
+    border: 1px dashed var(--grey-300);
+}
+
+/* "What changed" note — attached under the Before frame's media. */
+.compare-note {
+    margin: 0;
+    padding: var(--spacing-md);
+    background-color: var(--bg-porcelain);
+    border-left: 3px solid var(--action-sage);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--text-primary);
+}
+
+.compare-note-eyebrow {
+    display: block;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--action-sage);
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+}
+
+.compare-note--pain {
+    border-left-color: var(--semantic-error);
+}
+
+.compare-note--pain .compare-note-eyebrow {
+    color: var(--semantic-error);
+}
+
+/* Arrow between frames — sage, auto-rotates in vertical layout. */
+.compare-arrow {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--action-sage);
+}
+
+.compare--vertical .compare-arrow svg {
+    transform: rotate(90deg);
+}
+
+/* Mobile: any horizontal layout collapses to vertical. */
+@media (max-width: 720px) {
+    .compare--horizontal { flex-direction: column; }
+    .compare--horizontal .compare-arrow svg { transform: rotate(90deg); }
+}

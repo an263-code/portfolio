@@ -23,12 +23,14 @@
     <link rel="stylesheet" href="assets/css/dot-nav.css">
     <link rel="stylesheet" href="assets/css/scroll-top.css">
     <link rel="stylesheet" href="assets/css/callout.css">
+    <link rel="stylesheet" href="assets/css/passcode.css">
     <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
     <script defer src="assets/js/include.js"></script>
     <script defer src="assets/js/scroll-spy.js"></script>
     <script defer src="assets/js/dot-nav.js"></script>
     <script defer src="assets/js/scroll-top.js"></script>
     <script defer src="assets/js/footer-email.js"></script>
+    <script defer src="assets/js/passcode.js"></script>
     <script defer src="assets/js/carousel.js"></script>
     <style>
         /* --- Layout --- */
@@ -115,8 +117,13 @@
         }
 
         /* --- Hero before/after wrapper --- */
-        .hero-compare { margin-bottom: var(--spacing-xl); }
-        .hero-compare .compare { margin: 0; }
+        .hero-compare {
+            margin-bottom: var(--spacing-xl);
+            background-color: var(--primary-mint-light);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+        }
+        .hero-compare .compare { margin: 0; background-color: transparent; border: none; padding: 0; }
         .hero-compare .caption { text-align: center; margin-top: 0.75rem; }
 
         /* --- TL;DR card --- */

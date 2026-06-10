@@ -1,0 +1,184 @@
+/* --- Passcode Gate Overlay --- */
+.passcode-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 300; /* above header, footer, and all page chrome */
+    background: var(--bg-porcelain);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-md);
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    overflow: hidden;
+}
+
+.passcode-overlay.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Hide global header, footer, hero, and in-page nav while the gate is active */
+body.passcode-active .site-header,
+body.passcode-active .site-footer,
+body.passcode-active .case-hero,
+body.passcode-active .breadcrumbs,
+body.passcode-active .dot-nav {
+    display: none;
+}
+
+.passcode-card {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-subtle);
+    border: 1px solid var(--grey-300);
+    padding: var(--spacing-xl);
+    width: 100%;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-lg);
+    text-align: center;
+}
+
+.passcode-back {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.passcode-back svg {
+    width: 16px;
+    height: 16px;
+}
+
+.passcode-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--mint-100);
+    border-radius: var(--radius-pill);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--action-sage);
+}
+
+.passcode-icon svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--action-sage);
+}
+
+.passcode-icon--expired {
+    background: var(--gold-100);
+    color: var(--gold-700);
+}
+
+.passcode-icon--expired svg {
+    stroke: var(--gold-700);
+}
+
+.passcode-card h2 {
+    margin-bottom: var(--spacing-xs);
+}
+
+.passcode-card p {
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+.passcode-field-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.passcode-input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.passcode-input {
+    width: 100%;
+    padding: var(--spacing-sm) 44px var(--spacing-sm) var(--spacing-md);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--text-primary);
+    background: var(--bg-porcelain);
+    border: 1px solid var(--grey-300);
+    border-radius: var(--radius-md);
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.passcode-input:focus {
+    border-color: var(--action-sage);
+    box-shadow: 0 0 0 3px rgba(58, 146, 137, 0.15);
+}
+
+.passcode-input.shake {
+    animation: passcode-shake 0.4s ease;
+}
+
+.passcode-input.error {
+    border-color: var(--semantic-error);
+}
+
+.passcode-input.error:focus {
+    border-color: var(--semantic-error);
+    box-shadow: 0 0 0 3px rgba(214, 93, 93, 0.15);
+}
+
+.passcode-toggle {
+    position: absolute;
+    right: var(--spacing-sm);
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    padding: var(--spacing-xs);
+    cursor: url("../img/mouse-cursor_gold.svg") 1 1,
+             url("../img/mouse-cursor_gold.png") 1 1,
+             auto;
+    color: var(--grey-500);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    transition: color 0.15s ease;
+}
+
+.passcode-toggle:hover {
+    color: var(--text-primary);
+}
+
+.passcode-toggle svg {
+    width: 18px;
+    height: 18px;
+}
+
+.passcode-error {
+    font-size: 0.875rem;
+    color: var(--semantic-error);
+    text-align: left;
+    min-height: 1.2em;
+}
+
+.passcode-submit {
+    width: 100%;
+}
+
+@keyframes passcode-shake {
+    0%, 100% { transform: translateX(0); }
+    20%       { transform: translateX(-6px); }
+    40%       { transform: translateX(6px); }
+    60%       { transform: translateX(-4px); }
+    80%       { transform: translateX(4px); }
+}

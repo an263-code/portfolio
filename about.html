@@ -70,6 +70,24 @@
             min-width: 0;
         }
 
+        .profile-name-block {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .profile-name {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        .profile-title {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
         .personal-info-label {
             font-size: 0.875rem;
             font-family: var(--font-heading);
@@ -439,7 +457,11 @@
                 <!-- Info + actions -->
                 <div class="profile-info">
                     <div>
-                        <div class="personal-info-label">Personal Info</div>
+                        <div class="profile-name-block">
+                            <div class="profile-name">Dan Peng</div>
+                            <div class="profile-title">Product Designer</div>
+                        </div>
+
                         <div class="personal-info-rows">
                             <div class="personal-info-row">
                                 <i data-lucide="map-pin" width="16" height="16" stroke-width="1.8"></i>

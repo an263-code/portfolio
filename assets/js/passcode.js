@@ -44,7 +44,7 @@ function buildOverlay(expired) {
             </div>
             <div>
                 <h2 id="passcode-heading">${expired ? 'Session Expired' : 'Protected Project'}</h2>
-                <p>${expired ? 'Your access has expired. Please re-enter the passcode.' : 'You can find the passcode in the resume.'}</p>
+                <p>${expired ? 'Your access has expired. Please re-enter the passcode.' : 'You can find the passcode on the resume.'}</p>
             </div>
             <div class="passcode-field-group">
                 <div class="passcode-input-wrapper">

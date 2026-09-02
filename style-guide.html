@@ -432,40 +432,7 @@
         }
 
         #color-palette.is-dark-preview .palette-view--dark {
-            display: block;
-        }
-
-        .dark-preview-panel {
-            background: var(--dark-bg-porcelain);
-            border-radius: var(--radius-lg);
-            padding: var(--spacing-2xl);
-        }
-
-        .dark-preview-panel h3 {
-            color: var(--dark-text-primary);
-        }
-
-        .dark-preview-panel p {
-            color: var(--dark-text-secondary);
-        }
-
-        .dark-preview-heading {
-            font-size: 2rem;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.5rem;
-        }
-
-        .dark-preview-panel .color-grid:first-of-type {
-            margin-top: 0;
-        }
-
-        .color-swatch--dark {
-            background-color: var(--dark-bg-card);
-            border-color: var(--dark-action-sage);
-        }
-
-        .color-swatch--dark .color-label {
-            color: var(--dark-text-primary);
+            display: flex;
         }
 
         /* --- Tooltip Component --- */
@@ -706,300 +673,275 @@
                 <button type="button" class="palette-toggle-btn" data-palette-mode="dark" aria-pressed="false">Dark Mode</button>
             </div>
 
-            <div class="palette-view palette-view--light">
-                <div class="color-grid">
-                    <div class="color-swatch">
-                        <div class="color-fill" style="background-color: var(--primary-mint);"></div>
-                        <div class="color-label">Mint<br>#B2DFDB</div>
-                    </div>
-                    <div class="color-swatch">
-                        <div class="color-fill" style="background-color: var(--action-sage);"></div>
-                        <div class="color-label">Sage<br>#3A9289</div>
-                    </div>
-                    <div class="color-swatch">
-                        <div class="color-fill" style="background-color: var(--text-primary);"></div>
-                        <div class="color-label">Primary Text<br>#1A2E2C</div>
-                    </div>
-                    <div class="color-swatch">
-                        <div class="color-fill" style="background-color: var(--text-secondary);"></div>
-                        <div class="color-label">Secondary Text<br>#3A5B56</div>
-                    </div>
-                    <div class="color-swatch">
-                        <div class="color-fill" style="background-color: var(--bg-porcelain);"></div>
-                        <div class="color-label" style="border-top: var(--border-clean);">Background<br>#F7F9F8</div>
-                    </div>
+            <div class="color-grid palette-view palette-view--light">
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--primary-mint);"></div>
+                    <div class="color-label">Mint<br>#B2DFDB</div>
                 </div>
-
-                <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Mint scale</h3>
-                <p>Tonal ramp anchored on Mint 200 — used for soft fills, hover backgrounds, and decorative tints.</p>
-                <div class="color-grid">
-                    <div class="color-swatch">
-                        <div class="color-fill" style="background-color: var(--mint-50);"></div>
-                        <div class="color-label" style="border-top: var(--border-clean);">Mint 50<br>#EAF6F4</div>
-                    </div>
-                    <div class="color-swatch">
-                        <div class="color-fill" style="background-color: var(--mint-100);"></div>
-                        <div class="color-label" style="border-top: var(--border-clean);">Mint 100<br>#D3EDE9</div>
-                    </div>
-                    <div class="color-swatch">
-                        <div class="color-fill" style="background-color: var(--mint-200);"></div>
-                        <div class="color-label">Mint 200 ★<br>#B2DFDB</div>
-                    </div>
-                    <div class="color-swatch">
-                        <div class="color-fill" style="background-color: var(--mint-300);"></div>
-                        <div class="color-label">Mint 300<br>#8ECFC8</div>
-                    </div>
-                    <div class="color-swatch">
-                        <div class="color-fill" style="background-color: var(--mint-400);"></div>
-                        <div class="color-label">Mint 400<br>#66BDB3</div>
-                    </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--action-sage);"></div>
+                    <div class="color-label">Sage<br>#3A9289</div>
                 </div>
-
-                <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Sage scale</h3>
-                <p>Tonal ramp anchored on Sage 500 — used for actions, borders, and primary-text relationships.</p>
-                <div class="color-grid">
-                    <div class="color-swatch">
-                        <div class="color-fill" style="background-color: var(--sage-100);"></div>
-                        <div class="color-label" style="border-top: var(--border-clean);">Sage 100<br>#CFE6E2</div>
-                    </div>
-                    <div class="color-swatch">
-                        <div class="color-fill" style="background-color: var(--sage-300);"></div>
-                        <div class="color-label">Sage 300<br>#7FBCB3</div>
-                    </div>
-                    <div class="color-swatch">
-                        <div class="color-fill" style="background-color: var(--sage-500);"></div>
-                        <div class="color-label">Sage 500 ★<br>#3A9289</div>
-                    </div>
-                    <div class="color-swatch">
-                        <div class="color-fill" style="background-color: var(--sage-700);"></div>
-                        <div class="color-label">Sage 700<br>#255E57</div>
-                    </div>
-                    <div class="color-swatch">
-                        <div class="color-fill" style="background-color: var(--sage-900);"></div>
-                        <div class="color-label">Sage 900<br>#112A26</div>
-                    </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--text-primary);"></div>
+                    <div class="color-label">Primary Text<br>#1A2E2C</div>
                 </div>
-
-                <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Semantic colors</h3>
-                <p>Muted functional colors for alerts, statuses, and system feedback.</p>
-                <div class="color-grid">
-                    <div class="color-swatch">
-                        <div class="color-fill" style="background-color: var(--semantic-success);"></div>
-                        <div class="color-label">Success<br>#4A9370</div>
-                    </div>
-                    <div class="color-swatch">
-                        <div class="color-fill" style="background-color: var(--semantic-warning);"></div>
-                        <div class="color-label">Warning<br>#E89A3C</div>
-                    </div>
-                    <div class="color-swatch">
-                        <div class="color-fill" style="background-color: var(--semantic-error);"></div>
-                        <div class="color-label">Error<br>#D65D5D</div>
-                    </div>
-                    <div class="color-swatch">
-                        <div class="color-fill" style="background-color: var(--semantic-info);"></div>
-                        <div class="color-label">Info<br>#508CB8</div>
-                    </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--text-secondary);"></div>
+                    <div class="color-label">Secondary Text<br>#3A5B56</div>
                 </div>
-
-                <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Neutral greys</h3>
-                <p>Cool-toned greys infused with subtle teal to seamlessly blend with the primary palette. Used for borders, disabled states, and secondary backgrounds.</p>
-                <div class="color-grid">
-                    <div class="color-swatch">
-                        <div class="color-fill" style="background-color: var(--grey-100);"></div>
-                        <div class="color-label">Grey 100<br>#F0F4F3</div>
-                    </div>
-                    <div class="color-swatch">
-                        <div class="color-fill" style="background-color: var(--grey-300);"></div>
-                        <div class="color-label">Grey 300<br>#D2DDDC</div>
-                    </div>
-                    <div class="color-swatch">
-                        <div class="color-fill" style="background-color: var(--grey-500);"></div>
-                        <div class="color-label">Grey 500<br>#98AEA9</div>
-                    </div>
-                    <div class="color-swatch">
-                        <div class="color-fill" style="background-color: var(--grey-700);"></div>
-                        <div class="color-label">Grey 700<br>#5F7A76</div>
-                    </div>
-                    <div class="color-swatch">
-                        <div class="color-fill" style="background-color: var(--grey-900);"></div>
-                        <div class="color-label">Grey 900<br>#2A3F3D</div>
-                    </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--bg-porcelain);"></div>
+                    <div class="color-label" style="border-top: var(--border-clean);">Background<br>#F7F9F8</div>
                 </div>
-
-                <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Gold / Accent</h3>
-                <p>Warm amber scale used for accent numerals, highlights, and decorative emphasis.</p>
-                <div class="color-grid">
-                    <div class="color-swatch">
-                        <div class="color-fill" style="background-color: var(--gold-100);"></div>
-                        <div class="color-label" style="border-top: var(--border-clean);">Gold 100<br>#FFF8DC</div>
-                    </div>
-                    <div class="color-swatch">
-                        <div class="color-fill" style="background-color: var(--gold-300);"></div>
-                        <div class="color-label" style="border-top: var(--border-clean);">Gold 300<br>#FFE9A3</div>
-                    </div>
-                    <div class="color-swatch">
-                        <div class="color-fill" style="background-color: var(--gold-500);"></div>
-                        <div class="color-label">Gold 500 ★<br>#FFD54F</div>
-                    </div>
-                    <div class="color-swatch">
-                        <div class="color-fill" style="background-color: var(--gold-700);"></div>
-                        <div class="color-label">Gold 700<br>#F6BB20</div>
-                    </div>
-                    <div class="color-swatch">
-                        <div class="color-fill" style="background-color: var(--gold-900);"></div>
-                        <div class="color-label">Gold 900<br>#D09605</div>
-                    </div>
+            </div>
+            <div class="color-grid palette-view palette-view--dark">
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--dark-primary-mint);"></div>
+                    <div class="color-label">Mint<br>#80CBC4</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--dark-action-sage);"></div>
+                    <div class="color-label">Sage<br>#4DB6AC</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--dark-text-primary);"></div>
+                    <div class="color-label">Primary Text<br>#E0EDEB</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--dark-text-secondary);"></div>
+                    <div class="color-label">Secondary Text<br>#9AB5B0</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--dark-bg-porcelain);"></div>
+                    <div class="color-label" style="border-top: var(--border-clean);">Background<br>#0F1A19</div>
                 </div>
             </div>
 
-            <div class="palette-view palette-view--dark">
-                <div class="dark-preview-panel">
-                    <h3 class="dark-preview-heading">Color Palette — Dark Mode</h3>
-                    <p class="dark-preview-desc">Dark mode counterpart — inverted ramps on deep teal-black surfaces with boosted contrast.</p>
+            <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Mint scale</h3>
+            <p>Tonal ramp anchored on Mint 200 — used for soft fills, hover backgrounds, and decorative tints.</p>
+            <div class="color-grid palette-view palette-view--light">
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--mint-50);"></div>
+                    <div class="color-label" style="border-top: var(--border-clean);">Mint 50<br>#EAF6F4</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--mint-100);"></div>
+                    <div class="color-label" style="border-top: var(--border-clean);">Mint 100<br>#D3EDE9</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--mint-200);"></div>
+                    <div class="color-label">Mint 200 ★<br>#B2DFDB</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--mint-300);"></div>
+                    <div class="color-label">Mint 300<br>#8ECFC8</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--mint-400);"></div>
+                    <div class="color-label">Mint 400<br>#66BDB3</div>
+                </div>
+            </div>
+            <div class="color-grid palette-view palette-view--dark">
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--dark-mint-50);"></div>
+                    <div class="color-label" style="border-top: var(--border-clean);">Mint 50<br>#091917</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--dark-mint-100);"></div>
+                    <div class="color-label" style="border-top: var(--border-clean);">Mint 100<br>#112724</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--dark-mint-200);"></div>
+                    <div class="color-label">Mint 200 ★<br>#1A3835</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--dark-mint-300);"></div>
+                    <div class="color-label">Mint 300<br>#2A524D</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--dark-mint-400);"></div>
+                    <div class="color-label">Mint 400<br>#3D6E68</div>
+                </div>
+            </div>
 
-                    <div class="color-grid">
-                        <div class="color-swatch color-swatch--dark">
-                            <div class="color-fill" style="background-color: var(--dark-primary-mint);"></div>
-                            <div class="color-label">Mint<br>#80CBC4</div>
-                        </div>
-                        <div class="color-swatch color-swatch--dark">
-                            <div class="color-fill" style="background-color: var(--dark-action-sage);"></div>
-                            <div class="color-label">Sage<br>#4DB6AC</div>
-                        </div>
-                        <div class="color-swatch color-swatch--dark">
-                            <div class="color-fill" style="background-color: var(--dark-text-primary);"></div>
-                            <div class="color-label">Primary Text<br>#E0EDEB</div>
-                        </div>
-                        <div class="color-swatch color-swatch--dark">
-                            <div class="color-fill" style="background-color: var(--dark-text-secondary);"></div>
-                            <div class="color-label">Secondary Text<br>#9AB5B0</div>
-                        </div>
-                        <div class="color-swatch color-swatch--dark">
-                            <div class="color-fill" style="background-color: var(--dark-bg-porcelain);"></div>
-                            <div class="color-label" style="border-top: var(--dark-border-clean);">Background<br>#0F1A19</div>
-                        </div>
-                    </div>
+            <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Sage scale</h3>
+            <p>Tonal ramp anchored on Sage 500 — used for actions, borders, and primary-text relationships.</p>
+            <div class="color-grid palette-view palette-view--light">
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--sage-100);"></div>
+                    <div class="color-label" style="border-top: var(--border-clean);">Sage 100<br>#CFE6E2</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--sage-300);"></div>
+                    <div class="color-label">Sage 300<br>#7FBCB3</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--sage-500);"></div>
+                    <div class="color-label">Sage 500 ★<br>#3A9289</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--sage-700);"></div>
+                    <div class="color-label">Sage 700<br>#255E57</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--sage-900);"></div>
+                    <div class="color-label">Sage 900<br>#112A26</div>
+                </div>
+            </div>
+            <div class="color-grid palette-view palette-view--dark">
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--dark-sage-100);"></div>
+                    <div class="color-label" style="border-top: var(--border-clean);">Sage 100<br>#0E1F1C</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--dark-sage-300);"></div>
+                    <div class="color-label">Sage 300<br>#1C3D38</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--dark-sage-500);"></div>
+                    <div class="color-label">Sage 500 ★<br>#4DB6AC</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--dark-sage-700);"></div>
+                    <div class="color-label">Sage 700<br>#80CBC4</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--dark-sage-900);"></div>
+                    <div class="color-label">Sage 900<br>#B2DFDB</div>
+                </div>
+            </div>
 
-                    <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Mint scale</h3>
-                    <p>Tonal ramp anchored on Mint 200 — used for soft fills, hover backgrounds, and decorative tints.</p>
-                    <div class="color-grid">
-                        <div class="color-swatch color-swatch--dark">
-                            <div class="color-fill" style="background-color: var(--dark-mint-50);"></div>
-                            <div class="color-label" style="border-top: var(--dark-border-clean);">Mint 50<br>#091917</div>
-                        </div>
-                        <div class="color-swatch color-swatch--dark">
-                            <div class="color-fill" style="background-color: var(--dark-mint-100);"></div>
-                            <div class="color-label" style="border-top: var(--dark-border-clean);">Mint 100<br>#112724</div>
-                        </div>
-                        <div class="color-swatch color-swatch--dark">
-                            <div class="color-fill" style="background-color: var(--dark-mint-200);"></div>
-                            <div class="color-label">Mint 200 ★<br>#1A3835</div>
-                        </div>
-                        <div class="color-swatch color-swatch--dark">
-                            <div class="color-fill" style="background-color: var(--dark-mint-300);"></div>
-                            <div class="color-label">Mint 300<br>#2A524D</div>
-                        </div>
-                        <div class="color-swatch color-swatch--dark">
-                            <div class="color-fill" style="background-color: var(--dark-mint-400);"></div>
-                            <div class="color-label">Mint 400<br>#3D6E68</div>
-                        </div>
-                    </div>
+            <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Semantic colors</h3>
+            <p>Muted functional colors for alerts, statuses, and system feedback.</p>
+            <div class="color-grid palette-view palette-view--light">
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--semantic-success);"></div>
+                    <div class="color-label">Success<br>#4A9370</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--semantic-warning);"></div>
+                    <div class="color-label">Warning<br>#E89A3C</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--semantic-error);"></div>
+                    <div class="color-label">Error<br>#D65D5D</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--semantic-info);"></div>
+                    <div class="color-label">Info<br>#508CB8</div>
+                </div>
+            </div>
+            <div class="color-grid palette-view palette-view--dark">
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--dark-semantic-success);"></div>
+                    <div class="color-label">Success<br>#5AAE82</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--dark-semantic-warning);"></div>
+                    <div class="color-label">Warning<br>#F0A84A</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--dark-semantic-error);"></div>
+                    <div class="color-label">Error<br>#E06B6B</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--dark-semantic-info);"></div>
+                    <div class="color-label">Info<br>#5E9CC7</div>
+                </div>
+            </div>
 
-                    <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Sage scale</h3>
-                    <p>Tonal ramp anchored on Sage 500 — used for actions, borders, and primary-text relationships.</p>
-                    <div class="color-grid">
-                        <div class="color-swatch color-swatch--dark">
-                            <div class="color-fill" style="background-color: var(--dark-sage-100);"></div>
-                            <div class="color-label" style="border-top: var(--dark-border-clean);">Sage 100<br>#0E1F1C</div>
-                        </div>
-                        <div class="color-swatch color-swatch--dark">
-                            <div class="color-fill" style="background-color: var(--dark-sage-300);"></div>
-                            <div class="color-label">Sage 300<br>#1C3D38</div>
-                        </div>
-                        <div class="color-swatch color-swatch--dark">
-                            <div class="color-fill" style="background-color: var(--dark-sage-500);"></div>
-                            <div class="color-label">Sage 500 ★<br>#4DB6AC</div>
-                        </div>
-                        <div class="color-swatch color-swatch--dark">
-                            <div class="color-fill" style="background-color: var(--dark-sage-700);"></div>
-                            <div class="color-label">Sage 700<br>#80CBC4</div>
-                        </div>
-                        <div class="color-swatch color-swatch--dark">
-                            <div class="color-fill" style="background-color: var(--dark-sage-900);"></div>
-                            <div class="color-label">Sage 900<br>#B2DFDB</div>
-                        </div>
-                    </div>
+            <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Neutral greys</h3>
+            <p>Cool-toned greys infused with subtle teal to seamlessly blend with the primary palette. Used for borders, disabled states, and secondary backgrounds.</p>
+            <div class="color-grid palette-view palette-view--light">
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--grey-100);"></div>
+                    <div class="color-label">Grey 100<br>#F0F4F3</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--grey-300);"></div>
+                    <div class="color-label">Grey 300<br>#D2DDDC</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--grey-500);"></div>
+                    <div class="color-label">Grey 500<br>#98AEA9</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--grey-700);"></div>
+                    <div class="color-label">Grey 700<br>#5F7A76</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--grey-900);"></div>
+                    <div class="color-label">Grey 900<br>#2A3F3D</div>
+                </div>
+            </div>
+            <div class="color-grid palette-view palette-view--dark">
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--dark-grey-100);"></div>
+                    <div class="color-label">Grey 100<br>#131E1D</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--dark-grey-300);"></div>
+                    <div class="color-label">Grey 300<br>#1F302E</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--dark-grey-500);"></div>
+                    <div class="color-label">Grey 500<br>#3D504D</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--dark-grey-700);"></div>
+                    <div class="color-label">Grey 700<br>#7A9490</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--dark-grey-900);"></div>
+                    <div class="color-label">Grey 900<br>#B5CBC7</div>
+                </div>
+            </div>
 
-                    <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Semantic colors</h3>
-                    <p>Muted functional colors for alerts, statuses, and system feedback.</p>
-                    <div class="color-grid">
-                        <div class="color-swatch color-swatch--dark">
-                            <div class="color-fill" style="background-color: var(--dark-semantic-success);"></div>
-                            <div class="color-label">Success<br>#5AAE82</div>
-                        </div>
-                        <div class="color-swatch color-swatch--dark">
-                            <div class="color-fill" style="background-color: var(--dark-semantic-warning);"></div>
-                            <div class="color-label">Warning<br>#F0A84A</div>
-                        </div>
-                        <div class="color-swatch color-swatch--dark">
-                            <div class="color-fill" style="background-color: var(--dark-semantic-error);"></div>
-                            <div class="color-label">Error<br>#E06B6B</div>
-                        </div>
-                        <div class="color-swatch color-swatch--dark">
-                            <div class="color-fill" style="background-color: var(--dark-semantic-info);"></div>
-                            <div class="color-label">Info<br>#5E9CC7</div>
-                        </div>
-                    </div>
-
-                    <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Neutral greys</h3>
-                    <p>Cool-toned greys infused with subtle teal to seamlessly blend with the primary palette. Used for borders, disabled states, and secondary backgrounds.</p>
-                    <div class="color-grid">
-                        <div class="color-swatch color-swatch--dark">
-                            <div class="color-fill" style="background-color: var(--dark-grey-100);"></div>
-                            <div class="color-label">Grey 100<br>#131E1D</div>
-                        </div>
-                        <div class="color-swatch color-swatch--dark">
-                            <div class="color-fill" style="background-color: var(--dark-grey-300);"></div>
-                            <div class="color-label">Grey 300<br>#1F302E</div>
-                        </div>
-                        <div class="color-swatch color-swatch--dark">
-                            <div class="color-fill" style="background-color: var(--dark-grey-500);"></div>
-                            <div class="color-label">Grey 500<br>#3D504D</div>
-                        </div>
-                        <div class="color-swatch color-swatch--dark">
-                            <div class="color-fill" style="background-color: var(--dark-grey-700);"></div>
-                            <div class="color-label">Grey 700<br>#7A9490</div>
-                        </div>
-                        <div class="color-swatch color-swatch--dark">
-                            <div class="color-fill" style="background-color: var(--dark-grey-900);"></div>
-                            <div class="color-label">Grey 900<br>#B5CBC7</div>
-                        </div>
-                    </div>
-
-                    <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Gold / Accent</h3>
-                    <p>Warm amber scale used for accent numerals, highlights, and decorative emphasis.</p>
-                    <div class="color-grid">
-                        <div class="color-swatch color-swatch--dark">
-                            <div class="color-fill" style="background-color: var(--dark-gold-100);"></div>
-                            <div class="color-label" style="border-top: var(--dark-border-clean);">Gold 100<br>#1A170A</div>
-                        </div>
-                        <div class="color-swatch color-swatch--dark">
-                            <div class="color-fill" style="background-color: var(--dark-gold-300);"></div>
-                            <div class="color-label" style="border-top: var(--dark-border-clean);">Gold 300<br>#3D3410</div>
-                        </div>
-                        <div class="color-swatch color-swatch--dark">
-                            <div class="color-fill" style="background-color: var(--dark-gold-500);"></div>
-                            <div class="color-label">Gold 500 ★<br>#D4A520</div>
-                        </div>
-                        <div class="color-swatch color-swatch--dark">
-                            <div class="color-fill" style="background-color: var(--dark-gold-700);"></div>
-                            <div class="color-label">Gold 700<br>#EBC94D</div>
-                        </div>
-                        <div class="color-swatch color-swatch--dark">
-                            <div class="color-fill" style="background-color: var(--dark-gold-900);"></div>
-                            <div class="color-label">Gold 900<br>#F5E07A</div>
-                        </div>
-                    </div>
+            <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Gold / Accent</h3>
+            <p>Warm amber scale used for accent numerals, highlights, and decorative emphasis.</p>
+            <div class="color-grid palette-view palette-view--light">
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--gold-100);"></div>
+                    <div class="color-label" style="border-top: var(--border-clean);">Gold 100<br>#FFF8DC</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--gold-300);"></div>
+                    <div class="color-label" style="border-top: var(--border-clean);">Gold 300<br>#FFE9A3</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--gold-500);"></div>
+                    <div class="color-label">Gold 500 ★<br>#FFD54F</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--gold-700);"></div>
+                    <div class="color-label">Gold 700<br>#F6BB20</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--gold-900);"></div>
+                    <div class="color-label">Gold 900<br>#D09605</div>
+                </div>
+            </div>
+            <div class="color-grid palette-view palette-view--dark">
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--dark-gold-100);"></div>
+                    <div class="color-label" style="border-top: var(--border-clean);">Gold 100<br>#1A170A</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--dark-gold-300);"></div>
+                    <div class="color-label" style="border-top: var(--border-clean);">Gold 300<br>#3D3410</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--dark-gold-500);"></div>
+                    <div class="color-label">Gold 500 ★<br>#D4A520</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--dark-gold-700);"></div>
+                    <div class="color-label">Gold 700<br>#EBC94D</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-fill" style="background-color: var(--dark-gold-900);"></div>
+                    <div class="color-label">Gold 900<br>#F5E07A</div>
                 </div>
             </div>
         </section>

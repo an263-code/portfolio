@@ -14,22 +14,24 @@
 }
 
 .site-logo {
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 1.125rem;
-    color: var(--text-primary);
-    text-decoration: none;
-    letter-spacing: -0.01em;
-    transition: color 0.15s ease, transform 0.1s ease;
-}
-
-.site-logo:hover {
-    color: var(--action-sage);
+    display: flex;
+    align-items: center;
+    transition: transform 0.1s ease;
 }
 
 .site-logo:active {
-    color: var(--action-sage-hover);
     transform: scale(0.96);
+}
+
+.site-logo-full,
+.site-logo-compact {
+    display: block;
+    height: 32px;
+    width: auto;
+}
+
+.site-logo-compact {
+    display: none;
 }
 
 .site-nav {
@@ -87,20 +89,9 @@
     .site-nav-link.active::after { animation: none; }
 }
 
-/* --- Header Initials / Name --- */
+/* --- Header Initials / Name (hidden in favor of .site-logo) --- */
 .site-header-initials {
-    font-family: var(--font-body);
-    font-weight: 500;
-    font-size: 0.95rem;
-    color: var(--text-secondary);
-    text-decoration: none;
-    padding: var(--spacing-sm) 0;
-    letter-spacing: 0.12em;
-    transition: color 0.2s ease;
-}
-
-.site-header-initials:hover {
-    color: var(--action-sage);
+    display: none;
 }
 
 /* --- Mobile Nav Toggle --- */
@@ -123,19 +114,24 @@
         padding: 0 var(--spacing-md);
     }
 
-    .site-header-initials {
-        font-size: 0;
-        letter-spacing: 0;
+    .site-logo {
         position: absolute;
         left: var(--spacing-md);
         top: 50%;
         transform: translateY(-50%);
     }
 
-    .site-header-initials::before {
-        content: "DP";
-        font-size: 1rem;
-        letter-spacing: 0.05em;
+    .site-logo:active {
+        transform: translateY(-50%) scale(0.96);
+    }
+
+    .site-logo-full {
+        display: none;
+    }
+
+    .site-logo-compact {
+        display: block;
+        height: 24px;
     }
 
     .site-nav-toggle {

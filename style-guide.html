@@ -14,6 +14,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/tokens.css">
+    <script>
+    (function () {
+        var saved = localStorage.getItem('theme');
+        var theme = saved || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+    })();
+    </script>
     <link rel="stylesheet" href="assets/css/header.css">
     <link rel="stylesheet" href="assets/css/sidebar.css">
     <link rel="stylesheet" href="assets/css/footer.css">
@@ -25,6 +32,7 @@
     <link rel="stylesheet" href="assets/css/card.css">
     <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
     <script defer src="assets/js/include.js"></script>
+    <script defer src="assets/js/theme.js"></script>
     <script defer src="assets/js/footer-email.js"></script>
     <script defer src="assets/js/carousel.js"></script>
     <style>
@@ -389,9 +397,9 @@
             font-weight: 600;
         }
 
-        /* Color Palette — light/dark preview toggle (style guide only, no
-           theme class is applied to <body> and production pages are
-           untouched). */
+        /* Color Palette — this toggle drives the real site-wide theme
+           (assets/js/theme.js sets html[data-theme]); these swatch grids
+           just mirror whichever theme is currently active. */
         .palette-toggle {
             display: inline-flex;
             gap: 0.25rem;
@@ -427,11 +435,11 @@
             display: none;
         }
 
-        #color-palette.is-dark-preview .palette-view--light {
+        html[data-theme="dark"] .palette-view--light {
             display: none;
         }
 
-        #color-palette.is-dark-preview .palette-view--dark {
+        html[data-theme="dark"] .palette-view--dark {
             display: flex;
         }
 

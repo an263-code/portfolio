@@ -104,12 +104,13 @@ html[data-theme="dark"] .theme-toggle-icon--to-light {
 /* --- Header Initials / Name --- */
 .site-header-initials {
     font-family: var(--font-body);
-    font-weight: 500;
+    font-weight: 600;
     font-size: 0.95rem;
     color: var(--text-secondary);
     text-decoration: none;
     padding: var(--spacing-sm) 0;
     letter-spacing: 0.12em;
+    text-transform: uppercase;
     transition: color 0.2s ease;
 }
 

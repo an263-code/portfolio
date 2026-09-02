@@ -89,14 +89,13 @@
 
 /* --- Header Initials / Name --- */
 .site-header-initials {
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 1.125rem;
-    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
     text-decoration: none;
-    letter-spacing: -0.01em;
-    text-transform: uppercase;
-    transition: color 0.15s ease;
+    padding: var(--spacing-sm) 0;
+    transition: color 0.2s ease;
 }
 
 .site-header-initials:hover {

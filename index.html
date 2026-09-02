@@ -31,7 +31,7 @@
         <section id="home" class="hero section-home" aria-labelledby="home-title">
             <canvas class="hero-texture" aria-hidden="true"></canvas>
             <div class="hero-content">
-                <span class="hero-eyebrow"><span style="color: #EAB308;">DAN PENG</span> · Product Designer</span>
+                <span class="hero-eyebrow"><span style="color: var(--gold-700);">DAN PENG</span> · Product Designer</span>
                 <h1 id="home-title">Simplifying enterprise complexity through intuitive design.</h1>
                 <p class="hero-tagline">4 years of experience empowering researchers to effortlessly analyze diverse data and leverage AI in this process.</p>
                 <div class="hero-ctas">
@@ -360,11 +360,13 @@
 
         const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-        // Brand palettes (mint-50→400, sage-100/300/500), brightest last.
-        const MINT = ['#EAF6F4','#D3EDE9','#B2DFDB','#8ECFC8','#66BDB3'];
-        const SAGE = ['#CFE6E2','#7FBCB3','#3A9289'];
+        // Brand palettes read from the design tokens in tokens.css, brightest last.
+        const rootStyle = getComputedStyle(document.documentElement);
+        const cssVar = (name) => rootStyle.getPropertyValue(name).trim();
 
-        const GOLD = ['#FFE9A3','#FFD54F'];
+        const MINT = ['--mint-50', '--mint-100', '--mint-200', '--mint-300', '--mint-400'].map(cssVar);
+        const SAGE = ['--sage-100', '--sage-300', '--sage-500'].map(cssVar);
+        const GOLD = ['--gold-300', '--gold-500'].map(cssVar);
 
         const RADIUS      = 4;
         const SPACING     = 14;

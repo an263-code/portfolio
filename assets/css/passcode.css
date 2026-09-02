@@ -120,7 +120,7 @@ body.passcode-active .dot-nav {
 
 .passcode-input:focus {
     border-color: var(--action-sage);
-    box-shadow: 0 0 0 3px rgba(58, 146, 137, 0.15);
+    box-shadow: 0 0 0 3px var(--action-sage-ring);
 }
 
 .passcode-input.shake {
@@ -133,7 +133,7 @@ body.passcode-active .dot-nav {
 
 .passcode-input.error:focus {
     border-color: var(--semantic-error);
-    box-shadow: 0 0 0 3px rgba(214, 93, 93, 0.15);
+    box-shadow: 0 0 0 3px var(--semantic-error-ring);
 }
 
 .passcode-toggle {

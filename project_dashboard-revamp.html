@@ -15,6 +15,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/tokens.css">
+    <script>
+    (function () {
+        var saved = localStorage.getItem('theme');
+        var theme = saved || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+    })();
+    </script>
     <link rel="stylesheet" href="assets/css/header.css">
     <link rel="stylesheet" href="assets/css/sidebar.css">
     <link rel="stylesheet" href="assets/css/footer.css">
@@ -27,6 +34,7 @@
     <link rel="stylesheet" href="assets/css/passcode.css">
     <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
     <script defer src="assets/js/include.js"></script>
+    <script defer src="assets/js/theme.js"></script>
     <script defer src="assets/js/scroll-spy.js"></script>
     <script defer src="assets/js/dot-nav.js"></script>
     <script defer src="assets/js/scroll-top.js"></script>

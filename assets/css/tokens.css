@@ -77,23 +77,25 @@
     /* Borders (Replacing Shadows) */
     --border-clean: 1px solid var(--action-sage);
 
-    /* Overlay / Focus-ring tints (alpha variants of the tokens above) */
-    --overlay-scrim: rgba(42, 63, 61, 0.6); /* grey-900 @ 60% */
-    --action-sage-ring: rgba(58, 146, 137, 0.15); /* action-sage @ 15% */
-    --semantic-error-ring: rgba(214, 93, 93, 0.15); /* semantic-error @ 15% */
+    /* Overlay / Focus-ring tints (derived from the tokens above so they
+       automatically follow the active theme — see html[data-theme="dark"]
+       below) */
+    --overlay-scrim: color-mix(in srgb, var(--grey-900) 60%, transparent);
+    --action-sage-ring: color-mix(in srgb, var(--action-sage) 15%, transparent);
+    --semantic-error-ring: color-mix(in srgb, var(--semantic-error) 15%, transparent);
 
     /* Global Header Height (used to offset sticky sub-navs) */
     --header-height: 64px;
 
     /* =====================================================================
-       Dark-Mode Palette (Style Guide preview only)
+       Dark-Mode Palette
        -------------------------------------------------------------------
        Parallel token set mirroring the light-mode colors above, one-to-one.
-       These are documentation-only: nothing in the site references them,
-       so they have zero effect on production pages. They exist so the
-       Style Guide's Color Palette section can render a dark-mode preview
-       via a local toggle. Do not consume these outside style-guide.html
-       without a deliberate, separately-scoped dark-mode rollout.
+       These raw values are consumed by the html[data-theme="dark"] override
+       block below, which remaps every semantic/scale token name to its
+       --dark-* counterpart. Component CSS should keep referencing the
+       semantic names (--bg-porcelain, --action-sage, --mint-200, etc.) —
+       never reference a --dark-* variable directly.
        ===================================================================== */
     --dark-bg-porcelain: #0F1A19;
     --dark-bg-card: #112724;
@@ -142,6 +144,53 @@
     --dark-border-clean: 1px solid var(--dark-action-sage);
 }
 
+/* --- Dark Theme Override ---
+   Re-points every semantic/scale token to its --dark-* counterpart when the
+   site theme is switched to dark (see assets/js/theme.js). Because every
+   component stylesheet already consumes these token names, this block is
+   the only thing needed to re-theme the whole site. */
+html[data-theme="dark"] {
+    --bg-porcelain: var(--dark-bg-porcelain);
+    --bg-card: var(--dark-bg-card);
+    --primary-mint: var(--dark-primary-mint);
+    --primary-mint-light: var(--dark-primary-mint-light);
+    --action-sage: var(--dark-action-sage);
+    --action-sage-hover: var(--dark-action-sage-hover);
+    --text-primary: var(--dark-text-primary);
+    --text-secondary: var(--dark-text-secondary);
+
+    --mint-50: var(--dark-mint-50);
+    --mint-100: var(--dark-mint-100);
+    --mint-200: var(--dark-mint-200);
+    --mint-300: var(--dark-mint-300);
+    --mint-400: var(--dark-mint-400);
+
+    --sage-100: var(--dark-sage-100);
+    --sage-300: var(--dark-sage-300);
+    --sage-500: var(--dark-sage-500);
+    --sage-700: var(--dark-sage-700);
+    --sage-900: var(--dark-sage-900);
+
+    --gold-100: var(--dark-gold-100);
+    --gold-300: var(--dark-gold-300);
+    --gold-500: var(--dark-gold-500);
+    --gold-700: var(--dark-gold-700);
+    --gold-900: var(--dark-gold-900);
+
+    --semantic-success: var(--dark-semantic-success);
+    --semantic-warning: var(--dark-semantic-warning);
+    --semantic-error: var(--dark-semantic-error);
+    --semantic-info: var(--dark-semantic-info);
+
+    --grey-100: var(--dark-grey-100);
+    --grey-300: var(--dark-grey-300);
+    --grey-500: var(--dark-grey-500);
+    --grey-700: var(--dark-grey-700);
+    --grey-900: var(--dark-grey-900);
+
+    --border-clean: var(--dark-border-clean);
+}
+
 ::selection {
     background-color: var(--gold-300);
     color: var(--text-primary);
@@ -162,6 +211,7 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 main {

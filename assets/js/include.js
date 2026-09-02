@@ -14,12 +14,16 @@
         })
     );
 
+    // On the single-page layout the scroll-spy (section-nav.js) owns the active
+    // nav state, so the static data-page mapping is skipped there.
     const page = document.body.dataset.page;
-    if (page) {
+    if (page && !document.body.hasAttribute('data-single-page')) {
         const link = document.querySelector(`.site-nav-link[data-nav="${page}"]`);
         if (link) link.classList.add('active');
     }
 
     if (window.lucide) lucide.createIcons();
 
+    // Let scripts that depend on the injected header/footer start up.
+    document.dispatchEvent(new CustomEvent('partials:loaded'));
 })();

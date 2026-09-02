@@ -7,7 +7,7 @@
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Portfolio homepage.">
+    <meta name="description" content="Portfolio of Dan Peng, product designer — selected projects and background.">
     <title>Dan Peng · Product Designer</title>
     <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon.png">
@@ -17,95 +17,342 @@
     <link rel="stylesheet" href="assets/css/tokens.css">
     <link rel="stylesheet" href="assets/css/header.css">
     <link rel="stylesheet" href="assets/css/footer.css">
+    <link rel="stylesheet" href="assets/css/card.css">
+    <link rel="stylesheet" href="assets/css/single-page.css">
     <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
     <script defer src="assets/js/include.js"></script>
     <script defer src="assets/js/footer-email.js"></script>
-    <style>
-        .hero {
-            min-height: calc(100vh - var(--header-height));
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: var(--spacing-2xl);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero > * {
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-texture {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-
-        .hero-content {
-            background: #ffffff;
-            border-radius: 16px;
-            padding: var(--spacing-2xl);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            max-width: 64rem;
-        }
-
-        .hero-eyebrow {
-            font-size: 0.875rem;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: var(--action-sage);
-            font-weight: 600;
-            margin-bottom: var(--spacing-md);
-        }
-
-        .hero h1 {
-            max-width: 34ch;
-            margin-bottom: var(--spacing-md);
-        }
-
-        .hero-tagline {
-            font-size: 1.125rem;
-            max-width: 58ch;
-            margin-bottom: var(--spacing-xl);
-        }
-
-        .hero-ctas {
-            display: flex;
-            gap: var(--spacing-md);
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-    </style>
+    <script defer src="assets/js/section-nav.js"></script>
 </head>
-<body data-page="home">
+<body data-page="home" data-single-page>
     <div data-include="partials/header.html"></div>
 
     <main id="main">
-        <!-- TODO: real content -->
-        <section class="hero">
+        <section id="home" class="hero section-home" aria-labelledby="home-title">
             <canvas class="hero-texture" aria-hidden="true"></canvas>
             <div class="hero-content">
                 <span class="hero-eyebrow"><span style="color: #EAB308;">DAN PENG</span> · Product Designer</span>
-                <h1>Simplifying enterprise complexity through intuitive design.</h1>
+                <h1 id="home-title">Simplifying enterprise complexity through intuitive design.</h1>
                 <p class="hero-tagline">4 years of experience empowering researchers to effortlessly analyze diverse data and leverage AI in this process.</p>
                 <div class="hero-ctas">
-                    <a href="projects.html" class="btn btn-gold">See my projects</a>
+                    <a href="#projects" class="btn btn-gold">See my projects</a>
                 </div>
             </div>
         </section>
+
+        <section id="projects" class="section-projects" aria-labelledby="projects-title">
+            <div class="work-wrapper">
+                <div class="work-header">
+                    <h2 id="projects-title">Projects</h2>
+                    <p>A curated set of achievements I have made in the past.</p>
+                </div>
+
+                <div class="work-grid">
+                    <div class="project-card-wrapper">
+                        <a href="project_dashboard-revamp.html" class="project-card">
+                            <div class="project-card-image">
+                                <img src="assets/img/dashboard-revamp/thumbnail-dashboard.png" alt="Dashboard Revamp — final dashboard with mixed tile types">
+                            </div>
+                            <div class="project-card-content">
+                                <div class="tag-list">
+                                    <span class="tag">Research Community Platform</span>
+                                    <span class="tag">Dashboard</span>
+                                </div>
+                                <div class="project-card-body">
+                                    <h2>Revamped Dashboard Experience</h2>
+                                    <p>Replacing a data-analyst tool with a researcher-friendly dashboard.</p>
+                                </div>
+                                <span class="assistive-text">March - April 2026</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="project-card-wrapper">
+                        <a href="project_video-insights.html" class="project-card">
+                            <div class="project-card-image">
+                                <img src="assets/img/video-insights/thumbnail-video-insights.png" alt="Multi-Video Insights — final reporting view with AI-generated summary">
+                            </div>
+                            <div class="project-card-content">
+                                <div class="tag-list">
+                                    <span class="tag">Research Community Platform</span>
+                                    <span class="tag">AI</span>
+                                </div>
+                                <div class="project-card-body">
+                                    <h2>Multi-Video Insights</h2>
+                                    <p>Turning hours of video into minutes of insight.</p>
+                                </div>
+                                <span class="assistive-text">January - February 2026</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="project-card-wrapper">
+                        <a href="project_report-migration.html" class="project-card">
+                            <div class="project-card-image">
+                                <img src="assets/img/report-migration/thumbnail-after.gif" alt="Reporting System Migration — new modern report with usability test analysis">
+                            </div>
+                            <div class="project-card-content">
+                                <div class="tag-list">
+                                    <span class="tag">Research Community Platform</span>
+                                    <span class="tag">Survey Report</span>
+                                    <span class="tag">AI Chatbot</span>
+                                </div>
+                                <div class="project-card-body">
+                                    <h2>Reporting System Migration</h2>
+                                    <p>The migration that reduced Excel exports for 60% of active researchers.</p>
+                                </div>
+                                <span class="assistive-text">2024 – 2026</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="section-about" aria-labelledby="about-title">
+            <div class="about-page">
+
+                <!-- ── Profile header ── -->
+                <div class="about-profile">
+
+                    <!-- Portrait -->
+                    <div class="profile-portrait">
+                        <img class="profile-portrait-photo" src="assets/img/portrait.png" alt="Portrait of Dan Peng">
+                    </div>
+
+                    <!-- Info + actions -->
+                    <div class="profile-info">
+                        <div>
+                            <div class="profile-name-block">
+                                <div class="profile-name" id="about-title">Dan Peng</div>
+                                <div class="profile-title">Product Designer</div>
+                            </div>
+
+                            <div class="personal-info-rows">
+                                <div class="personal-info-row">
+                                    <i data-lucide="map-pin" width="16" height="16" stroke-width="1.8"></i>
+                                    <span><strong>Work Locations:</strong> Hangzhou, Chengdu</span>
+                                </div>
+                                <div class="personal-info-row">
+                                    <i data-lucide="smartphone" width="16" height="16" stroke-width="1.8"></i>
+                                    <span><strong>Phone:</strong> 134-0829-8130</span>
+                                </div>
+                                <div class="personal-info-row">
+                                    <i data-lucide="mail" width="16" height="16" stroke-width="1.8"></i>
+                                    <span><strong>Email:</strong> panda_0102@qq.com</span>
+                                </div>
+                                <div class="personal-info-row">
+                                    <i data-lucide="contact" width="16" height="16" stroke-width="1.8"></i>
+                                    <a href="https://www.linkedin.com/in/dan-peng" target="_blank" rel="noopener">Linkedin</a>
+                                </div>
+                                <div class="personal-info-row">
+                                    <i data-lucide="astroid" width="16" height="16" stroke-width="1.8"></i>
+                                    <a href="https://www.behance.net/danpeng2" target="_blank" rel="noopener">Behance</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="about-actions">
+                            <button type="button" class="btn btn-outline" id="resume-preview-btn" aria-haspopup="dialog" aria-controls="resume-lightbox">
+                                <i data-lucide="eye" width="16" height="16" stroke-width="2"></i>
+                                Preview Resume
+                            </button>
+                            <a href="assets/doc/dan-peng_product-designer_4yoe_research-saas.pdf" download class="btn btn-primary">
+                                <i data-lucide="download" width="16" height="16" stroke-width="2"></i>
+                                Download Resume
+                            </a>
+                        </div> -->
+                    </div>
+
+                </div><!-- /.about-profile -->
+
+                <!-- ── Accordion sections ── -->
+                <div class="about-sections">
+
+                    <!-- 01 Highlights -->
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="true" aria-controls="panel-highlights">
+                            <span class="section-trigger-left">
+                                <span class="section-num">01</span>
+                                <h3 class="section-trigger-title">My highlights</h3>
+                            </span>
+                            <i class="accordion-icon" data-lucide="chevron-right" width="24" height="24" stroke-width="2"></i>
+                        </button>
+                        <div class="accordion-panel" id="panel-highlights" role="region" aria-labelledby="trigger-highlights">
+                            <ul class="bullet-list">
+                                <li>Have <strong>4 years of experience</strong> working in an all-in-one Research Community Platform, leading the design of multiple AI-powered data analytics features.</li>
+                                <li>Expert in <strong>simplifying complex workflows</strong>, with a deep understanding of quantitative and qualitative data analytics design.</li>
+                                <li>Effective Agile collaborator with <strong>English communication skills</strong> and experience across cross-functional teams.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 02 Expertise -->
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="false" aria-controls="panel-expertise">
+                            <span class="section-trigger-left">
+                                <span class="section-num">02</span>
+                                <h3 class="section-trigger-title">Expertise</h3>
+                            </span>
+                            <i class="accordion-icon" data-lucide="chevron-right" width="24" height="24" stroke-width="2"></i>
+                        </button>
+                        <div class="accordion-panel" id="panel-expertise" role="region" aria-labelledby="trigger-expertise" hidden>
+                            <div class="expertise-grid">
+                                <div class="expertise-card">
+                                    <h3>UI/UX Design</h3>
+                                    <ul class="bullet-list">
+                                        <li>Design for complex B2B/Enterprise systems</li>
+                                        <li>Prototype with Figma or AI tools (e.g., Cursor)</li>
+                                        <li>Maintain design system standards</li>
+                                    </ul>
+                                </div>
+                                <div class="expertise-card">
+                                    <h3>Data-informed Design</h3>
+                                    <ul class="bullet-list">
+                                        <li>Conduct surveys & interviews</li>
+                                        <li>Competitive analysis</li>
+                                        <li>Usability testing</li>
+                                        <li>Collect usage data via Pendo</li>
+                                    </ul>
+                                </div>
+                                <div class="expertise-card">
+                                    <h3>Front-end</h3>
+                                    <ul class="bullet-list">
+                                        <li>HTML5 & CSS3</li>
+                                        <li>Proficiency in Google Material UI Library</li>
+                                    </ul>
+                                </div>
+                                <div class="expertise-card">
+                                    <h3>Graphic Design</h3>
+                                    <ul class="bullet-list">
+                                        <li>Adobe Illustrator</li>
+                                        <li>Adobe Photoshop</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 03 Work -->
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="false" aria-controls="panel-work">
+                            <span class="section-trigger-left">
+                                <span class="section-num">03</span>
+                                <h3 class="section-trigger-title">Work experience</h3>
+                            </span>
+                            <i class="accordion-icon" data-lucide="chevron-right" width="24" height="24" stroke-width="2"></i>
+                        </button>
+                        <div class="accordion-panel" id="panel-work" role="region" aria-labelledby="trigger-work" hidden>
+                            <div class="work-timeline">
+                                <div class="work-entry">
+                                    <div class="work-years">2022.05 - 2026.07</div>
+                                    <div class="work-details">
+                                        <div class="work-role">Product Designer (Intern to Full-time) · <a href="https://www.alida.com/" target="_blank" rel="noopener">Alida Inc.</a></div>
+                                        <span class="work-location">Vancouver, Canada</span>
+                                        <p>Alida is a B2B SaaS platform helping enterprise brands (e.g., LinkedIn, Warner Bros. Discovery, Red Bull) <strong>build research communities</strong> and manage surveys, interviews, and insights.</p>
+                                        <p>Served as the <strong style="color: var(--gold-700)">sole designer</strong> for the <strong style="color: var(--gold-700)">insights and reporting side</strong>, owning the end-to-end redesign of the survey reporting system and dashboard product to streamline data analysis for researchers.</p>
+                                        <ul class="bullet-list">
+                                            <li><strong>Reporting System Migration:</strong> Led the full migration beyond feature parity, achieving 30% customer adoption within 2 months and 60% within 24 months.</li>
+                                            <li><strong>User Engagement:</strong> Increased average session time from 20 minutes on the legacy system to 45 minutes, reflecting significantly deeper user engagement.</li>
+                                            <li><strong>AI-powered Analytics:</strong> Within 3 months of launch, AI Summary (35% adoption), AI Assistant (25%), Sentiment Analysis & Smart Grouping (10% each).</li>
+                                            <li><strong>Complex Analytics:</strong> Mastered and simplified complex statistical methods (Crosstabs, Conjoint, MaxDiff, TURF), converting professional logic into intuitive workflows.</li>
+                                            <li><strong>UX Research Tools:</strong> Built the platform's first dedicated UXR analysis reporting for prototype testing, card sorting, and tree testing, alongside a multi-layered video analysis system.</li>
+                                            <li><strong>Data Quality:</strong> Designed a new data cleaning system with manual tagging and AI-assisted flagging to ensure high-quality response data.</li>
+                                            <li><strong>Dashboard Revamp:</strong> Redesigned the dashboard architecture to support multiple data sources, streamlining how to build and share findings with stakeholders.</li>
+                                        </ul>
+                                        <div class="tag-list">
+                                            <span class="tag">Enterprise Product Design</span>
+                                            <span class="tag">Data Analytics</span>
+                                            <span class="tag">Data Visualization</span>
+                                            <span class="tag">Design System Maintenance</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="work-entry">
+                                    <div class="work-years">2020.01 - 2022.04</div>
+                                    <div class="work-details">
+                                        <div class="work-role">Web Designer (Intern to Part-time) · <a href="https://www.sfu.ca/coop.html" target="_blank" rel="noopener">SFU Co-op Department</a></div>
+                                        <span class="work-location">Vancouver, Canada</span>
+                                        <p>This department is responsible for promoting the school's paid internship program externally to employers, establishing and strengthening relationships with them; meanwhile, promoting it internally to increase student participation.</p>
+                                        <ul class="bullet-list">
+                                            <li><strong>Redesigned and migrated 3 websites</strong> to the new web content management system, matching with the new branding</li>
+                                            <li><strong>Reorganized 40+ webpages</strong> and simplified the information architecture of the website, making it more understandable</li>
+                                            <li><strong>Timely launch of 3 priority websites,</strong> followed by regular maintenance and updates</li>
+                                            <li><strong>Designed the marketing promo materials,</strong> like gift tag, PowerPoint slides, roll-up banners</li>
+                                        </ul>
+                                        <div class="tag-list">
+                                            <span class="tag">Web Content Management (WCM)</span>
+                                            <span class="tag">Adobe Illustrator & Photoshop</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="work-entry">
+                                    <div class="work-years">2021.05 - 2021.08</div>
+                                    <div class="work-details">
+                                        <div class="work-role">Graphic Design Intern · <a href="https://www.laien.org/" target="_blank" rel="noopener">Laien</a></div>
+                                        <span class="work-location">Chengdu, China</span>
+                                        <ul class="bullet-list">
+                                            <li>Designed 2 App logos based on the research of similar applications in the Apple's App Store and the preferences of target users</li>
+                                            <li>Created corresponding Apple's App Store screenshots according to the different size requirements of iPhone and iPad</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 04 Education -->
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="false" aria-controls="panel-education">
+                            <span class="section-trigger-left">
+                                <span class="section-num">04</span>
+                                <h3 class="section-trigger-title">Education</h3>
+                            </span>
+                            <i class="accordion-icon" data-lucide="chevron-right" width="24" height="24" stroke-width="2"></i>
+                        </button>
+                        <div class="accordion-panel" id="panel-education" role="region" aria-labelledby="trigger-education" hidden>
+                            <div class="work-timeline">
+                                <div class="work-entry">
+                                    <div class="work-years">2018.09 - 2022.12</div>
+                                    <div class="work-details">
+                                        <div class="work-role">Interactive Arts & Technology (Bachelor of Science) · <a href="https://www.sfu.ca/siat.html" target="_blank" rel="noopener">Simon Fraser University</a></div>
+                                        <span class="work-location">Vancouver, Canada</span>
+                                        <ul class="bullet-list">
+                                            <li><strong>Major Courses:</strong> UI/UX Design, User Research, App/Web Design, Front-end Development, Information Visualization, HCI, etc.</li>
+                                            <li><strong>Academic Performance:</strong> Was awarded the Dean's Honour Roll for consecutive semesters and finally graduated with Distinction.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div><!-- /.about-sections -->
+
+            </div><!-- /.about-page -->
+        </section>
     </main>
 
+    <!-- ── Resume preview overlay ── -->
+    <div class="resume-lightbox" id="resume-lightbox" role="dialog" aria-modal="true" aria-label="Resume preview" hidden>
+        <div class="resume-lightbox-toolbar">
+            <a href="assets/doc/dan-peng_product-designer_4yoe_research-saas.pdf" download class="btn btn-primary resume-lightbox-download">
+                <i data-lucide="download" width="16" height="16" stroke-width="2"></i>
+                Download Resume
+            </a>
+            <button type="button" class="resume-lightbox-close" aria-label="Close preview">
+                <i data-lucide="x" width="20" height="20" stroke-width="2"></i>
+            </button>
+        </div>
+        <div class="resume-lightbox-frame-wrap">
+            <iframe class="resume-lightbox-frame" title="Resume preview" src="about:blank"></iframe>
+        </div>
+    </div>
+
     <div data-include="partials/footer.html"></div>
+
     <script>
     (function () {
         const canvas = document.querySelector('.hero-texture');
@@ -220,6 +467,49 @@ hero.addEventListener('pointermove', (e) => {
         });
         hero.addEventListener('pointerleave', () => { current = null; kick(); });
     })();
+    </script>
+
+    <script>
+        document.querySelectorAll('.accordion-trigger').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const panel = document.getElementById(btn.getAttribute('aria-controls'));
+                const isOpen = btn.getAttribute('aria-expanded') === 'true';
+                btn.setAttribute('aria-expanded', String(!isOpen));
+                panel.hidden = isOpen;
+            });
+        });
+
+        // ── Resume preview overlay ──
+        (function () {
+            const RESUME_SRC = 'assets/doc/dan-peng_product-designer_4yoe_research-saas.pdf';
+            const openBtn  = document.getElementById('resume-preview-btn');
+            const overlay  = document.getElementById('resume-lightbox');
+            if (!openBtn || !overlay) return;
+            const frame    = overlay.querySelector('.resume-lightbox-frame');
+            const closeBtn = overlay.querySelector('.resume-lightbox-close');
+
+            function open() {
+                // Load the PDF only when first opened (hide the browser's PDF toolbar chrome).
+                frame.src = RESUME_SRC + '#toolbar=0&navpanes=0';
+                overlay.hidden = false;
+                document.body.style.overflow = 'hidden';
+                closeBtn.focus();
+            }
+
+            function close() {
+                overlay.hidden = true;
+                frame.src = 'about:blank';   // stop rendering / free memory
+                document.body.style.overflow = '';
+                openBtn.focus();
+            }
+
+            openBtn.addEventListener('click', open);
+            closeBtn.addEventListener('click', close);
+            overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !overlay.hidden) { e.preventDefault(); close(); }
+            });
+        })();
     </script>
 </body>
 </html>

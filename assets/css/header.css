@@ -14,23 +14,6 @@
 }
 
 .site-logo {
-    display: flex;
-    align-items: center;
-    transition: transform 0.1s ease;
-}
-
-.site-logo:active {
-    transform: scale(0.96);
-}
-
-.site-logo-full,
-.site-logo-compact {
-    display: block;
-    height: 32px;
-    width: auto;
-}
-
-.site-logo-compact {
     display: none;
 }
 
@@ -118,9 +101,20 @@ html[data-theme="dark"] .theme-toggle-icon--to-light {
     display: inline-flex;
 }
 
-/* --- Header Initials / Name (hidden in favor of .site-logo) --- */
+/* --- Header Initials / Name --- */
 .site-header-initials {
-    display: none;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: var(--spacing-sm) 0;
+    letter-spacing: 0.12em;
+    transition: color 0.2s ease;
+}
+
+.site-header-initials:hover {
+    color: var(--action-sage);
 }
 
 /* --- Mobile Nav Toggle --- */
@@ -143,24 +137,19 @@ html[data-theme="dark"] .theme-toggle-icon--to-light {
         padding: 0 var(--spacing-md);
     }
 
-    .site-logo {
+    .site-header-initials {
+        font-size: 0;
+        letter-spacing: 0;
         position: absolute;
         left: var(--spacing-md);
         top: 50%;
         transform: translateY(-50%);
     }
 
-    .site-logo:active {
-        transform: translateY(-50%) scale(0.96);
-    }
-
-    .site-logo-full {
-        display: none;
-    }
-
-    .site-logo-compact {
-        display: block;
-        height: 24px;
+    .site-header-initials::before {
+        content: "DP";
+        font-size: 1rem;
+        letter-spacing: 0.05em;
     }
 
     .site-nav-toggle {

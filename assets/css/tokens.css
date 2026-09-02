@@ -79,6 +79,62 @@
 
     /* Global Header Height (used to offset sticky sub-navs) */
     --header-height: 64px;
+
+    /* =====================================================================
+       Dark-Mode Palette (Style Guide preview only)
+       -------------------------------------------------------------------
+       Parallel token set mirroring the light-mode colors above, one-to-one.
+       These are documentation-only: nothing in the site references them,
+       so they have zero effect on production pages. They exist so the
+       Style Guide's Color Palette section can render a dark-mode preview
+       via a local toggle. Do not consume these outside style-guide.html
+       without a deliberate, separately-scoped dark-mode rollout.
+       ===================================================================== */
+    --dark-bg-porcelain: #0D1614;
+    --dark-bg-card: #16211E;
+    --dark-primary-mint: #7FC9C2;
+    --dark-primary-mint-light: #1E3733;
+    --dark-action-sage: #5FBBAF;
+    --dark-action-sage-hover: #7ECFC3;
+    --dark-text-primary: #F2F8F6;
+    --dark-text-secondary: #A9C4BF;
+
+    /* Dark Mint Scale */
+    --dark-mint-50: #16211E;
+    --dark-mint-100: #1D2E2A;
+    --dark-mint-200: #28433D;
+    --dark-mint-300: #3C6059;
+    --dark-mint-400: #56847B;
+
+    /* Dark Sage Scale */
+    --dark-sage-100: #1B2D29;
+    --dark-sage-300: #2F5850;
+    --dark-sage-500: #5FBBAF;
+    --dark-sage-700: #94D6CB;
+    --dark-sage-900: #D6F0EA;
+
+    /* Dark Gold / Accent */
+    --dark-gold-100: #3D3218;
+    --dark-gold-300: #7A5E1E;
+    --dark-gold-500: #FFD54F;
+    --dark-gold-700: #FFDD73;
+    --dark-gold-900: #FFE9A3;
+
+    /* Dark Semantic Colors */
+    --dark-semantic-success: #6FBE95;
+    --dark-semantic-warning: #F0B15E;
+    --dark-semantic-error: #E68383;
+    --dark-semantic-info: #7CADD6;
+
+    /* Dark Neutral Greys (Cool Undertones) */
+    --dark-grey-100: #1A2523;
+    --dark-grey-300: #2C3B38;
+    --dark-grey-500: #5A726D;
+    --dark-grey-700: #8AA39D;
+    --dark-grey-900: #D6E3E0;
+
+    /* Dark Border */
+    --dark-border-clean: 1px solid var(--dark-action-sage);
 }
 
 ::selection {

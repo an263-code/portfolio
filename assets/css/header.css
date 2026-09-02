@@ -20,7 +20,6 @@
     color: var(--text-primary);
     text-decoration: none;
     letter-spacing: -0.01em;
-    text-transform: uppercase;
     transition: color 0.15s ease, transform 0.1s ease;
 }
 
@@ -88,19 +87,14 @@
     .site-nav-link.active::after { animation: none; }
 }
 
-/* --- Header Initials (mobile only) --- */
+/* --- Header Initials / Name --- */
 .site-header-initials {
-    display: none;
     font-family: var(--font-heading);
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 1.125rem;
     color: var(--text-primary);
     text-decoration: none;
-    letter-spacing: 0.05em;
-    position: absolute;
-    left: var(--spacing-md);
-    top: 50%;
-    transform: translateY(-50%);
+    letter-spacing: -0.01em;
     transition: color 0.15s ease;
 }
 
@@ -128,12 +122,19 @@
         padding: 0 var(--spacing-md);
     }
 
-    .site-logo {
-        display: none;
+    .site-header-initials {
+        font-size: 0;
+        letter-spacing: 0;
+        position: absolute;
+        left: var(--spacing-md);
+        top: 50%;
+        transform: translateY(-50%);
     }
 
-    .site-header-initials {
-        display: block;
+    .site-header-initials::before {
+        content: "DP";
+        font-size: 1rem;
+        letter-spacing: 0.05em;
     }
 
     .site-nav-toggle {

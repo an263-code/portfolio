@@ -9,7 +9,7 @@
     border-bottom: 1px solid var(--grey-300);
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     padding: 0 var(--spacing-xl);
 }
 
@@ -20,6 +20,7 @@
     color: var(--text-primary);
     text-decoration: none;
     letter-spacing: -0.01em;
+    text-transform: uppercase;
     transition: color 0.15s ease, transform 0.1s ease;
 }
 
@@ -125,6 +126,10 @@
 @media (max-width: 720px) {
     .site-header {
         padding: 0 var(--spacing-md);
+    }
+
+    .site-logo {
+        display: none;
     }
 
     .site-header-initials {

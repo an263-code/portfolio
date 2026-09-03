@@ -368,13 +368,19 @@
 
         const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-        // Brand palettes read from the design tokens in tokens.css, brightest last.
-        const rootStyle = getComputedStyle(document.documentElement);
-        const cssVar = (name) => rootStyle.getPropertyValue(name).trim();
+        // Brand palettes read from the design tokens in tokens.css, brightest
+        // last. Re-read on every call since a canvas bitmap doesn't update
+        // itself when the CSS variables change (e.g. on a theme toggle).
+        let MINT, SAGE, GOLD;
+        function readPalette() {
+            const rootStyle = getComputedStyle(document.documentElement);
+            const cssVar = (name) => rootStyle.getPropertyValue(name).trim();
 
-        const MINT = ['--mint-50', '--mint-100', '--mint-200', '--mint-300', '--mint-400'].map(cssVar);
-        const SAGE = ['--sage-100', '--sage-300', '--sage-500'].map(cssVar);
-        const GOLD = ['--gold-300', '--gold-500'].map(cssVar);
+            MINT = ['--mint-50', '--mint-100', '--mint-200', '--mint-300', '--mint-400'].map(cssVar);
+            SAGE = ['--sage-100', '--sage-300', '--sage-500'].map(cssVar);
+            GOLD = ['--gold-300', '--gold-500'].map(cssVar);
+        }
+        readPalette();
 
         const RADIUS      = 4;
         const SPACING     = 14;
@@ -443,6 +449,12 @@
 
         const ro = new ResizeObserver(() => { build(); paint(reduceMotion ? null : current); });
         ro.observe(canvas.parentElement);
+
+        document.addEventListener('themechange', () => {
+            readPalette();
+            build();
+            paint(reduceMotion ? null : current);
+        });
 
         if (reduceMotion) return;   // static field only
 

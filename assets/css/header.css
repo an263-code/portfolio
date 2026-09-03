@@ -13,6 +13,7 @@
     padding: 0 var(--spacing-xl);
 }
 
+/* Image-based logo, currently disabled in favor of .site-header-initials */
 .site-logo {
     display: none;
 }

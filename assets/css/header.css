@@ -110,7 +110,7 @@ html[data-theme="dark"] .theme-toggle-icon--to-light {
     text-decoration: none;
     padding: var(--spacing-sm) 0;
     letter-spacing: 0.12em;
-    text-transform: uppercase;
+    text-transform: capitalize;
     transition: color 0.2s ease;
 }
 

@@ -13,6 +13,7 @@
     padding: 0 var(--spacing-xl);
 }
 
+/* Image-based logo, currently disabled in favor of .site-header-initials */
 .site-logo {
     display: none;
 }
@@ -109,7 +110,7 @@ html[data-theme="dark"] .theme-toggle-icon--to-light {
     color: var(--text-secondary);
     text-decoration: none;
     padding: var(--spacing-sm) 0;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.05em;
     text-transform: capitalize;
     transition: color 0.2s ease;
 }
@@ -140,7 +141,6 @@ html[data-theme="dark"] .theme-toggle-icon--to-light {
 
     .site-header-initials {
         font-size: 0;
-        letter-spacing: 0;
         position: absolute;
         left: var(--spacing-md);
         top: 50%;

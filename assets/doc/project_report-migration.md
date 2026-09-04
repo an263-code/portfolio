@@ -72,4 +72,4 @@ SIDEBAR NAVIGATION
 PREV / NEXT
 
 - Previous: Multi-Video Insights (project_video-insights.html)
-- Next: Dashboard Revamp (project_dashboard-revamp.html)
+- Next: Data Mapping (project_data-mapping.html)

@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Data Mapping — six working prototypes in a week, a usability test run on our own platform, and an interaction model engineering could click through.">
+    <title>Data Mapping · Dan Peng</title>
+    <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/tokens.css">
+    <link rel="stylesheet" href="assets/css/header.css">
+    <link rel="stylesheet" href="assets/css/sidebar.css">
+    <link rel="stylesheet" href="assets/css/footer.css">
+    <link rel="stylesheet" href="assets/css/carousel.css">
+    <link rel="stylesheet" href="assets/css/dot-nav.css">
+    <link rel="stylesheet" href="assets/css/scroll-top.css">
+    <link rel="stylesheet" href="assets/css/passcode.css">
+    <link rel="stylesheet" href="assets/css/image-card.css">
+    <link rel="stylesheet" href="assets/css/section-pull.css">
+    <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script defer src="assets/js/include.js"></script>
+    <script defer src="assets/js/scroll-spy.js"></script>
+    <script defer src="assets/js/dot-nav.js"></script>
+    <script defer src="assets/js/scroll-top.js"></script>
+    <script defer src="assets/js/footer-email.js"></script>
+    <script defer src="assets/js/passcode.js"></script>
+    <script defer src="assets/js/carousel.js"></script>
+    <style>
+        /* --- Layout --- */
+        .main-content {
+            flex: 1;
+            min-width: 0;
+            padding: var(--spacing-2xl) var(--layout-gutter);
+            transition: padding 0.3s ease;
+        }
+
+        @media (max-width: 720px) {
+            .main-content { padding: var(--spacing-xl) var(--layout-gutter-mobile); }
+        }
+
+        /* --- Breadcrumbs --- */
+        .breadcrumbs {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .breadcrumbs a { color: var(--text-secondary); text-decoration: none; }
+        .breadcrumbs a:hover { color: var(--action-sage); }
+        .breadcrumbs span.current { color: var(--text-primary); font-weight: 600; }
+
+        /* --- Hero --- */
+        .case-hero { margin-bottom: var(--spacing-xl); }
+
+        .case-hero-eyebrow {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--action-sage);
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .case-hero h1 {
+            margin: 0 0 var(--spacing-md) 0;
+        }
+
+/* --- Metadata strip --- */
+        .metadata-strip {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-lg);
+            padding: var(--spacing-lg);
+            background-color: var(--bg-porcelain);
+            border: var(--border-clean);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .metadata-row { display: grid; gap: var(--spacing-lg); }
+
+        .metadata-row--identity,
+        .metadata-row--engagement { grid-template-columns: repeat(3, 1fr); }
+
+        @media (max-width: 720px) {
+            .metadata-row--identity,
+            .metadata-row--engagement { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .metadata-cell .metadata-label {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-secondary);
+            margin-bottom: 0.35rem;
+        }
+
+        .metadata-cell .metadata-value {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        /* --- Hero media --- */
+        .hero-media {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-height: 480px;
+            background-color: var(--primary-mint-light);
+            border-radius: var(--radius-lg);
+            color: var(--action-sage);
+            margin-bottom: var(--spacing-xl);
+            padding: 24px;
+            gap: 12px;
+        }
+
+        .hero-media__scroll {
+            flex: 1 1 auto;
+            min-height: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .hero-media .hero-placeholder {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background-color: var(--grey-100);
+            border: 1px dashed var(--action-sage);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--action-sage);
+            font-size: 0.85rem;
+            text-align: center;
+            padding: var(--spacing-md);
+        }
+
+        .hero-media img,
+        .hero-media video { width: 100%; height: auto; display: block; }
+
+        .hero-media .caption { flex-shrink: 0; margin: 0; }
+
+        /* --- TL;DR card --- */
+        .tldr-card {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-xl);
+            padding: var(--spacing-xl);
+            background-color: var(--bg-card);
+            border: var(--border-clean);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .tldr-col .tldr-label {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--action-sage);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .tldr-col p { font-size: 0.95rem; line-height: 1.55; margin: 0; }
+
+        @media (max-width: 720px) {
+            .tldr-card { grid-template-columns: 1fr; gap: var(--spacing-lg); }
+        }
+
+        /* --- Sections --- */
+        .case-section {
+            margin-bottom: var(--spacing-2xl);
+            scroll-margin-top: calc(var(--header-height) + var(--spacing-md));
+        }
+
+        .case-section h2 { margin: 0 0 var(--spacing-md) 0; }
+        .case-section h3 { margin: var(--spacing-lg) 0 var(--spacing-sm) 0; }
+
+        .case-section p {
+            font-size: 1rem;
+            line-height: 1.65;
+            color: var(--text-primary);
+            margin: 0 0 var(--spacing-md) 0;
+        }
+
+        .case-section ol,
+        .case-section ul {
+            margin: 0 0 var(--spacing-md) 1.25rem;
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .case-section li { margin-bottom: 0.3rem; }
+
+        /* --- Section eyebrow (used for "Turning Point") --- */
+        .section-eyebrow {
+            display: inline-block;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--action-sage);
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+        }
+
+        /* --- Cinematic scene-opener (Context) --- */
+        .scene-opener {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            line-height: 1.45;
+            color: var(--text-primary);
+            margin: 0 0 var(--spacing-md) 0;
+        }
+        .scene-opener .scene-punch {
+            display: block;
+            margin-top: 0.4rem;
+            color: var(--gold-700);
+        }
+
+
+        /* --- Split layout: text left, media right --- */
+        .split {
+            display: grid;
+            grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+            gap: var(--spacing-2xl);
+            align-items: start;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .split:last-child { margin-bottom: 0; }
+
+        .split-text > *:last-child { margin-bottom: 0; }
+        .split-text > h3:first-child { margin-top: 0; }
+        .split-media > .carousel { margin-top: 0; }
+
+        .split-media { position: sticky; top: calc(var(--header-height) + var(--spacing-md)); }
+
+        @media (max-width: 900px) {
+            .split { grid-template-columns: 1fr; gap: var(--spacing-lg); }
+            .split-media { position: static; }
+        }
+
+        /* --- Decision sub-blocks --- */
+        .decision-block {
+            margin-top: var(--spacing-xl);
+            padding-top: var(--spacing-xl);
+            border-top: 1px dashed var(--grey-300);
+        }
+
+        .decision-block:first-of-type {
+            border-top: none;
+            padding-top: var(--spacing-md);
+        }
+
+        .decision-eyebrow {
+            display: inline-block;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--action-sage);
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+        }
+
+        .decision-title {
+            font-weight: 700;
+            margin: 0 0 var(--spacing-sm) 0;
+        }
+
+        /* --- Media placeholder --- */
+        .media-placeholder {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            background-color: var(--grey-100);
+            border: 1px dashed var(--grey-300);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--grey-500);
+            font-size: 0.8rem;
+            text-align: center;
+            padding: var(--spacing-md);
+        }
+
+        .media-placeholder + .caption { margin-top: 0.5rem; }
+        .media-stack > * + * { margin-top: var(--spacing-md); }
+
+        .caption {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-align: center;
+            margin: 0;
+        }
+
+        /* --- Why-toggle trigger --- */
+        .why-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3em;
+            margin: var(--spacing-sm) 0 0 0;
+            padding: 0;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--action-sage);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .why-toggle:hover {
+            color: var(--action-sage-hover);
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+
+        /* --- Collapsible callout wrapper --- */
+        .why-callout {
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.35s ease, margin-top 0.35s ease;
+            margin-top: 0;
+        }
+
+        .why-callout.is-open {
+            max-height: 400px;
+            margin-top: var(--spacing-md);
+        }
+
+        /* --- Carousel media height cap --- */
+        .carousel-media { max-height: 400px; }
+
+        /* --- Carousel placeholder slide (for swap-in later) --- */
+        .carousel-media.is-placeholder {
+            aspect-ratio: 4 / 3;
+            background-color: var(--grey-100);
+            border: 1px dashed var(--grey-300);
+            color: var(--grey-500);
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: var(--spacing-md);
+        }
+
+        /* --- Quote callout --- */
+        .quote-callout {
+            padding: var(--spacing-xl);
+            background-color: var(--primary-mint-light);
+            border-radius: var(--radius-lg);
+            border: var(--border-clean);
+        }
+
+        #context .quote-callout { margin-bottom: var(--spacing-xl); }
+
+        .quote-callout svg { margin-bottom: 1rem; }
+
+        .quote-callout blockquote {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            line-height: 1.4;
+            color: var(--text-primary);
+            margin: 0 0 0.5rem 0;
+        }
+
+        .quote-callout cite {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        .quote-callout .quote-explanation {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin: 0.5rem 0 0.75rem;
+            font-style: italic;
+        }
+
+        /* --- Metrics row --- */
+        .metrics-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: var(--spacing-lg);
+            margin: var(--spacing-md) 0 var(--spacing-lg) 0;
+        }
+
+        .metric-tile {
+            padding: var(--spacing-lg);
+            background-color: var(--bg-porcelain);
+            border: var(--border-clean);
+            border-radius: var(--radius-md);
+        }
+
+        .metric-value {
+            display: block;
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--action-sage);
+            line-height: 1.15;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label { font-size: 0.875rem; color: var(--text-secondary); }
+
+        /* --- Forward-looking note --- */
+        .forward-note {
+            padding: var(--spacing-xl);
+            background-color: var(--bg-card);
+            border: 1px solid var(--grey-300);
+            border-left: 4px solid var(--gold-500);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .forward-note .forward-eyebrow {
+            display: inline-block;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-secondary);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .forward-note h2 { margin-bottom: var(--spacing-md); }
+        .forward-note p { font-size: 0.95rem; line-height: 1.6; }
+
+        /* --- Prev / Next nav --- */
+        .case-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            gap: var(--spacing-lg);
+            padding-top: var(--spacing-xl);
+            border-top: 1px solid var(--grey-300);
+            margin-top: var(--spacing-2xl);
+        }
+
+        .case-nav a {
+            text-decoration: none;
+            color: var(--text-primary);
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            transition: color 0.2s ease;
+        }
+
+        .case-nav a:hover { color: var(--action-sage); }
+
+        .case-nav-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35em;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-secondary);
+        }
+
+        .case-nav-title {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .case-nav .next { text-align: right; }
+        .case-nav .next .case-nav-label { justify-content: flex-end; }
+
+        @media (max-width: 720px) {
+            .case-nav { gap: 1rem; }
+            .case-nav a { flex: 1; min-width: 0; }
+            .case-nav-title { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body data-page="projects">
+    <div data-include="partials/header.html"></div>
+
+    <div class="page-body">
+
+        <aside class="sidebar" id="sidebar">
+            <button class="sidebar-mobile-toggle" type="button" aria-expanded="false" aria-controls="sidebar">
+                <i data-lucide="chevron-down" class="sidebar-mobile-chevron" width="18" height="18" stroke-width="2"></i>
+                <span class="sidebar-mobile-label">
+                    <span class="sidebar-mobile-eyebrow">On this page</span>
+                    <span class="sidebar-active-label">Intro</span>
+                </span>
+            </button>
+            <div class="sidebar-header">
+                <h2 class="sidebar-title hide-on-collapse">On This Page</h2>
+                <button class="sidebar-toggle" aria-label="Collapse sidebar" onclick="toggleSidebar()">
+                    <i data-lucide="menu" width="18" height="18" stroke-width="2"></i>
+                </button>
+            </div>
+
+            <nav class="nested-nav hide-on-collapse" aria-label="Case study sections">
+                <a href="#intro" class="nested-link active">Intro</a>
+                <a href="#context" class="nested-link">Why It Matters</a>
+                <a href="#exploration" class="nested-link">Six Prototypes in a Week</a>
+                <a href="#build" class="nested-link">The Tested Build</a>
+                <a href="#validation" class="nested-link">Validating on Our Own Platform</a>
+                <a href="#results" class="nested-link">Results</a>
+                <a href="#handoff" class="nested-link">Handoff</a>
+                <a href="#reflection" class="nested-link">Reflection</a>
+            </nav>
+        </aside>
+
+        <main class="main-content" id="main">
+            <section class="snap-intro" id="intro">
+                <div class="breadcrumbs">
+                    <a href="index.html#projects">Projects</a>
+                    <span>/</span>
+                    <span class="current">Data Mapping</span>
+                </div>
+
+                <header class="case-hero">
+                    <p class="case-hero-eyebrow">Alida · Modern Dashboards</p>
+                    <h1>Data Mapping</h1>
+                    <p class="case-hero-tagline">Six working prototypes in a week, one usability test, and an interaction model engineering could click through.</p>
+                </header>
+
+                <div class="hero-media">
+                    <div class="hero-media__scroll">
+                        <img src="assets/img/data-mapping/thumbnail-data-mapping.jpg" alt="Data Mapping — the v5.2 grid with mapped fields as rows and data sources as columns.">
+                    </div>
+                    <p class="caption">The tested build: rows are mapped fields, columns are data sources.</p>
+                </div>
+
+                <section class="metadata-strip" aria-label="Project metadata">
+                    <div class="metadata-row metadata-row--identity">
+                        <div class="metadata-cell"><span class="metadata-label">Product</span><p class="metadata-value">Alida Analytics</p></div>
+                        <div class="metadata-cell"><span class="metadata-label">Area</span><p class="metadata-value">Modern Dashboards · Data Mapping</p></div>
+                        <div class="metadata-cell"><span class="metadata-label">Timeline</span><p class="metadata-value">July – August 2026</p></div>
+                    </div>
+                    <div class="metadata-row metadata-row--engagement">
+                        <div class="metadata-cell"><span class="metadata-label">Role</span><p class="metadata-value">Product Designer</p></div>
+                        <div class="metadata-cell"><span class="metadata-label">Team</span><p class="metadata-value">1 Designer · 1 PM · Engineering</p></div>
+                        <div class="metadata-cell"><span class="metadata-label">Tools</span><p class="metadata-value">Claude Code, Figma, Figma Make, Alida</p></div>
+                    </div>
+                </section>
+
+                <section class="tldr-card" aria-label="TL;DR summary">
+                    <div class="tldr-col">
+                        <span class="tldr-label">Problem</span>
+                        <p>Every tracker wave is a separate survey, so question names and scales drift between waves. Dashboards had no way to chart one metric across them, and customers stitched trends together in spreadsheets — outside the product.</p>
+                    </div>
+                    <div class="tldr-col">
+                        <span class="tldr-label">Approach</span>
+                        <p>Built six clickable prototypes in a week with Claude Code instead of static mocks, then ran an unmoderated usability test on our own platform against decision rules committed before fielding.</p>
+                    </div>
+                    <div class="tldr-col">
+                        <span class="tldr-label">Result</span>
+                        <p>SUS 84 — Grade A — with 5 of 5 completing both tasks. The evidence validated the grid and killed the manual-first premise, putting an AI-assist layer on the roadmap because the data said so.</p>
+                    </div>
+                </section>
+            </section><!-- /#intro -->
+
+            <!-- Why It Matters -->
+            <section class="case-section snap-section" id="context">
+                <h2>Trackers Drift. Dashboards Can't Trend Them.</h2>
+                <p>Researchers run tracker programs as a series of separate surveys — a new one every wave. Between waves, question names and answer scales drift. The same underlying question comes back wearing a different shape, and <strong>Modern Dashboards had no way to chart it as one metric.</strong></p>
+
+                <h3>One question, <span style="color: var(--gold-700)">three shapes</span></h3>
+                <div class="image-card-strip">
+                    <figure class="image-card">
+                        <div class="image-card-media"><img src="assets/img/data-mapping/drift-q1.jpg" alt="Customer Tracker Q1'26 asking &quot;Will you repurchase?&quot; with Yes / No answer options."></div>
+                        <figcaption class="image-card-caption">
+                            <span class="image-card-label">Customer Tracker Q1'26</span>
+                            <p>"Will you repurchase?" — Yes / No</p>
+                        </figcaption>
+                    </figure>
+                    <figure class="image-card">
+                        <div class="image-card-media"><img src="assets/img/data-mapping/drift-q2.jpg" alt="Customer Tracker Q2'26 asking &quot;How likely are you to repurchase?&quot; on a five-point scale."></div>
+                        <figcaption class="image-card-caption">
+                            <span class="image-card-label">Customer Tracker Q2'26</span>
+                            <p>"How likely are you to repurchase?" — 5-point scale</p>
+                        </figcaption>
+                    </figure>
+                    <figure class="image-card">
+                        <div class="image-card-media"><img src="assets/img/data-mapping/drift-q3.jpg" alt="Customer Tracker Q3'26 asking &quot;Do you plan to buy again?&quot; with Yes / Maybe / No answer options."></div>
+                        <figcaption class="image-card-caption">
+                            <span class="image-card-label">Customer Tracker Q3'26</span>
+                            <p>"Do you plan to buy again?" — Yes / Maybe / No</p>
+                        </figcaption>
+                    </figure>
+                </div>
+
+                <p class="scene-opener">
+                    Three waves, three shapes, one underlying question.
+                    <span class="scene-punch">One reportable trend line? Not without a mapping layer.</span>
+                </p>
+                <p>So customers built the trend themselves — exporting each wave and stitching results together in spreadsheets. <strong>The analysis was happening outside the product</strong>, which is the clearest signal a reporting tool can get.</p>
+
+                <p>There was a second, quieter problem — a process one. A cross-source mapping experience is interaction-heavy, and <strong>interaction-heavy is exactly what static Figma mocks are worst at.</strong> Each hi-fi direction costs weeks to build, so most directions never get built, and the ones that do get judged on pictures rather than behavior. That constraint shaped everything I did next.</p>
+
+                <h3>The charter</h3>
+                <ol>
+                    <li><strong>Design the feature</strong> — cross-source field mapping that sits naturally alongside the tools researchers already use: Recodes, Weighting, Banners, Filters.</li>
+                    <li><strong>Validate before build</strong> — evidence from real researchers on a working prototype, not opinions on pictures.</li>
+                    <li><strong>Hand off unambiguously</strong> — a spec engineering can click through, inside the quarter.</li>
+                </ol>
+                <p>None of it was solo work. PM and engineering were in design crits throughout, and every iteration below was reviewed cross-functionally.</p>
+
+                <p class="section-pull">Weeks per direction isn't a schedule problem. It's a design constraint.</p>
+            </section>
+
+            <!-- Six Prototypes in a Week -->
+            <section class="case-section snap-section" id="exploration">
+                <h2>Six Working Prototypes in One Week</h2>
+                <p>I built six prototypes with Claude Code in a week. Every one is real, clickable HTML — not a mock — so <strong>design crits with PM and engineering ran on working software</strong>, and feedback turned around the same day.</p>
+
+                <div class="carousel" data-carousel aria-roledescription="carousel" aria-label="The six prototype directions, v1 through v6">
+                    <div class="carousel-viewport">
+                        <ol class="carousel-track">
+                            <li class="carousel-slide">
+                                <div class="carousel-media">
+                                    <img src="assets/img/data-mapping/v1.jpg" alt="Prototype v1 — a dialog chooser wizard with AI auto-detect, following the Recodes pattern.">
+                                </div>
+                                <div class="carousel-caption">
+                                    <span class="carousel-step">v1 · Dialog chooser — wizard plus AI auto-detect, following the existing Recodes pattern</span>
+                                </div>
+                            </li>
+                            <li class="carousel-slide">
+                                <div class="carousel-media">
+                                    <img src="assets/img/data-mapping/v2.jpg" alt="Prototype v2 — the mapping choice moved inline onto the page, removing a dialog.">
+                                </div>
+                                <div class="carousel-caption">
+                                    <span class="carousel-step">v2 · Inline choice — the choice moves onto the page; one less dialog</span>
+                                </div>
+                            </li>
+                            <li class="carousel-slide">
+                                <div class="carousel-media">
+                                    <img src="assets/img/data-mapping/v3.jpg" alt="Prototype v3 — the pivot to a grid where each row is a mapping rule.">
+                                </div>
+                                <div class="carousel-caption">
+                                    <span class="carousel-step">v3 · Living rules — the pivot: a grid where the rows <em>are</em> the mapping rules</span>
+                                </div>
+                            </li>
+                            <li class="carousel-slide">
+                                <div class="carousel-media">
+                                    <img src="assets/img/data-mapping/v4.jpg" alt="Prototype v4 — one page plus a modal, with column-scoped AI detection and a grid that grows in both directions.">
+                                </div>
+                                <div class="carousel-caption">
+                                    <span class="carousel-step">v4 · One page + modal — column-scoped AI detection; the grid grows both ways</span>
+                                </div>
+                            </li>
+                            <li class="carousel-slide">
+                                <div class="carousel-media">
+                                    <img src="assets/img/data-mapping/v5.jpg" alt="Prototype v5.2 — the manual grid with AI stripped out, the team pick and the tested build.">
+                                </div>
+                                <div class="carousel-caption">
+                                    <span class="carousel-step">v5.2 · Manual grid — AI stripped out to validate the foundation. Team pick, and the tested build</span>
+                                </div>
+                            </li>
+                            <li class="carousel-slide">
+                                <div class="carousel-media">
+                                    <img src="assets/img/data-mapping/v6.jpg" alt="Prototype v6 — a strict one-to-one single-select alternative.">
+                                </div>
+                                <div class="carousel-caption">
+                                    <span class="carousel-step">v6 · Single-select — a strict 1:1 alternative, documented as a trade-off</span>
+                                </div>
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="carousel-controls">
+                        <button class="carousel-btn carousel-prev" aria-label="Previous slide">
+                            <i data-lucide="chevron-left" width="16" height="16" stroke-width="2.25"></i>
+                        </button>
+                        <div class="carousel-meta">
+                            <div class="carousel-dots" role="tablist"></div>
+                            <span class="carousel-counter">1 / 6</span>
+                        </div>
+                        <button class="carousel-btn carousel-next" aria-label="Next slide">
+                            <i data-lucide="chevron-right" width="16" height="16" stroke-width="2.25"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <h3>The reset is the point, not the count</h3>
+                <p>v1 through v4 all led with AI auto-detection. In crit after crit, the same question kept coming back: <strong>would researchers actually trust a mapping the system made for them?</strong> Nobody could answer it, because nothing we had put in front of anyone separated the two questions — does the interaction model work, and does the AI earn its place.</p>
+                <p>In the old workflow, that feedback goes into a backlog and dies there, because starting over costs weeks. Here each direction cost about a day. So <strong>v5 could be a full reset rather than a patch</strong>: strip every AI suggestion out, and validate the manual foundation on its own first. v5.2 became the team pick and the build we tested. v6 documented the strict single-select alternative so the trade-off was written down, not just argued.</p>
+
+                <p class="section-pull">AI made being wrong cheap — which is what made the reset affordable.</p>
+            </section>
+
+            <!-- The Tested Build -->
+            <section class="case-section snap-section" id="build">
+                <h2>v5.2 — A Grid That Teaches Its Own Structure</h2>
+                <figure class="image-card">
+                    <div class="image-card-media"><img src="assets/img/data-mapping/v5-2-grid.jpg" alt="The v5.2 Data Mapping grid — rows are mapping rules, columns are data sources, with add-field at the bottom edge and add-source at the right edge."></div>
+                    <figcaption class="image-card-caption">
+                        <span class="image-card-label">v5.2 · Data Mapping grid</span>
+                        <p>Growth affordances sit on the edges they grow from.</p>
+                    </figcaption>
+                </figure>
+
+                <div class="decision-block">
+                    <span class="decision-eyebrow">Key Decision 1</span>
+                    <h3 class="decision-title">Rows are rules, columns are sources</h3>
+                    <p>The structure carries the explanation. Each row is one mapped field; each column is one data source. <strong>Growth affordances sit on the edges they grow from</strong> — add a field at the bottom, add a source on the right — so the grid teaches its own model without a wizard walking anyone through it.</p>
+                </div>
+
+                <div class="decision-block">
+                    <span class="decision-eyebrow">Key Decision 2</span>
+                    <h3 class="decision-title">A rule <em>plus</em> a materialized field</h3>
+                    <p>Each mapping saves two things: the rule and the result. <strong>Dashboards read the stored field, so they stay fast</strong> — and when the next wave lands, the rule extends the field automatically. No rebuild, no re-mapping, no stale trend line.</p>
+                </div>
+
+                <div class="decision-block">
+                    <span class="decision-eyebrow">Key Decision 3</span>
+                    <h3 class="decision-title">Manual-first, on purpose</h3>
+                    <p>v5 stripped out every AI suggestion — not because AI didn't belong, but because <strong>a test of the grid and a test of the AI are two different tests.</strong> Leaving auto-detection in would have told us how people felt about the suggestions, and nothing about whether the underlying interaction model holds.</p>
+                </div>
+
+                <div class="decision-block">
+                    <span class="decision-eyebrow">Key Decision 4</span>
+                    <h3 class="decision-title">Values align by direct manipulation</h3>
+                    <p>Behind each row's chevron sits the harder half of the problem: three sources whose answer options don't line up. <strong>A drag-and-drop matrix merges source options into one reportable value</strong> — "Yes" and "Definitely" and the top two scale points land in the same bucket, visibly, by hand. This is the interaction users called out in testing.</p>
+                    <figure class="image-card" style="margin-top: var(--spacing-lg)">
+                        <div class="image-card-media"><img src="assets/img/data-mapping/value-alignment-matrix.jpg" alt="The value-alignment matrix — source answer options dragged and merged into a single reportable value."></div>
+                        <figcaption class="image-card-caption">
+                            <span class="image-card-label">Value-alignment matrix</span>
+                            <p>Behavior engineering can click through instead of decoding annotations.</p>
+                        </figcaption>
+                    </figure>
+                </div>
+            </section>
+
+            <!-- Validating on Our Own Platform -->
+            <section class="case-section snap-section" id="validation">
+                <h2>Tested on Our Own Platform, Demoed to Customers</h2>
+                <p>We validated two ways at once, and both ran on Alida itself.</p>
+
+                <h3>An unmoderated usability test — dogfooding Alida end to end</h3>
+                <div class="image-card-strip">
+                    <figure class="image-card">
+                        <div class="image-card-media"><img src="assets/img/data-mapping/pipeline-1.jpg" alt="The Data Mapping prototype running as clickable HTML built with Claude Code."></div>
+                        <figcaption class="image-card-caption">
+                            <span class="image-card-label">1 · Claude Code</span>
+                            <p>The v5.2 prototype, as clickable HTML.</p>
+                        </figcaption>
+                    </figure>
+                    <figure class="image-card">
+                        <div class="image-card-media"><img src="assets/img/data-mapping/pipeline-2.jpg" alt="The prototype republished as a shareable URL through Figma Make."></div>
+                        <figcaption class="image-card-caption">
+                            <span class="image-card-label">2 · Figma Make</span>
+                            <p>Pasted in; out came a published, shareable URL.</p>
+                        </figcaption>
+                    </figure>
+                    <figure class="image-card">
+                        <div class="image-card-media"><img src="assets/img/data-mapping/pipeline-3.jpg" alt="The published prototype embedded as a task inside an Alida survey."></div>
+                        <figcaption class="image-card-caption">
+                            <span class="image-card-label">3 · Alida survey</span>
+                            <p>The link embedded as the study's task stimulus.</p>
+                        </figcaption>
+                    </figure>
+                    <figure class="image-card">
+                        <div class="image-card-media"><img src="assets/img/data-mapping/pipeline-4.jpg" alt="The study fielded and recorded by the research services team."></div>
+                        <figcaption class="image-card-caption">
+                            <span class="image-card-label">4 · Research services</span>
+                            <p>Fielded to real researchers, screen and clicks recorded.</p>
+                        </figcaption>
+                    </figure>
+                </div>
+
+                <p><strong>Distribution was the real blocker, and it took one prompt to clear.</strong> A local HTML file can't reach participants; pasting the prototype into Figma Make produced a published URL we could put inside a survey. The rest of the pipeline was our own product doing its job on us.</p>
+
+                <p>The study itself: <strong>two realistic tasks</strong> — map a drifted repurchase question across three waves, then cover a newly closed Q4 wave and save. We measured with SUS plus open probes, with screen and click recording and AI follow-up probes on the open answers.</p>
+
+                <p>And we <strong>pre-committed the decision rules before fielding</strong>, so the results would produce a decision rather than a debate.</p>
+                <button class="why-toggle" aria-expanded="false" aria-controls="why-decision-rule">
+                    <i data-lucide="help-circle" width="13" height="13" stroke-width="2"></i>
+                    What did a pre-committed decision rule look like?
+                </button>
+                <div class="why-callout" id="why-decision-rule" hidden>
+                    <aside class="quote-callout" aria-label="Example of a pre-committed decision rule">
+                        <i data-lucide="quote" width="24" height="24" fill="var(--action-sage)" stroke="var(--action-sage)" stroke-width="2"></i>
+                        <blockquote>"If at least half of participants say manual-only mapping won't scale to their programs, v5 needs an AI-assist layer."</blockquote>
+                        <cite>Written into the test plan before the study was fielded</cite>
+                    </aside>
+                </div>
+
+                <h3>Live prototype demos on customer calls</h3>
+                <p>In parallel, I joined customer calls and drove the prototype live. <strong>Customers watched every interaction actually happen</strong> — expanding a row, dragging values into a merge, saving — instead of being walked through screenshots. That surfaced the kind of question pictures never provoke: <em>"what happens when the scales disagree?"</em></p>
+
+                <p class="section-pull">Same artifact, three jobs: crit material, test stimulus, demo.</p>
+            </section>
+
+            <!-- Results & Handoff -->
+            <section class="case-section snap-section" id="results">
+                <h2>The Grid Works — and Told Us Exactly What's Next</h2>
+                <div class="metrics-row">
+                    <div class="metric-tile">
+                        <span class="metric-value">84</span>
+                        <span class="metric-label">SUS — Grade A, against a benchmark average of 68</span>
+                    </div>
+                    <div class="metric-tile">
+                        <span class="metric-value">5 / 5</span>
+                        <span class="metric-label">Completed both tasks, in ~4.3 minutes on average</span>
+                    </div>
+                    <div class="metric-tile">
+                        <span class="metric-value">5 / 5</span>
+                        <span class="metric-label">Would use it frequently — top-two-box agreement</span>
+                    </div>
+                    <div class="metric-tile">
+                        <span class="metric-value">0 / 5</span>
+                        <span class="metric-label">Want AI to decide alone — everyone wants review control</span>
+                    </div>
+                </div>
+                <p class="caption">n = 5 against a recruit target of 12–20, so these results are directional; task completion is self-reported.</p>
+
+                <p class="section-pull">The interaction model works; the manual-first premise doesn't scale.</p>
+
+                <p>Four of five said hand-building mappings is viable only for a few key questions — <strong>crossing the decision rule we'd set before fielding.</strong> So the roadmap moved on evidence, not preference: v5 needs an AI-assist layer, and we know it because we said in advance what would prove it.</p>
+
+                <aside class="quote-callout" aria-label="Participant quote on the value-merging interaction">
+                    <i data-lucide="quote" width="24" height="24" fill="var(--action-sage)" stroke="var(--action-sage)" stroke-width="2"></i>
+                    <blockquote>"It was a nice surprise to be able to map multiple source values to the same output value via the drag and drop."</blockquote>
+                    <cite>P3 — SUS 97.5</cite>
+                </aside>
+
+                <aside class="quote-callout" aria-label="Participant quote on why AI drafting must return">
+                    <i data-lucide="quote" width="24" height="24" fill="var(--action-sage)" stroke="var(--action-sage)" stroke-width="2"></i>
+                    <blockquote>"12 monthly surveys with 20 questions each would be painfully slow to set up manually."</blockquote>
+                    <p class="quote-explanation">The same participant who scored the prototype highest is the one who explained why AI drafting has to come back — the interaction is good, the volume is the problem.</p>
+                    <cite>P3 — on why AI drafting must return</cite>
+                </aside>
+
+            </section>
+
+            <!-- Handoff -->
+            <section class="case-section snap-section" id="handoff">
+                <h2>Handoff: A Spec Engineers Click, Not Read</h2>
+
+                <div class="decision-block">
+                    <span class="decision-eyebrow">The spec</span>
+                    <h3 class="decision-title">The coded v5.2 <em>is</em> the interaction spec</h3>
+                    <p>Engineering received the working prototype. <strong>Every behavior is something they click through, not something they decode from annotations</strong> — and hi-fi mocks now only pin down visual detail. No wordy annotation documents to write, or to misread.</p>
+                </div>
+
+                <div class="decision-block">
+                    <span class="decision-eyebrow">Already shipped</span>
+                    <h3 class="decision-title">Test findings shipped before handoff</h3>
+                    <p>Two findings from the study went into v5.2 before it went out: <strong>source-column reordering</strong>, and a <strong>"Not mapped" tray</strong> so values removed from a mapping are parked rather than lost.</p>
+                </div>
+
+                <div class="decision-block">
+                    <span class="decision-eyebrow">The roadmap</span>
+                    <h3 class="decision-title">A roadmap set by evidence</h3>
+                    <p>Next is AI-drafted field and value matching layered <em>over</em> the validated grid — <strong>manual becomes the fallback, not the default.</strong> The order matters: we know the foundation holds, because we tested it without the AI on top of it.</p>
+                </div>
+
+                <div class="decision-block">
+                    <span class="decision-eyebrow">The delta</span>
+                    <h3 class="decision-title">The efficiency delta</h3>
+                    <p>Six explored directions in about a week, against weeks per direction in static mocks — <strong>with one artifact serving crits, the usability test, and customer demos.</strong></p>
+                </div>
+            </section>
+
+            <!-- Reflection -->
+            <section class="snap-section" id="reflection">
+                <aside class="forward-note" aria-label="Reflections">
+                    <span class="forward-eyebrow">Reflection</span>
+                    <h2>Speed buys judgment.</h2>
+                    <p>Cheap iteration isn't about drawing faster. What it actually bought was the v5 reset — throwing away four directions and re-testing the premise underneath them, which no schedule would have allowed at weeks per direction. <strong>When building a direction stops being the expensive part, deciding what to test becomes the craft.</strong></p>
+                    <p><strong>Evidence beats debate.</strong> Pre-committing decision rules turned "should AI assist here?" from an opinion war into a measurement. Four of five crossed the line we'd drawn in advance, and the argument was over. I'll write those rules into every study now.</p>
+                    <p><strong>Trust is the design problem.</strong> Users and customers converged on the same principle from opposite directions — zero of five wanted AI deciding on its own, and customers kept asking how they'd verify a mapping when the scales disagree. AI drafts; humans review. That's the product principle this feature is built on.</p>
+                    <p><strong>What's next:</strong> design the AI-drafting layer so suggestions arrive as reviewable drafts and never as silent decisions; close the confidence gap with response counts per mapped value and a live data preview, so users can check they got it right; and re-test at proper scale — the 12–20 participants the original plan called for, with the per-task measures we cut.</p>
+                </aside>
+            </section>
+
+            <nav class="case-nav" aria-label="Project navigation">
+                <a href="project_report-migration.html" class="prev">
+                    <span class="case-nav-label"><i data-lucide="arrow-left" width="14" height="14" stroke-width="2.25"></i> Previous</span>
+                    <span class="case-nav-title">Reporting System Migration</span>
+                </a>
+                <a href="project_dashboard-revamp.html" class="next">
+                    <span class="case-nav-label">Next <i data-lucide="arrow-right" width="14" height="14" stroke-width="2.25"></i></span>
+                    <span class="case-nav-title">Dashboard Revamp</span>
+                </a>
+            </nav>
+        </main>
+
+    </div><!-- /.page-body -->
+
+    <div data-include="partials/footer.html"></div>
+    <script>
+        document.querySelectorAll('.why-toggle').forEach(function (btn) {
+            var target = document.getElementById(btn.getAttribute('aria-controls'));
+            btn.addEventListener('click', function () {
+                var isExpanded = btn.getAttribute('aria-expanded') === 'true';
+                if (isExpanded) {
+                    btn.setAttribute('aria-expanded', 'false');
+                    target.classList.remove('is-open');
+                } else {
+                    target.removeAttribute('hidden');
+                    target.getBoundingClientRect(); // force reflow so transition fires on first open
+                    btn.setAttribute('aria-expanded', 'true');
+                    target.classList.add('is-open');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -18,7 +18,7 @@ METADATA
 OVERVIEW (TL;DR)
 
 - Problem: Every tracker wave is a separate survey, so question names and scales drift between waves — dashboards had no way to chart one metric across them, and customers stitched trends together in spreadsheets, outside the product.
-- Approach: Built six clickable prototypes in a week with Claude Code instead of static mocks, ran an unmoderated usability test on our own platform against decision rules set before fielding, and handed the tested prototype to engineering as the interaction spec.
+- Approach: Settled the data model in a written design note first, then built six clickable prototypes in a week with Claude Code instead of static mocks, ran an unmoderated usability test on our own platform against decision rules set before fielding, and handed the tested prototype to engineering as the interaction spec.
 - Result: SUS 84 (Grade A, benchmark 68) with 5 of 5 completing both tasks. The evidence validated the grid and killed the manual-first premise — the AI-assist layer is now on the roadmap because the data said so.
 
 NARRATIVE
@@ -44,9 +44,52 @@ The charter (three parts):
 - PM and engineering were in design crits throughout; every iteration below was reviewed cross-functionally.
 - Section pull: "Weeks per direction is a design constraint, not just a schedule problem."
 
-§2 — SIX PROTOTYPES IN A WEEK  (#exploration)
+§2 — THINKING FIRST, THEN SIX PROTOTYPES  (#exploration)
 
-Framing: In one week I built six working prototypes with Claude Code. Every one is real, clickable HTML — not a mock — so crits ran on working software and feedback turned around same-day.
+Sidebar label: Thinking First, Then Prototypes
+
+Opening: Before opening Figma or generating a prototype, I wrote a design note (July 22, 2026).
+The interaction was undecided, but so was the model underneath it — and a prototype built on
+the wrong model is a well-made wrong answer that costs a week to discover.
+
+The concept: keep the formula, not just the result
+- The analogy is a spreadsheet: a formula cell keeps both the formula and the value it produced.
+- Data Mapping needs the same pair — the mapping rule (how three waves become one CSAT field)
+  and the stored field that widgets read.
+- Keeping the result is what keeps dashboards fast. Keeping the rule is what keeps them alive.
+- Diagram 1 (inline SVG): two survey waves -> mapping rule (saved instructions, the formula)
+  -> CSAT field (stored result, widgets read this). Plus the two behaviors: new answers make
+  the rule run by itself; editing the rule rebuilds the field for all past data.
+
+The Wave 4 test
+- Two architectures were on the table, and at setup they look identical. The difference only
+  appears later, so I picked the moment they diverge — Wave 4 launches in Q4 — and worked out
+  what each does.
+- Diagram 2 (inline SVG), two stacked halves:
+  A — materialized field only: waves 1-3 -> one-time merge (instructions not saved, gone after
+  setup) -> CSAT field frozen at waves 1-3. Wave 4 arrives with nothing to plug into.
+  B — persisted rule + materialized field: same waves -> mapping rule (stays live) -> CSAT
+  field covering waves 1-4. Wave 4 is picked up by the saved rule.
+- Scenario table (all three, from the note):
+  | Scenario                      | A — Field only                                          | B — Rule + field                                                    |
+  | Wave 4 launches               | Rebuild — new field, remap all waves, repoint widgets    | Extend — add the source (~30s, auto-suggested); field rebuilds itself |
+  | Late responses to Wave 3      | Missed — never appear in reporting                      | Automatic — rule runs on new data; zero user action                 |
+  | Wave 2 scale coded backwards  | Start over — no rule left to fix                        | Edit — fix the rule; history recomputes                             |
+- Verdict: B on all three, and not because it was more elegant. A isn't wrong so much as it
+  quietly expires, and every scenario where it fails is one a tracker program hits by
+  definition — the whole point of a tracker is that another wave is always coming.
+- This is the decision that reappears as Key Decision 2 in §3, and it was made in a document
+  before a single prototype existed.
+- Note: the design note cites Qualtrics CX Dashboards documentation as prior art. Deliberately
+  left off the public page.
+
+Six working prototypes in one week
+- With the model fixed, the open question narrowed: what interface makes that model obvious to
+  a researcher?
+- Six prototypes with Claude Code in a week. Every one is real, clickable HTML — not a mock —
+  so crits ran on working software and feedback turned around same-day. Because they sat on the
+  same settled foundation they were genuinely comparable: six answers to one question, not six
+  different questions.
 
 Carousel (6 slides):
 - v1 · Dialog chooser — Wizard plus AI auto-detect, following the existing Recodes pattern.
@@ -57,8 +100,11 @@ Carousel (6 slides):
 - v6 · Single-select — A strict 1:1 alternative, documented as a trade-off.
 
 The reset (the beat that matters):
-- v1 through v4 all led with AI auto-detection, and in crits people kept questioning whether users would trust it.
-- In the old world that feedback dies in a backlog, because starting over costs weeks. Here each direction cost about a day — so v5 could be a full reset (strip the AI out, validate the manual foundation first) instead of a patch.
+- v1 through v4 all led with AI auto-detection, and in crits people kept questioning whether
+  users would trust it.
+- In the old world that feedback dies in a backlog, because starting over costs weeks. Here each
+  direction cost about a day — so v5 could be a full reset (strip the AI out, validate the
+  manual foundation first) instead of a patch.
 - Section pull: "AI made being wrong cheap — which is what made the reset affordable."
 
 §3 — THE TESTED BUILD  (#build)
@@ -120,6 +166,9 @@ Headline: A spec engineers click, not read
 Headline: Speed buys judgment.
 
 - Cheap iteration isn't about drawing faster — it made the v5 reset affordable. The craft shifts to deciding what to test.
+- The other half: the week that mattered most started with a written note, not a prompt. AI made
+  the making cheap; it didn't make the thinking optional. The six prototypes were only worth
+  comparing because the model underneath them had already been argued out on paper.
 - Evidence beats debate — pre-committing decision rules turned "should AI assist?" from an opinion war into a measurement.
 - Trust is the design problem — users (0 of 5 want AI deciding alone) and customers ("what happens when the scales disagree?") converged on the same principle: AI drafts, humans review.
 
@@ -135,7 +184,8 @@ NAV
 
 IMAGE MANIFEST
 
-All slots currently hold a copy of assets/img/placeholder.jpg (900x497). Swap in the real
+The two §2 diagrams are real inline SVG in the page, not images — nothing to swap.
+All slots below currently hold a copy of assets/img/placeholder.jpg (900x497). Swap in the real
 screenshot by overwriting the file; if the real file is a .png, update the src in
 project_data-mapping.html and the filename here to match.
 

@@ -448,6 +448,154 @@
         .forward-note h2 { margin-bottom: var(--spacing-md); }
         .forward-note p { font-size: 0.95rem; line-height: 1.6; }
 
+        /* --- Diagram vocabulary (shared by both inline SVGs) --- */
+        .dg-src   { fill: var(--mint-50); stroke: var(--sage-300); stroke-width: 1.5; }
+        .dg-rule  { fill: var(--primary-mint-light); stroke: var(--action-sage); stroke-width: 1.5; }
+        .dg-field { fill: var(--gold-100); stroke: var(--gold-900); stroke-width: 1.5; }
+        .dg-ghost { fill: var(--grey-100); stroke: var(--grey-500); stroke-width: 1.5; stroke-dasharray: 5 4; }
+        .dg-new   { fill: var(--bg-card); stroke: var(--semantic-warning); stroke-width: 1.5; }
+        .dg-line  { stroke: var(--grey-500); stroke-width: 1.5; fill: none; }
+        .dg-arrow { fill: var(--grey-500); }
+        .dg-bad       { stroke: var(--semantic-error); stroke-width: 1.5; fill: none; }
+        .dg-bad-text  { font-family: var(--font-body); font-size: 13px; fill: var(--semantic-error); }
+        .dg-good      { stroke: var(--semantic-success); stroke-width: 1.5; fill: none; }
+        .dg-good-fill { fill: var(--semantic-success); }
+        .dg-good-text { font-family: var(--font-body); font-size: 13px; fill: var(--semantic-success); }
+        .dg-divider   { stroke: var(--grey-300); stroke-width: 1; }
+        .dg-h { font-family: var(--font-heading); font-weight: 700; font-size: 15px; fill: var(--text-primary); }
+        .dg-t { font-family: var(--font-heading); font-weight: 700; font-size: 13px; fill: var(--text-primary); }
+        .dg-s { font-family: var(--font-body); font-size: 12px; fill: var(--text-secondary); }
+        .dg-n { font-family: var(--font-body); font-size: 13px; fill: var(--text-primary); }
+
+        /* --- Diagram figures (inline SVG) --- */
+        .diagram-figure {
+            background-color: var(--bg-card);
+            border: var(--border-clean);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-lg);
+            margin: var(--spacing-lg) 0;
+        }
+
+        .diagram-figure svg {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .diagram-figure .caption { margin-top: var(--spacing-md); }
+
+        /* A diagram can't reflow the way a grid can, so below the breakpoint it
+           scrolls inside its own container rather than shrinking text to nothing. */
+        .diagram-scroll { overflow-x: visible; }
+
+        @media (max-width: 720px) {
+            .diagram-figure { padding: var(--spacing-md); }
+            .diagram-scroll { overflow-x: auto; }
+            .diagram-scroll svg { min-width: 560px; }
+        }
+
+        /* --- Scenario comparison table --- */
+        .scenario-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--spacing-lg) 0;
+            font-size: 0.9rem;
+        }
+
+        .scenario-table th {
+            font-family: var(--font-heading);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-secondary);
+            text-align: left;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-bottom: 1px solid var(--grey-300);
+        }
+
+        .scenario-table td {
+            padding: var(--spacing-md);
+            vertical-align: top;
+            line-height: 1.5;
+            color: var(--text-primary);
+        }
+
+        .scenario-table tbody tr:nth-child(odd) td { background-color: var(--grey-100); }
+
+        .scenario-table th[scope="row"] {
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: none;
+            letter-spacing: normal;
+            color: var(--text-primary);
+            width: 24%;
+            padding: var(--spacing-md);
+            border-bottom: none;
+            vertical-align: top;
+        }
+
+        .scenario-table tbody tr:nth-child(odd) th[scope="row"] { background-color: var(--grey-100); }
+
+        .verdict-pill {
+            display: inline-block;
+            padding: 2px 10px;
+            margin-right: 0.4em;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 600;
+            line-height: 1.5;
+            white-space: nowrap;
+        }
+
+        /* The palette has no tinted success/error surfaces; these two sit with the
+           mint/sage system and clear 4.5:1 against their text colors. */
+        .verdict-pill--bad { background-color: #FBEAEA; color: #8F2F2F; }
+        .verdict-pill--good { background-color: #E4F1EA; color: #2C6349; }
+
+        /* Below the breakpoint the table collapses to stacked blocks, the way
+           .image-card-strip and .timeline-grid do — no second scroll container. */
+        @media (max-width: 720px) {
+            .scenario-table thead { display: none; }
+
+            .scenario-table,
+            .scenario-table tbody,
+            .scenario-table tr,
+            .scenario-table th[scope="row"],
+            .scenario-table td { display: block; width: auto; }
+
+            .scenario-table tr {
+                border: 1px solid var(--grey-300);
+                border-radius: var(--radius-md);
+                margin-bottom: var(--spacing-md);
+                overflow: hidden;
+            }
+
+            .scenario-table tbody tr:nth-child(odd) td,
+            .scenario-table tbody tr:nth-child(odd) th[scope="row"] { background-color: transparent; }
+
+            .scenario-table th[scope="row"] {
+                width: auto;
+                background-color: var(--grey-100);
+                border-bottom: 1px solid var(--grey-300);
+            }
+
+            .scenario-table td::before {
+                content: attr(data-label);
+                display: block;
+                font-family: var(--font-heading);
+                font-size: 0.7rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                color: var(--text-secondary);
+                margin-bottom: 0.35rem;
+            }
+
+            .scenario-table td + td { border-top: 1px solid var(--grey-300); }
+        }
+
         /* --- Prev / Next nav --- */
         .case-nav {
             display: flex;
@@ -519,7 +667,7 @@
             <nav class="nested-nav hide-on-collapse" aria-label="Case study sections">
                 <a href="#intro" class="nested-link active">Intro</a>
                 <a href="#context" class="nested-link">Why It Matters</a>
-                <a href="#exploration" class="nested-link">Six Prototypes in a Week</a>
+                <a href="#exploration" class="nested-link">Thinking First, Then Prototypes</a>
                 <a href="#build" class="nested-link">The Tested Build</a>
                 <a href="#validation" class="nested-link">Validating on Our Own Platform</a>
                 <a href="#results" class="nested-link">Results</a>
@@ -569,7 +717,7 @@
                     </div>
                     <div class="tldr-col">
                         <span class="tldr-label">Approach</span>
-                        <p>Built six clickable prototypes in a week with Claude Code instead of static mocks, then ran an unmoderated usability test on our own platform against decision rules committed before fielding.</p>
+                        <p>Settled the data model in a written design note first, then built six clickable prototypes in a week with Claude Code instead of static mocks, and ran an unmoderated usability test on our own platform against decision rules committed before fielding.</p>
                     </div>
                     <div class="tldr-col">
                         <span class="tldr-label">Result</span>
@@ -627,10 +775,182 @@
                 <p class="section-pull">Weeks per direction isn't a schedule problem. It's a design constraint.</p>
             </section>
 
-            <!-- Six Prototypes in a Week -->
+            <!-- Thinking first, then six prototypes -->
             <section class="case-section snap-section" id="exploration">
-                <h2>Six Working Prototypes in One Week</h2>
-                <p>I built six prototypes with Claude Code in a week. Every one is real, clickable HTML — not a mock — so <strong>design crits with PM and engineering ran on working software</strong>, and feedback turned around the same day.</p>
+                <h2>Thinking First, Then Six Prototypes</h2>
+                <p>Before I opened Figma or generated a single prototype, I wrote a design note. The interaction was undecided — but so was the thing underneath it. Trackers run as separate surveys, and I couldn't design how someone maps a drifted question until I could say what the system stores when they're done. <strong>A prototype built on the wrong model is just a well-made wrong answer</strong>, and it costs a week to find out.</p>
+
+                <h3>The concept: keep the formula, not just the result</h3>
+                <p>The clarifying analogy was a spreadsheet. When you write a formula in a cell, the sheet keeps two things — the formula and the value it produced. Data Mapping needs the same pair: <strong>the mapping rule that says how three waves become one CSAT field, and the stored field that widgets actually read.</strong> Keeping the result is what keeps dashboards fast. Keeping the rule is what keeps them alive.</p>
+
+                <figure class="diagram-figure">
+                    <div class="diagram-scroll">
+                        <svg viewBox="0 0 800 300" role="img" aria-labelledby="dg1-title dg1-desc">
+                            <title id="dg1-title">The mapping model: sources feed a saved rule, which produces a stored field</title>
+                            <desc id="dg1-desc">Two survey waves feed into a saved mapping rule — the formula. The rule runs to produce a stored CSAT field, which dashboard widgets read. When new answers arrive the rule runs by itself so the field stays current; when someone edits the rule, the field is rebuilt for all past data too.</desc>
+                            <defs>
+                                <marker id="dm1-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                                    <path d="M0,0 L10,5 L0,10 z" class="dg-arrow"/>
+                                </marker>
+                            </defs>
+
+                            <rect x="40" y="56" width="180" height="56" rx="8" class="dg-src"/>
+                            <text x="130" y="80" text-anchor="middle" class="dg-t">Survey wave</text>
+                            <text x="130" y="98" text-anchor="middle" class="dg-s">raw answers, untouched</text>
+
+                            <rect x="40" y="136" width="180" height="56" rx="8" class="dg-src"/>
+                            <text x="130" y="160" text-anchor="middle" class="dg-t">Survey wave</text>
+                            <text x="130" y="178" text-anchor="middle" class="dg-s">raw answers, untouched</text>
+
+                            <rect x="310" y="68" width="190" height="112" rx="8" class="dg-rule"/>
+                            <text x="405" y="112" text-anchor="middle" class="dg-t">Mapping rule</text>
+                            <text x="405" y="132" text-anchor="middle" class="dg-s">saved instructions</text>
+                            <text x="405" y="148" text-anchor="middle" class="dg-s">(the formula)</text>
+
+                            <rect x="580" y="68" width="180" height="112" rx="8" class="dg-field"/>
+                            <text x="670" y="112" text-anchor="middle" class="dg-t">CSAT field</text>
+                            <text x="670" y="132" text-anchor="middle" class="dg-s">stored result</text>
+                            <text x="670" y="148" text-anchor="middle" class="dg-s">widgets read this</text>
+
+                            <line x1="220" y1="84" x2="302" y2="110" class="dg-line" marker-end="url(#dm1-arrow)"/>
+                            <line x1="220" y1="164" x2="302" y2="138" class="dg-line" marker-end="url(#dm1-arrow)"/>
+                            <line x1="500" y1="124" x2="572" y2="124" class="dg-line" marker-end="url(#dm1-arrow)"/>
+                            <text x="536" y="114" text-anchor="middle" class="dg-s">runs</text>
+
+                            <line x1="40" y1="228" x2="800" y2="228" class="dg-divider"/>
+                            <text x="40" y="258" class="dg-n">New answers arrive — the rule runs by itself, and the field stays current.</text>
+                            <text x="40" y="284" class="dg-n">Someone edits the rule — the field is rebuilt for all past data too.</text>
+                        </svg>
+                    </div>
+                    <figcaption class="caption">The model, before any interface existed: sources stay untouched, the rule is saved, and the field it produces is what dashboards read.</figcaption>
+                </figure>
+
+                <h3>The Wave 4 test</h3>
+                <p>Writing the model down turned a preference into a comparison. Two architectures were on the table, and <strong>at setup they look identical</strong> — the user maps three waves, a field appears, the trend renders. The difference only shows up later. So instead of arguing about which felt right, I picked the moment they diverge — <strong>Wave 4 launches in Q4</strong> — and worked out what each one does.</p>
+
+                <figure class="diagram-figure">
+                    <div class="diagram-scroll">
+                        <svg viewBox="0 0 800 620" role="img" aria-labelledby="dg2-title dg2-desc">
+                            <title id="dg2-title">The Wave 4 test: materialized field only versus persisted rule plus field</title>
+                            <desc id="dg2-desc">Option A stores only the materialized field. The merge instructions are discarded after setup, so the field is a frozen snapshot of waves one to three and Wave 4 has nothing to plug into — the user rebuilds the field, remaps every wave and repoints widgets. Option B stores the mapping rule alongside the field. The rule stays live, so Wave 4 is picked up automatically and the field extends to cover waves one to four with the same widgets pointed at it.</desc>
+                            <defs>
+                                <marker id="dm2-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                                    <path d="M0,0 L10,5 L0,10 z" class="dg-arrow"/>
+                                </marker>
+                                <marker id="dm2-good" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                                    <path d="M0,0 L10,5 L0,10 z" class="dg-good-fill"/>
+                                </marker>
+                            </defs>
+
+                            <text x="40" y="28" class="dg-h">A — materialized field only</text>
+
+                            <rect x="40" y="48" width="170" height="44" rx="8" class="dg-src"/>
+                            <text x="125" y="66" text-anchor="middle" class="dg-t">Wave 1</text>
+                            <text x="125" y="82" text-anchor="middle" class="dg-s">Q1'26</text>
+                            <rect x="40" y="102" width="170" height="44" rx="8" class="dg-src"/>
+                            <text x="125" y="120" text-anchor="middle" class="dg-t">Wave 2</text>
+                            <text x="125" y="136" text-anchor="middle" class="dg-s">Q2'26</text>
+                            <rect x="40" y="156" width="170" height="44" rx="8" class="dg-src"/>
+                            <text x="125" y="174" text-anchor="middle" class="dg-t">Wave 3</text>
+                            <text x="125" y="190" text-anchor="middle" class="dg-s">Q3'26</text>
+
+                            <rect x="300" y="80" width="190" height="88" rx="8" class="dg-ghost"/>
+                            <text x="395" y="114" text-anchor="middle" class="dg-t">One-time merge</text>
+                            <text x="395" y="134" text-anchor="middle" class="dg-s">instructions not saved</text>
+                            <text x="395" y="150" text-anchor="middle" class="dg-s">gone after setup</text>
+
+                            <rect x="580" y="80" width="180" height="88" rx="8" class="dg-field"/>
+                            <text x="670" y="114" text-anchor="middle" class="dg-t">CSAT field</text>
+                            <text x="670" y="134" text-anchor="middle" class="dg-s">frozen snapshot</text>
+                            <text x="670" y="150" text-anchor="middle" class="dg-s">waves 1–3 only</text>
+
+                            <line x1="210" y1="70" x2="292" y2="102" class="dg-line" marker-end="url(#dm2-arrow)"/>
+                            <line x1="210" y1="124" x2="292" y2="124" class="dg-line" marker-end="url(#dm2-arrow)"/>
+                            <line x1="210" y1="178" x2="292" y2="146" class="dg-line" marker-end="url(#dm2-arrow)"/>
+                            <line x1="490" y1="124" x2="572" y2="124" class="dg-line" marker-end="url(#dm2-arrow)"/>
+
+                            <rect x="40" y="222" width="170" height="44" rx="8" class="dg-new"/>
+                            <text x="125" y="240" text-anchor="middle" class="dg-t">Wave 4</text>
+                            <text x="125" y="256" text-anchor="middle" class="dg-s">Q4'26 — new</text>
+                            <line x1="212" y1="244" x2="250" y2="244" class="dg-bad" stroke-dasharray="4 3"/>
+                            <text x="258" y="249" class="dg-bad-text" font-size="16" font-weight="700">×</text>
+                            <text x="282" y="240" class="dg-bad-text">nothing to plug into — the merge wasn't saved</text>
+                            <text x="282" y="258" class="dg-s">user rebuilds the field, remaps every wave, repoints widgets</text>
+
+                            <line x1="40" y1="308" x2="760" y2="308" class="dg-divider"/>
+
+                            <text x="40" y="348" class="dg-h">B — persisted rule + materialized field</text>
+
+                            <rect x="40" y="368" width="170" height="44" rx="8" class="dg-src"/>
+                            <text x="125" y="386" text-anchor="middle" class="dg-t">Wave 1</text>
+                            <text x="125" y="402" text-anchor="middle" class="dg-s">Q1'26</text>
+                            <rect x="40" y="422" width="170" height="44" rx="8" class="dg-src"/>
+                            <text x="125" y="440" text-anchor="middle" class="dg-t">Wave 2</text>
+                            <text x="125" y="456" text-anchor="middle" class="dg-s">Q2'26</text>
+                            <rect x="40" y="476" width="170" height="44" rx="8" class="dg-src"/>
+                            <text x="125" y="494" text-anchor="middle" class="dg-t">Wave 3</text>
+                            <text x="125" y="510" text-anchor="middle" class="dg-s">Q3'26</text>
+
+                            <rect x="300" y="400" width="190" height="88" rx="8" class="dg-rule"/>
+                            <text x="395" y="434" text-anchor="middle" class="dg-t">Mapping rule</text>
+                            <text x="395" y="454" text-anchor="middle" class="dg-s">saved instructions</text>
+                            <text x="395" y="470" text-anchor="middle" class="dg-s">stays live</text>
+
+                            <rect x="580" y="400" width="180" height="88" rx="8" class="dg-field"/>
+                            <text x="670" y="434" text-anchor="middle" class="dg-t">CSAT field</text>
+                            <text x="670" y="454" text-anchor="middle" class="dg-s">waves 1–4</text>
+                            <text x="670" y="470" text-anchor="middle" class="dg-s">stays current</text>
+
+                            <line x1="210" y1="390" x2="292" y2="422" class="dg-line" marker-end="url(#dm2-arrow)"/>
+                            <line x1="210" y1="444" x2="292" y2="444" class="dg-line" marker-end="url(#dm2-arrow)"/>
+                            <line x1="210" y1="498" x2="292" y2="466" class="dg-line" marker-end="url(#dm2-arrow)"/>
+                            <line x1="490" y1="444" x2="572" y2="444" class="dg-line" marker-end="url(#dm2-arrow)"/>
+
+                            <rect x="40" y="540" width="170" height="44" rx="8" class="dg-src"/>
+                            <text x="125" y="558" text-anchor="middle" class="dg-t">Wave 4</text>
+                            <text x="125" y="574" text-anchor="middle" class="dg-s">Q4'26 — new</text>
+                            <line x1="212" y1="552" x2="296" y2="492" class="dg-good" marker-end="url(#dm2-good)"/>
+                            <text x="310" y="556" class="dg-good-text">picked up by the saved rule — the field rebuilds itself</text>
+                            <text x="310" y="574" class="dg-s">same field, same widgets; the trend just gains a Q4 point</text>
+                        </svg>
+                    </div>
+                    <figcaption class="caption">Identical at setup, different the moment a new wave lands. That divergence is the whole argument.</figcaption>
+                </figure>
+
+                <p>Then I ran both options past the failures I could actually name, rather than the ones that sounded worst:</p>
+
+                <table class="scenario-table" aria-label="How each architecture behaves across three scenarios">
+                    <thead>
+                        <tr>
+                            <th scope="col">Scenario</th>
+                            <th scope="col">A — Field only</th>
+                            <th scope="col">B — Rule + field</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Wave 4 launches</th>
+                            <td data-label="A — Field only"><span class="verdict-pill verdict-pill--bad">Rebuild</span>New field, remap all waves, repoint widgets.</td>
+                            <td data-label="B — Rule + field"><span class="verdict-pill verdict-pill--good">Extend</span>Add the source — about 30 seconds, auto-suggested; the field rebuilds itself.</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Late responses to Wave 3</th>
+                            <td data-label="A — Field only"><span class="verdict-pill verdict-pill--bad">Missed</span>They never appear in reporting.</td>
+                            <td data-label="B — Rule + field"><span class="verdict-pill verdict-pill--good">Automatic</span>The rule runs on new data; zero user action.</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Wave 2 scale coded backwards</th>
+                            <td data-label="A — Field only"><span class="verdict-pill verdict-pill--bad">Start over</span>There's no rule left to fix.</td>
+                            <td data-label="B — Rule + field"><span class="verdict-pill verdict-pill--good">Edit</span>Fix the rule; history recomputes.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>B, on all three — and not because it was more elegant. <strong>A isn't wrong so much as it quietly expires</strong>, and every scenario where it fails is one a tracker program hits by definition, because the whole point of a tracker is that another wave is always coming. That settled the model. It's the decision that shows up later as <a href="#build" class="text-link">Key Decision 2 in the tested build</a> — and it was made in a document, before a single prototype existed.</p>
+
+                <h3>Six working prototypes in one week</h3>
+                <p>With the model fixed, the open question was narrower and far more answerable: <strong>what interface makes that model obvious to a researcher?</strong> That's the question the prototypes were for.</p>
+                <p>I built six of them with Claude Code in a week. Every one is real, clickable HTML — not a mock — so <strong>design crits with PM and engineering ran on working software</strong>, and feedback turned around the same day. Because they all sat on the same settled foundation, they were genuinely comparable: six answers to one question, not six different questions.</p>
 
                 <div class="carousel" data-carousel aria-roledescription="carousel" aria-label="The six prototype directions, v1 through v6">
                     <div class="carousel-viewport">
@@ -726,7 +1046,7 @@
                 <div class="decision-block">
                     <span class="decision-eyebrow">Key Decision 2</span>
                     <h3 class="decision-title">A rule <em>plus</em> a materialized field</h3>
-                    <p>Each mapping saves two things: the rule and the result. <strong>Dashboards read the stored field, so they stay fast</strong> — and when the next wave lands, the rule extends the field automatically. No rebuild, no re-mapping, no stale trend line.</p>
+                    <p>Each mapping saves two things: the rule and the result. <strong>Dashboards read the stored field, so they stay fast</strong> — and when the next wave lands, the rule extends the field automatically. No rebuild, no re-mapping, no stale trend line. This one wasn't decided at the canvas: it was settled in <a href="#exploration" class="text-link">the design note</a>, on the Wave 4 test, before any of these screens existed.</p>
                 </div>
 
                 <div class="decision-block">
@@ -886,6 +1206,7 @@
                     <span class="forward-eyebrow">Reflection</span>
                     <h2>Speed buys judgment.</h2>
                     <p>Cheap iteration isn't about drawing faster. What it actually bought was the v5 reset — throwing away four directions and re-testing the premise underneath them, which no schedule would have allowed at weeks per direction. <strong>When building a direction stops being the expensive part, deciding what to test becomes the craft.</strong></p>
+                    <p>Which is the other half of it: the week that mattered most started with a written note, not a prompt. <strong>AI made the making cheap. It didn't make the thinking optional</strong> — and the six prototypes were only worth comparing because the model underneath them had already been argued out on paper.</p>
                     <p><strong>Evidence beats debate.</strong> Pre-committing decision rules turned "should AI assist here?" from an opinion war into a measurement. Four of five crossed the line we'd drawn in advance, and the argument was over. I'll write those rules into every study now.</p>
                     <p><strong>Trust is the design problem.</strong> Users and customers converged on the same principle from opposite directions — zero of five wanted AI deciding on its own, and customers kept asking how they'd verify a mapping when the scales disagree. AI drafts; humans review. That's the product principle this feature is built on.</p>
                     <p><strong>What's next:</strong> design the AI-drafting layer so suggestions arrive as reviewable drafts and never as silent decisions; close the confidence gap with response counts per mapped value and a live data preview, so users can check they got it right; and re-test at proper scale — the 12–20 participants the original plan called for, with the per-task measures we cut.</p>

@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Data Mapping — built the obvious AI answer first, let a design review reset the brief, then validated the grid with researchers before any production code.">
+    <title>Data Mapping · Dan Peng</title>
+    <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/tokens.css">
+    <script>
+    (function () {
+        var saved = localStorage.getItem('theme');
+        var theme = saved || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+    })();
+    </script>
+    <link rel="stylesheet" href="assets/css/header.css">
+    <link rel="stylesheet" href="assets/css/sidebar.css">
+    <link rel="stylesheet" href="assets/css/footer.css">
+    <link rel="stylesheet" href="assets/css/carousel.css">
+    <link rel="stylesheet" href="assets/css/before-after.css">
+    <link rel="stylesheet" href="assets/css/image-card.css">
+    <link rel="stylesheet" href="assets/css/section-pull.css">
+    <link rel="stylesheet" href="assets/css/dot-nav.css">
+    <link rel="stylesheet" href="assets/css/scroll-top.css">
+    <link rel="stylesheet" href="assets/css/passcode.css">
+    <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script defer src="assets/js/include.js"></script>
+    <script defer src="assets/js/theme.js"></script>
+    <script defer src="assets/js/scroll-spy.js"></script>
+    <script defer src="assets/js/dot-nav.js"></script>
+    <script defer src="assets/js/scroll-top.js"></script>
+    <script defer src="assets/js/footer-email.js"></script>
+    <script defer src="assets/js/passcode.js"></script>
+    <script defer src="assets/js/carousel.js"></script>
+    <style>
+        /* --- Layout --- */
+        .main-content {
+            flex: 1;
+            min-width: 0;
+            padding: var(--spacing-2xl) var(--layout-gutter);
+            transition: padding 0.3s ease;
+        }
+
+        @media (max-width: 720px) {
+            .main-content { padding: var(--spacing-xl) var(--layout-gutter-mobile); }
+        }
+
+        /* --- Breadcrumbs --- */
+        .breadcrumbs {
+            display: flex;
+            gap: var(--spacing-sm);
+            align-items: center;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .breadcrumbs a { color: var(--text-secondary); text-decoration: none; }
+        .breadcrumbs a:hover { color: var(--action-sage); }
+        .breadcrumbs span.current { color: var(--text-primary); font-weight: 600; }
+
+        /* --- Hero --- */
+        .case-hero { margin-bottom: var(--spacing-xl); }
+
+        .case-hero-eyebrow {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--action-sage);
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .case-hero h1 {
+            margin: 0 0 var(--spacing-md) 0;
+        }
+
+/* --- Metadata strip --- */
+        .metadata-strip {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-lg);
+            padding: var(--spacing-lg);
+            background-color: var(--bg-porcelain);
+            border: var(--border-clean);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .metadata-row { display: grid; gap: var(--spacing-lg); }
+
+        .metadata-row--identity,
+        .metadata-row--engagement { grid-template-columns: repeat(3, 1fr); }
+
+        @media (max-width: 720px) {
+            .metadata-row--identity,
+            .metadata-row--engagement { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .metadata-cell .metadata-label {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-secondary);
+            margin-bottom: 0.35rem;
+        }
+
+        .metadata-cell .metadata-value {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        /* --- Hero media --- */
+        .hero-media {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-height: 480px;
+            background-color: var(--primary-mint-light);
+            border-radius: var(--radius-lg);
+            color: var(--action-sage);
+            margin-bottom: var(--spacing-xl);
+            padding: var(--spacing-lg);
+            gap: 12px;
+        }
+
+        .hero-media__scroll {
+            flex: 1 1 auto;
+            min-height: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .hero-media .hero-placeholder {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background-color: var(--grey-100);
+            border: 1px dashed var(--action-sage);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--action-sage);
+            font-size: 0.85rem;
+            text-align: center;
+            padding: var(--spacing-md);
+        }
+
+        .hero-media img,
+        .hero-media video { width: 100%; height: auto; display: block; }
+
+        .hero-media .caption { flex-shrink: 0; margin: 0; }
+
+        /* --- TL;DR card --- */
+        .tldr-card {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-xl);
+            padding: var(--spacing-xl);
+            background-color: var(--bg-card);
+            border: var(--border-clean);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .tldr-col {
+            flex: 1 1 0;
+            min-width: 0;
+        }
+
+        .tldr-col .tldr-label {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--action-sage);
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .tldr-col p { font-size: 0.95rem; line-height: 1.55; margin: 0; }
+
+        @media (max-width: 720px) {
+            .tldr-card { flex-direction: column; gap: var(--spacing-lg); }
+        }
+
+        /* --- Product primer (intro) --- */
+        .primer {
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .primer h3 { margin: 0 0 var(--spacing-md) 0; }
+
+        /* --- Sections --- */
+        .case-section {
+            margin-bottom: var(--spacing-2xl);
+            scroll-margin-top: calc(var(--header-height) + var(--spacing-md));
+        }
+
+        .case-section h2 { margin: 0 0 var(--spacing-md) 0; }
+        .case-section h3 { margin: var(--spacing-lg) 0 var(--spacing-sm) 0; }
+
+        .case-section p {
+            font-size: 1rem;
+            line-height: 1.65;
+            color: var(--text-primary);
+            margin: 0 0 var(--spacing-md) 0;
+        }
+
+        .case-section ol,
+        .case-section ul {
+            margin: 0 0 var(--spacing-md) 1.25rem;
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .case-section li { margin-bottom: 0.3rem; }
+
+        /* --- Section eyebrow --- */
+        .section-eyebrow {
+            display: inline-block;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--action-sage);
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+        }
+
+        /* --- Decision eyebrow --- */
+        .decision-eyebrow {
+            display: inline-block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--action-sage);
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+        }
+
+        /* --- Cinematic scene-opener --- */
+        .scene-opener {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            line-height: 1.45;
+            color: var(--text-primary);
+            margin: 0 0 var(--spacing-md) 0;
+        }
+        .scene-opener .scene-punch {
+            display: block;
+            margin-top: 0.4rem;
+            color: var(--gold-700);
+        }
+
+        /* --- Split layout: text left, media right --- */
+        .split {
+            display: grid;
+            grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+            gap: var(--spacing-2xl);
+            align-items: start;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .split:last-child { margin-bottom: 0; }
+
+        .split-text > *:last-child { margin-bottom: 0; }
+        .split-text > h3:first-child { margin-top: 0; }
+        .split-media > .carousel { margin-top: 0; }
+
+        .split-media { position: sticky; top: calc(var(--header-height) + var(--spacing-md)); }
+
+        @media (max-width: 900px) {
+            .split { grid-template-columns: 1fr; gap: var(--spacing-lg); }
+            .split-media { position: static; }
+        }
+
+        /* --- Decision sub-blocks --- */
+        .decision-block {
+            margin-top: var(--spacing-xl);
+            padding-top: var(--spacing-xl);
+            border-top: 1px dashed var(--grey-300);
+        }
+
+        .decision-block:first-of-type {
+            border-top: none;
+            padding-top: var(--spacing-md);
+        }
+
+        .decision-title {
+            font-weight: 700;
+            margin: 0 0 var(--spacing-sm) 0;
+        }
+
+        /* --- Captions --- */
+        .caption {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-align: center;
+            margin: 0;
+        }
+
+        /* --- Quote callout --- */
+        .quote-callout {
+            padding: var(--spacing-xl);
+            background-color: var(--primary-mint-light);
+            border-radius: var(--radius-lg);
+            border: var(--border-clean);
+        }
+
+        .quote-callout svg { margin-bottom: var(--spacing-md); }
+
+        .quote-callout blockquote {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            line-height: 1.4;
+            color: var(--text-primary);
+            margin: 0 0 0.5rem 0;
+        }
+
+        .quote-callout cite {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        /* --- Responses strip (compact: every participant's open-end in one panel) --- */
+        .responses-strip {
+            margin-top: var(--spacing-lg);
+            border: var(--border-clean);
+            border-radius: var(--radius-lg);
+            background-color: var(--primary-mint-light);
+            padding: 0 var(--spacing-lg);
+        }
+
+        .responses-strip-row {
+            display: grid;
+            grid-template-columns: 2.5rem 6rem 1fr;
+            gap: var(--spacing-lg);
+            padding: var(--spacing-md) 0;
+            border-top: 1px solid var(--grey-300);
+        }
+
+        .responses-strip-row:first-child { border-top: none; }
+
+        .responses-strip-who {
+            font-family: var(--font-heading);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            color: var(--text-secondary);
+            padding-top: 0.2rem;
+        }
+
+        .responses-strip-score {
+            padding-top: 0.1rem;
+        }
+
+        .responses-strip-score .n {
+            display: block;
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--action-sage);
+        }
+
+        .responses-strip-score .rating {
+            display: block;
+            font-size: 0.75rem;
+            line-height: 1.35;
+            color: var(--text-secondary);
+        }
+
+        .responses-strip-row p {
+            margin: 0;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: var(--text-primary);
+        }
+
+        @media (max-width: 600px) {
+            .responses-strip-row { grid-template-columns: 2.5rem 1fr; gap: 0.35rem var(--spacing-md); }
+            .responses-strip-who { grid-row: span 2; }
+            .responses-strip-score { display: flex; align-items: baseline; gap: 0.5rem; flex-wrap: wrap; }
+        }
+
+        /* --- Metrics row --- */
+        .metrics-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: var(--spacing-lg);
+            margin: var(--spacing-md) 0 var(--spacing-lg) 0;
+        }
+
+        @media (max-width: 720px) {
+            .metrics-row { grid-template-columns: 1fr 1fr; }
+        }
+
+        .metric-tile {
+            padding: var(--spacing-lg);
+            background-color: var(--bg-porcelain);
+            border: var(--border-clean);
+            border-radius: var(--radius-md);
+        }
+
+        .metric-value {
+            display: block;
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--action-sage);
+            line-height: 1.15;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .metric-label { font-size: 0.875rem; color: var(--text-secondary); }
+
+        .metrics-footnote {
+            font-size: 0.8rem;
+            line-height: 1.55;
+            color: var(--text-secondary);
+            margin: 0 0 var(--spacing-lg) 0;
+        }
+
+        /* --- Findings: bar rows (Testing Results) --- */
+        .finding-bars-q {
+            font-family: var(--font-heading);
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            margin: var(--spacing-md) 0 var(--spacing-sm);
+        }
+
+        .finding-bar {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 2.5rem;
+            align-items: center;
+            gap: var(--spacing-xs) var(--spacing-sm);
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            padding: 0.3rem 0;
+        }
+
+        .finding-bar-count {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-align: right;
+        }
+
+        .finding-bar-track {
+            grid-column: 1 / -1;
+            height: 0.5rem;
+            background: var(--grey-300);
+            border-radius: var(--radius-pill);
+            overflow: hidden;
+        }
+
+        .finding-bar-fill {
+            display: block;
+            height: 100%;
+            background: var(--action-sage);
+            border-radius: inherit;
+        }
+
+        .finding-cols { display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-lg); }
+
+        @media (max-width: 640px) {
+            .finding-cols { grid-template-columns: 1fr; }
+        }
+
+        /* --- Forward-looking note --- */
+        .forward-note {
+            padding: var(--spacing-xl);
+            background-color: var(--bg-card);
+            border: 1px solid var(--grey-300);
+            border-left: 4px solid var(--gold-500);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .forward-note .forward-eyebrow {
+            display: inline-block;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-secondary);
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .forward-note h2 { margin-bottom: var(--spacing-md); }
+        .forward-note p { font-size: 0.95rem; line-height: 1.6; }
+
+        /* --- Scenario comparison table (§2) --- */
+        .scenario-table-wrap {
+            overflow-x: auto;
+            margin: var(--spacing-lg) 0;
+            border: 1px solid var(--grey-300);
+            border-radius: var(--radius-md);
+        }
+
+        .scenario-table {
+            border-collapse: collapse;
+            width: 100%;
+            min-width: 560px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .scenario-table th,
+        .scenario-table td {
+            padding: var(--spacing-sm) var(--spacing-md);
+            text-align: left;
+            vertical-align: top;
+            border-bottom: 1px solid var(--grey-300);
+        }
+
+        .scenario-table thead th {
+            background-color: var(--bg-porcelain);
+            font-family: var(--font-heading);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-secondary);
+        }
+
+        .scenario-table tbody tr:last-child td { border-bottom: none; }
+
+        .scenario-table tbody td:first-child {
+            font-weight: 600;
+            color: var(--text-primary);
+            white-space: nowrap;
+        }
+
+        .scenario-table tbody td { color: var(--text-secondary); }
+
+        @media (max-width: 720px) {
+            .scenario-table tbody td:first-child { white-space: normal; }
+        }
+
+        /* --- Inline SVG diagrams (§2) --- */
+        .diagram-figure {
+            margin: var(--spacing-lg) 0;
+            padding: var(--spacing-lg);
+            background-color: var(--bg-porcelain);
+            border: var(--border-clean);
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+        }
+
+        .diagram-figure svg {
+            display: block;
+            width: 100%;
+            max-width: 620px;
+            height: auto;
+            margin: 0 auto;
+        }
+
+        .diagram-figure figcaption { margin-top: var(--spacing-md); }
+
+        .dg-box { fill: var(--bg-card); stroke: var(--action-sage); stroke-width: 1.5; }
+        .dg-box--strong { stroke-width: 2.75; }
+        .dg-line { fill: none; stroke: var(--action-sage); stroke-width: 1.5; }
+        .dg-line--dash { fill: none; stroke: var(--text-secondary); stroke-width: 1.5; stroke-dasharray: 5 4; }
+        .dg-arrow { fill: var(--action-sage); }
+        .dg-label { fill: var(--text-primary); font-family: var(--font-heading); font-size: 12px; font-weight: 600; }
+        .dg-sub { fill: var(--text-secondary); font-family: var(--font-body); font-size: 10.5px; }
+        .dg-half { fill: var(--text-secondary); font-family: var(--font-heading); font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+
+        /* --- Prev / Next nav --- */
+        .case-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            gap: var(--spacing-lg);
+            padding-top: var(--spacing-xl);
+            border-top: 1px solid var(--grey-300);
+            margin-top: var(--spacing-2xl);
+        }
+
+        .case-nav a {
+            text-decoration: none;
+            color: var(--text-primary);
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xs);
+            transition: color 0.2s ease;
+        }
+
+        .case-nav a:hover { color: var(--action-sage); }
+
+        .case-nav-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35em;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-secondary);
+        }
+
+        .case-nav-title {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .case-nav .next { text-align: right; }
+        .case-nav .next .case-nav-label { justify-content: flex-end; }
+
+        @media (max-width: 720px) {
+            .case-nav { gap: var(--spacing-md); }
+            .case-nav a { flex: 1; min-width: 0; }
+            .case-nav-title { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body data-page="projects">
+    <div data-include="partials/header.html"></div>
+
+    <div class="page-body">
+
+        <aside class="sidebar" id="sidebar">
+            <button class="sidebar-mobile-toggle" type="button" aria-expanded="false" aria-controls="sidebar">
+                <i data-lucide="chevron-down" class="sidebar-mobile-chevron" width="18" height="18" stroke-width="2"></i>
+                <span class="sidebar-mobile-label">
+                    <span class="sidebar-mobile-eyebrow">On this page</span>
+                    <span class="sidebar-active-label">Intro</span>
+                </span>
+            </button>
+            <div class="sidebar-header">
+                <h2 class="sidebar-title hide-on-collapse">On This Page</h2>
+                <button class="sidebar-toggle" aria-label="Collapse sidebar" onclick="toggleSidebar()">
+                    <i data-lucide="menu" width="18" height="18" stroke-width="2"></i>
+                </button>
+            </div>
+
+            <nav class="nested-nav hide-on-collapse" aria-label="Case study sections">
+                <a href="#intro" class="nested-link active">Intro</a>
+                <a href="#context" class="nested-link">Why It Matters</a>
+                <a href="#exploration" class="nested-link">The First Direction</a>
+                <a href="#build" class="nested-link">The Second Direction</a>
+                <a href="#validation" class="nested-link">Validation</a>
+                <a href="#results" class="nested-link">Testing Results</a>
+                <a href="#handoff" class="nested-link">Handoff</a>
+            </nav>
+        </aside>
+
+        <main class="main-content" id="main">
+            <section class="snap-intro" id="intro">
+                <div class="breadcrumbs">
+                    <a href="index.html#projects">Projects</a>
+                    <span>/</span>
+                    <span class="current">Data Mapping</span>
+                </div>
+
+                <header class="case-hero">
+                    <p class="case-hero-eyebrow">Research SaaS · Dashboard</p>
+                    <h1>Data Mapping</h1>
+                    <p class="case-hero-tagline">Stop rebuilding the trend in Excel every quarter. Map the drift once and keep watching it live.</p>
+                </header>
+
+                <div class="hero-media">
+                    <div class="hero-media__scroll">
+                        <img src="assets/img/data-mapping/thumbnail-data-mapping.png" alt="Data Mapping — the second version's grid with mapped fields as rows and data sources as columns.">
+                    </div>
+                    <p class="caption">The mapping grid: each row is a mapped field, each column a data source.</p>
+                </div>
+
+                <section class="metadata-strip" aria-label="Project metadata">
+                    <div class="metadata-row metadata-row--identity">
+                        <div class="metadata-cell"><span class="metadata-label">Product</span><p class="metadata-value">Research SaaS</p></div>
+                        <div class="metadata-cell"><span class="metadata-label">Area</span><p class="metadata-value">Dashboard · Data Mapping</p></div>
+                        <div class="metadata-cell"><span class="metadata-label">Timeline</span><p class="metadata-value">July – August 2026 (~6 weeks)</p></div>
+                    </div>
+                    <div class="metadata-row metadata-row--engagement">
+                        <div class="metadata-cell"><span class="metadata-label">Role</span><p class="metadata-value">Product Designer</p></div>
+                        <div class="metadata-cell"><span class="metadata-label">Team</span><p class="metadata-value">1 Designer · 1 PM · 6–7 Engineers</p></div>
+                        <div class="metadata-cell"><span class="metadata-label">Tools</span><p class="metadata-value">Figma, Claude Code (clickable prototypes), Figma Make (secure prototype sharing), Alida Surveys (usability testing)</p></div>
+                    </div>
+                </section>
+
+                <section class="tldr-card" aria-label="TL;DR summary">
+                    <div class="tldr-col">
+                        <span class="tldr-label">Problem</span>
+                        <p>When answer options shift slightly between recurring survey rounds, results no longer align — dashboards can't show one continuous trend line, so users fall back on manual spreadsheet workarounds.</p>
+                    </div>
+                    <div class="tldr-col" hidden>
+                        <span class="tldr-label">Approach</span>
+                        <p>The early bird catches the worm, but the second mouse gets the cheese.</p>
+                    </div>
+                    <div class="tldr-col">
+                        <span class="tldr-label">Result</span>
+                        <p>Customers confirmed in live demos that the design addressed their needs, reinforced by a usability score of 84/100 (vs. a 68 benchmark) with all participants completing tasks successfully — giving us confidence to move forward with launch.</p>
+                    </div>
+                </section>
+
+            </section><!-- /#intro -->
+
+            <!-- §1 Why It Matters -->
+            <section class="case-section snap-section" id="context">
+                <h2>Why It Matters</h2>
+
+                <div class="split">
+                    <div class="split-text">
+                        <h3>User pain point</h3>
+                        <p>The same recurring survey question sometimes comes back changed — wording, scale, or answer options can shift from one round to the next (see examples), <strong>breaking the trend line</strong>. Users then <strong>export the data and edit it by hand in Excel</strong> to rebuild the trend, every quarter the survey runs.</p>
+                        <h3>Business objective</h3>
+                        <p>Monitoring the trend in real time is the <strong>core job</strong> customers buy the add-on dashboard to do. When that job runs in Excel instead, the platform is just a data source, not where the work happens — and <strong>the upsell opportunity that comes with owning that job goes unclaimed</strong>.</p>
+                    </div>
+                    <div class="split-media">
+                        <div class="carousel" data-carousel aria-roledescription="carousel" aria-label="Examples of survey questions drifting between waves">
+                            <div class="carousel-viewport">
+                                <ol class="carousel-track">
+                                    <li class="carousel-slide">
+                                        <div class="carousel-media">
+                                            <img src="assets/img/data-mapping/example-repurchase-intent.png" alt="The same repurchase question across four quarterly waves, with the answer scale shifting each time: a two-point Yes/No, then a five-point Definitely will–Definitely not scale, then a three-point Yes/Maybe/No, then the five-point scale again.">
+                                        </div>
+                                        <div class="carousel-caption">
+                                            <span class="carousel-step">Repurchase intent · Q1–Q4 '26</span>
+                                            <p>Same question, a different answer scale most quarters. The waves won't share an axis — the trend line breaks.</p>
+                                        </div>
+                                    </li>
+                                    <li class="carousel-slide">
+                                        <div class="carousel-media">
+                                            <img src="assets/img/data-mapping/example-purchase-reasons.png" alt="A multiple-choice purchase-reasons question where two common write-in answers, 'Free shipping' and 'Customer service', are promoted to fixed options in the next wave.">
+                                        </div>
+                                        <div class="carousel-caption">
+                                            <span class="carousel-step">Purchase reasons · Q1–Q2 '26</span>
+                                            <p>Common write-ins promoted to fixed options. Q1 and Q2 no longer count the same thing.</p>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                            <div class="carousel-controls">
+                                <button class="carousel-btn carousel-prev" aria-label="Previous slide">
+                                    <i data-lucide="chevron-left" width="16" height="16" stroke-width="2.25"></i>
+                                </button>
+                                <div class="carousel-meta">
+                                    <div class="carousel-dots" role="tablist"></div>
+                                    <span class="carousel-counter">1 / 2</span>
+                                </div>
+                                <button class="carousel-btn carousel-next" aria-label="Next slide">
+                                    <i data-lucide="chevron-right" width="16" height="16" stroke-width="2.25"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- §2 The First Direction -->
+            <section class="case-section snap-section" id="exploration">
+                <h2>The First Direction</h2>
+
+                <div class="decision-block">
+                    <div class="split">
+                        <div class="split-text">
+                            <span class="decision-eyebrow">01 · The Starting Point</span>
+                            <h3 class="decision-title">Reusing the existing screen, adding AI enhancements</h3>
+                            <p>Mapped fields already existed in the product as a one-at-a-time setup: pick a source, pick a field, repeat. My first iteration kept that screen and added AI to reduce the manual effort — the AI added capability, it didn't add anything new to learn.</p>
+                        </div>
+                        <div class="split-media">
+                            <figure class="image-card">
+                                <div class="image-card-media"><img src="assets/img/data-mapping/existing-mapped-field.gif" alt="The product's existing mapped-field setup — a single mapped field defined one source and one field at a time."><span class="image-card-ai-icon" aria-label="Prototype made with Claude Code"><i data-lucide="sparkles" width="13" height="13" stroke-width="2"></i><span class="image-card-ai-tooltip">Prototype made with Claude Code</span></span></div>
+                                <figcaption class="image-card-caption">
+                                    <span class="image-card-label">Before · The existing mapped-field setup</span>
+                                    <p>One field at a time — pick a source, pick a field, save, repeat.</p>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="decision-block">
+                    <div class="split">
+                        <div class="split-text">
+                            <span class="decision-eyebrow">02 · AI-Powered Enhancement</span>
+                            <h3 class="decision-title">Auto-Detect drafts the pairings for you</h3>
+                            <p><strong>Auto-Detect scans every field across the dashboard's sources and drafts the pairings.</strong> The user confirms which sources are in scope, watches the scan, then reviews the drafted fields before anything is created.</p>
+                            <p>Fields pair only when mapping rules all pass, a pair qualifies or it's listed as unmatched. I extended the existing configuration UI rather than inventing a new one.</p>
+                        </div>
+                        <div class="split-media">
+                            <figure class="image-card">
+                                <div class="image-card-media"><img src="assets/img/data-mapping/auto-detect.gif" alt="The first version's Auto-Detect flow end to end: from the empty state (Create Manually or Auto-Detect with AI), confirm which sources are in scope, watch the scan, then a Step 2 review listing 8 drafted field pairings against 22 unmatched fields, with nothing created until the user confirms."><span class="image-card-ai-icon" aria-label="Prototype made with Claude Code"><i data-lucide="sparkles" width="13" height="13" stroke-width="2"></i><span class="image-card-ai-tooltip">Prototype made with Claude Code</span></span></div>
+                                <figcaption class="image-card-caption">
+                                    <span class="image-card-label">First version · Auto detect with AI</span>
+                                    <p>Confirm the sources, watch the scan, review the draft. Pairs follow the product's existing mapping rules, and nothing is created until you confirm.</p>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="decision-block">
+                    <span class="decision-eyebrow">03 · Redefined Scope</span>
+                    <h3 class="decision-title">The design review that changed the brief</h3>
+                    <p>At the first design review, the PM and engineering leads reset the scope. Three calls came out of that room:</p>
+                    <ol>
+                        <li><strong>No AI in the first pass.</strong> Prove the manual model works before automating it.</li>
+                        <li><strong>Mapping has to reach the answer options</strong>, not stop at the field.</li>
+                        <li><strong>Options mapping has to support re-grouping</strong> — several source options feeding one output value.</li>
+                    </ol>
+                    <p>They were right, and the two examples below — both raised in customer calls running around the same time — show why.</p>
+
+                    <div class="image-card-strip">
+                        <figure class="image-card">
+                            <div class="image-card-media"><img src="assets/img/data-mapping/example-purchase-reasons.png" alt="A multiple-choice purchase-reasons question where two common write-in answers are promoted to fixed options in the next wave."></div>
+                            <figcaption class="image-card-caption">
+                                <span class="image-card-label">Option drift · Purchase reasons, Q1 vs Q2</span>
+                                <p>Common write-ins promoted to fixed options. Q1 and Q2 no longer count the same thing.</p>
+                            </figcaption>
+                        </figure>
+                        <figure class="image-card">
+                            <div class="image-card-media"><img src="assets/img/data-mapping/example-repurchase-intent.png" alt="The same repurchase question across four quarterly waves, with the answer scale shifting each time."></div>
+                            <figcaption class="image-card-caption">
+                                <span class="image-card-label">Scale drift · Repurchase intent, four waves</span>
+                                <p>Same question, a different scale every quarter. The waves won't share an axis.</p>
+                            </figcaption>
+                        </figure>
+                    </div>
+
+
+                    <p>Pair two fields whose options no longer line up and the trend line comes out technically valid and factually wrong. The first version solved the half of the problem you could see; the review found the other half — and at roughly a day per coded prototype, resetting was cheap.</p>
+                </div>
+            </section>
+
+            <!-- §3 The Second Direction -->
+            <section class="case-section snap-section" id="build">
+                <h2>The Second Direction</h2>
+
+                <div class="split">
+                    <div class="split-text">
+                        <p>The second version replaces the one-at-a-time setup with <strong>a single grid: rows are mapped fields, columns are data sources</strong>. It grows from its own edges — add a field along the bottom, add a source down the right — so the whole mapping stays visible instead of hiding inside a wizard.</p>
+                        <p>Expand a row and a value-alignment matrix opens underneath. Source answer options are chips: drag to reorder, <strong>drop one onto an occupied row to merge</strong> — "Very satisfied" and "Satisfied" collapse into a single reportable value by hand, no form. Each mapping saves as a rule with its result, so <strong>the next wave extends the field instead of rebuilding it</strong>.</p>
+                    </div>
+                    <div class="split-media">
+                        <figure class="image-card">
+                            <div class="image-card-media"><img src="assets/img/data-mapping/mapping-grid.gif" alt="The second version's mapping grid: mapped fields as rows, data sources as columns, with add-field on the bottom edge and add-source on the right edge; a row expands to a value-alignment matrix where source answer options are dragged as chips and merged into single reportable values."><span class="image-card-ai-icon" aria-label="Prototype made with Claude Code"><i data-lucide="sparkles" width="13" height="13" stroke-width="2"></i><span class="image-card-ai-tooltip">Prototype made with Claude Code</span></span></div>
+                            <figcaption class="image-card-caption">
+                                <span class="image-card-label">Second version · The mapping grid</span>
+                                <p>Select fields from each source to map; expand a row to align values, dragging options together to merge them.</p>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </section>
+
+            <!-- §4 Validation -->
+            <section class="case-section snap-section" id="validation">
+                <h2>Validating on Our Own Platform</h2>
+
+                <div class="decision-block">
+                    <span class="decision-eyebrow">01 · Usability Testing</span>
+                    <h3 class="decision-title">Usability testing with the interactive HTML prototype</h3>
+                    <p>To put the grid in front of recruited researchers, the prototype had to reach them first. A vibe-coded local HTML build can't, and a public link puts an unreleased concept on the open web. Figma Make published it to a URL I could <strong>embed as a task inside an Alida survey</strong> — delivered to participants, not the open web, and retired when the study closed.</p>
+                    <p class="section-pull">Honest early feedback without leaking the concept.</p>
+                    <p>From there it ran as <strong>an unmoderated usability test</strong>, dogfooding Alida end to end.</p>
+
+                    <div class="image-card-strip">
+                        <figure class="image-card">
+                            <div class="image-card-media"><img src="assets/img/data-mapping/clickable-html-prototype.png" alt="The Data Mapping prototype running as a clickable HTML build."></div>
+                            <figcaption class="image-card-caption">
+                                <span class="image-card-label">1 · Clickable HTML prototype</span>
+                                <p>The second version, running locally as an HTML file.</p>
+                            </figcaption>
+                        </figure>
+                        <figure class="image-card">
+                            <div class="image-card-media"><img src="assets/img/data-mapping/figma-make-published-url.png" alt="The prototype republished as a shareable URL through Figma Make."></div>
+                            <figcaption class="image-card-caption">
+                                <span class="image-card-label">2 · Figma Make published URL</span>
+                                <p>A link that reaches participants without going on the open web.</p>
+                            </figcaption>
+                        </figure>
+                        <figure class="image-card">
+                            <div class="image-card-media"><img src="assets/img/data-mapping/embedded-in-alida-survey.png" alt="The published prototype embedded as a task inside an Alida survey."></div>
+                            <figcaption class="image-card-caption">
+                                <span class="image-card-label">3 · Embedded in an Alida survey</span>
+                                <p>The prototype sits inside the study as a task.</p>
+                            </figcaption>
+                        </figure>
+                        <figure class="image-card">
+                            <div class="image-card-media"><img src="assets/img/data-mapping/post-task-questionnaire.png" alt="The post-task questionnaire: a 10-item SUS followed by open-ended questions about mapping needs."></div>
+                            <figcaption class="image-card-caption">
+                                <span class="image-card-label">4 · Post-task questionnaire</span>
+                                <p>The 10-item SUS, then open questions to dive deeper.</p>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+
+                <div class="decision-block">
+                    <span class="decision-eyebrow">02 · Customer Demos</span>
+                    <h3 class="decision-title">Live prototype demos on customer calls</h3>
+                    <p>On several customer calls with the PM, customers <strong>watched the real interaction instead of reading annotations</strong> on a static mockup. They saw fields mapped across sources as it happened, not as a diagram.</p>
+                    <p>The response was <strong>positive overall</strong>. Customers <strong>confirmed the core bet that mapping had to reach the answer options</strong>, and described use cases of their own that need source options re-grouped.</p>
+                </div>
+            </section>
+
+            <!-- §5 Results -->
+            <section class="case-section snap-section" id="results">
+                <h2>Testing Results</h2>
+                <div class="metrics-row">
+                    <div class="metric-tile">
+                        <span class="metric-value">84</span>
+                        <span class="metric-label">SUS, Grade A — benchmark average is 68</span>
+                    </div>
+                    <div class="metric-tile">
+                        <span class="metric-value">5 / 5</span>
+                        <span class="metric-label">finished both tasks — in ~4.3 minutes on average</span>
+                    </div>
+                    <div class="metric-tile">
+                        <span class="metric-value">5 / 5</span>
+                        <span class="metric-label">would use it frequently</span>
+                    </div>
+                </div>
+                <p class="metrics-footnote">n = 5, recruited in a single one-week testing window inside the six-week project. That is short of the 12–20 the study was designed for: too small to be conclusive, but it still surfaced clear, consistent feedback. Task completion is self-reported (no session recordings).</p>
+
+                <div class="decision-block">
+                    <span class="decision-eyebrow">01 · Needs Validated</span>
+                    <h3 class="decision-title">The interaction model works — and people want it</h3>
+                    <p>5/5 completed both tasks in ~4 minutes with zero unexpected-behaviour complaints, and all five would use it frequently. The uses they named line up with what mapped fields feed.</p>
+                    <p class="finding-bars-q">Once your questions are mapped, how would you want to use the mapped fields? (select all that apply)</p>
+                    <div class="finding-cols">
+                        <div>
+                            <div class="finding-bar">
+                                <span class="finding-bar-label">Trend a question across waves in one chart</span>
+                                <span class="finding-bar-count">4/5</span>
+                                <span class="finding-bar-track"><span class="finding-bar-fill" style="width:80%"></span></span>
+                            </div>
+                            <div class="finding-bar">
+                                <span class="finding-bar-label">Compare segments side by side (banners/crosstabs)</span>
+                                <span class="finding-bar-count">4/5</span>
+                                <span class="finding-bar-track"><span class="finding-bar-fill" style="width:80%"></span></span>
+                            </div>
+                            <div class="finding-bar">
+                                <span class="finding-bar-label">Filter the whole dashboard by them</span>
+                                <span class="finding-bar-count">3/5</span>
+                                <span class="finding-bar-track"><span class="finding-bar-fill" style="width:60%"></span></span>
+                            </div>
+                            <div class="finding-bar">
+                                <span class="finding-bar-label">Build calculations or weighting on them</span>
+                                <span class="finding-bar-count">1/5</span>
+                                <span class="finding-bar-track"><span class="finding-bar-fill" style="width:20%"></span></span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="finding-bar">
+                                <span class="finding-bar-label">Export the combined data for analysis elsewhere</span>
+                                <span class="finding-bar-count">1/5</span>
+                                <span class="finding-bar-track"><span class="finding-bar-fill" style="width:20%"></span></span>
+                            </div>
+                            <div class="finding-bar">
+                                <span class="finding-bar-label">Others (please specify)</span>
+                                <span class="finding-bar-count">1/5</span>
+                                <span class="finding-bar-track"><span class="finding-bar-fill" style="width:20%"></span></span>
+                            </div>
+                            <div class="finding-bar">
+                                <span class="finding-bar-label">Not sure</span>
+                                <span class="finding-bar-count">0/5</span>
+                                <span class="finding-bar-track"><span class="finding-bar-fill" style="width:0%"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="decision-block">
+                    <span class="decision-eyebrow">02 · AI Help needed</span>
+                    <h3 class="decision-title">Manual-first doesn't scale — users want AI drafts they can review</h3>
+                    <p>4/5 said setting up mapped fields by hand won't scale past a handful of key questions. That was enough to lock in AI-assist as the next layer. They want it drafting the mechanical steps (finding matches, aligning values) for review; only 1/5 wanted full manual control.</p>
+                    <div class="finding-cols">
+                        <div>
+                            <p class="finding-bars-q">Setting up mapped fields fully by hand, for real work, would be…</p>
+                            <div class="finding-bar">
+                                <span class="finding-bar-label">OK for a handful of key questions only</span>
+                                <span class="finding-bar-count">3/5</span>
+                                <span class="finding-bar-track"><span class="finding-bar-fill" style="width:60%"></span></span>
+                            </div>
+                            <div class="finding-bar">
+                                <span class="finding-bar-label">Fine, I'd do it for all my questions</span>
+                                <span class="finding-bar-count">1/5</span>
+                                <span class="finding-bar-track"><span class="finding-bar-fill" style="width:20%"></span></span>
+                            </div>
+                            <div class="finding-bar">
+                                <span class="finding-bar-label">Too much work to do by hand</span>
+                                <span class="finding-bar-count">1/5</span>
+                                <span class="finding-bar-track"><span class="finding-bar-fill" style="width:20%"></span></span>
+                            </div>
+                            <div class="finding-bar">
+                                <span class="finding-bar-label">Not sure</span>
+                                <span class="finding-bar-count">0/5</span>
+                                <span class="finding-bar-track"><span class="finding-bar-fill" style="width:0%"></span></span>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="finding-bars-q">Which steps would you want done automatically? (select all that apply)</p>
+                            <div class="finding-bar">
+                                <span class="finding-bar-label">Finding matching questions across sources</span>
+                                <span class="finding-bar-count">4/5</span>
+                                <span class="finding-bar-track"><span class="finding-bar-fill" style="width:80%"></span></span>
+                            </div>
+                            <div class="finding-bar">
+                                <span class="finding-bar-label">Matching the answer values</span>
+                                <span class="finding-bar-count">4/5</span>
+                                <span class="finding-bar-track"><span class="finding-bar-fill" style="width:80%"></span></span>
+                            </div>
+                            <div class="finding-bar">
+                                <span class="finding-bar-label">Naming the mapped fields &amp; values</span>
+                                <span class="finding-bar-count">2/5</span>
+                                <span class="finding-bar-track"><span class="finding-bar-fill" style="width:40%"></span></span>
+                            </div>
+                            <div class="finding-bar">
+                                <span class="finding-bar-label">Covering a newly added survey</span>
+                                <span class="finding-bar-count">2/5</span>
+                                <span class="finding-bar-track"><span class="finding-bar-fill" style="width:40%"></span></span>
+                            </div>
+                            <div class="finding-bar">
+                                <span class="finding-bar-label">None, I want full control</span>
+                                <span class="finding-bar-count">1/5</span>
+                                <span class="finding-bar-track"><span class="finding-bar-fill" style="width:20%"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="decision-block">
+                    <span class="decision-eyebrow">03 · Fix before ship</span>
+                    <h3 class="decision-title">The gap to close is confidence, not ease</h3>
+                    <p>The qualitative feedback converges on one question: <em>"did I do it right?"</em></p>
+                    <ul>
+                        <li><strong>No way to verify the result:</strong> P5 wants response counts per mapped value; P4 finished but couldn't tell if it worked.</li>
+                        <li><strong>Recode judgement needs guidance:</strong> P2 wants best practices ("does <em>Probably not</em> = No?") and a warning when a question has drifted too far to map.</li>
+                        <li><strong>Entry point under-labelled:</strong> P1 found the initial banner meaningless until mid-task; wants labels and tooltips.</li>
+                    </ul>
+                </div>
+
+                <!-- Per-participant SUS + comments — hidden for now; the 3 findings above cover
+                     the takeaways. Un-comment (and keep the .responses-strip* CSS) to restore. -->
+                <!--
+                <figure class="responses-strip" aria-label="SUS score and open-ended feedback from all five participants">
+                    <div class="responses-strip-row">
+                        <span class="responses-strip-who">P1</span>
+                        <span class="responses-strip-score"><span class="n">85.0</span><span class="rating">Excellent</span></span>
+                        <p>No gaps yet, but wants onboarding aids: hover tooltips and a clearer banner marking the mapping-fields page.</p>
+                    </div>
+                    <div class="responses-strip-row">
+                        <span class="responses-strip-who">P2</span>
+                        <span class="responses-strip-score"><span class="n">90.0</span><span class="rating">Best imaginable</span></span>
+                        <p>Wants a warning when a question has drifted too far in wording or answer options to still map validly across waves.</p>
+                    </div>
+                    <div class="responses-strip-row">
+                        <span class="responses-strip-who">P3</span>
+                        <span class="responses-strip-score"><span class="n">97.5</span><span class="rating">Best imaginable</span></span>
+                        <p>Merging several source values into one output by drag-and-drop was a pleasant surprise. Needs a more scalable way to map at volume — 12 monthly surveys of 20 questions each by hand would be too slow.</p>
+                    </div>
+                    <div class="responses-strip-row">
+                        <span class="responses-strip-who">P4</span>
+                        <span class="responses-strip-score"><span class="n">80.0</span><span class="rating">Excellent</span></span>
+                        <p>No major gaps; called it a big improvement on the current Looker dashboards, especially mapping fields directly instead of hunting through Looker's field lists.</p>
+                    </div>
+                    <div class="responses-strip-row">
+                        <span class="responses-strip-who">P5</span>
+                        <span class="responses-strip-score"><span class="n">67.5</span><span class="rating">OK / below average</span></span>
+                        <p>Wants field-level counts shown (e.g. number of "yes" responses) to validate whether fields were mapped correctly.</p>
+                    </div>
+                </figure>
+                -->
+            </section>
+
+            <!-- §6 Handoff -->
+            <section class="case-section snap-section" id="handoff">
+                <h2>Handoff</h2>
+                <p class="scene-opener">Two artifacts, each doing one job.<span class="scene-punch">Hi-fi mocks pin down the visual detail; the vibe-coded prototype is the interaction guide.</span></p>
+                <div class="split">
+                    <div class="split-text">
+                        <ul>
+                            <li><strong>Interaction guide:</strong> the vibe-coded prototype, clicked through instead of annotated, with empty, error and edge-case states shown.</li>
+                            <li><strong>Logged for the next iteration</strong> (surfaced in testing, not built into this pass): onboarding tooltips, per-field response counts, and a drift warning when a question can no longer map validly.</li>
+                            <li><strong>Next:</strong> an AI-powered automatic detection, with AI-drafted matches, a manual fallback, and every draft reviewable.</li>
+                        </ul>
+                    </div>
+                    <div class="split-media">
+                        <figure class="image-card">
+                            <div class="image-card-media"><img src="assets/img/data-mapping/hifi-mocks.png" alt="Hi-fi Figma mocks of the mapping grid and the value-alignment matrix, pinning down spacing, type, and component states for engineering."></div>
+                            <figcaption class="image-card-caption">
+                                <span class="image-card-label">Handoff · Hi-fi mocks</span>
+                                <p>Figma mocks specify the visual detail; the vibe-coded prototype carries the behavior.</p>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </section>
+
+            <nav class="case-nav" aria-label="Project navigation">
+                <a href="project_report-migration.html" class="prev">
+                    <span class="case-nav-label"><i data-lucide="arrow-left" width="14" height="14" stroke-width="2.25"></i> Previous</span>
+                    <span class="case-nav-title">Reporting System Migration</span>
+                </a>
+                <a href="project_dashboard-revamp.html" class="next">
+                    <span class="case-nav-label">Next <i data-lucide="arrow-right" width="14" height="14" stroke-width="2.25"></i></span>
+                    <span class="case-nav-title">Dashboard Revamp</span>
+                </a>
+            </nav>
+        </main>
+
+    </div><!-- /.page-body -->
+
+    <div data-include="partials/footer.html"></div>
+</body>
+</html>

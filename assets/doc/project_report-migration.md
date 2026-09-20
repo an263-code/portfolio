@@ -1,7 +1,7 @@
 PROJECT
 
 - Title: Reporting System Migration
-- Eyebrow: Research Community Platform · Survey Report · AI Chatbot
+- Eyebrow: Research SaaS · Survey Report · AI Chatbot
 - Tagline: Researchers used to open the report, then export data to Excel. After two years of incremental migrations and upgrades, most stopped needing to leave.
 - Filename for the new page: project_report-migration
 
@@ -72,4 +72,4 @@ SIDEBAR NAVIGATION
 PREV / NEXT
 
 - Previous: Multi-Video Insights (project_video-insights.html)
-- Next: Dashboard Revamp (project_dashboard-revamp.html)
+- Next: Data Mapping (project_data-mapping.html)

@@ -1,14 +1,14 @@
 PROJECT
 
 - Title: Multi-Video Insights
-- Eyebrow (industry · surface · year, e.g. "Enterprise SaaS · Dashboard · 2025"): Research Community Platform · AI
+- Eyebrow (industry · surface · year, e.g. "Enterprise SaaS · Dashboard · 2025"): Research SaaS · Survey Report · AI
 - Tagline (one sentence — what & why it mattered): Turning hours of video into minutes of insight — and bringing design upstream of engineering with customer evidence.
 - Filename for the new page (e.g. project-fintech.html): project_video-insights
 
 METADATA
 
-- Product: Research Community Platform
-- Area: AI-powered Video Insights · Survey Report
+- Product: Research SaaS
+- Area: Survey Report · AI-powered Video Insights
 - Role: Product Designer
 - Timeline: January – February 2026
 - Team: 1 Designer · 1 PM · 8–10 Engineers

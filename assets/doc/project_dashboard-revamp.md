@@ -1,13 +1,13 @@
 PROJECT
 
 - Title: Revamped Dashboard Experience
-- Eyebrow (industry · area): Research Community Platform · Dashboard
+- Eyebrow (industry · area): Research SaaS · Dashboard
 - Tagline: Replacing a data-analyst tool with a researcher-friendly dashboard.
 - Filename: project_dashboard-revamp.html
 
 METADATA
 
-- Product: Research Community Platform
+- Product: Research SaaS
 - Area: Dashboard
 - Timeline: March – April 2026
 - Role: Product Designer
@@ -97,5 +97,5 @@ A direction worth exploring: a lightweight "research team report" for the resear
 
 NAV
 
-- Previous: Reporting System Migration (project_report-migration.html)
+- Previous: Data Mapping (project_data-mapping.html)
 - Next: Multi-Video Insights (project_video-insights.html)

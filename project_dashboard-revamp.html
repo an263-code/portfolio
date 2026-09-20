@@ -160,14 +160,19 @@
 
         /* --- TL;DR card --- */
         .tldr-card {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            display: flex;
+            flex-wrap: wrap;
             gap: var(--spacing-xl);
             padding: var(--spacing-xl);
             background-color: var(--bg-card);
             border: var(--border-clean);
             border-radius: var(--radius-lg);
             margin-bottom: var(--spacing-2xl);
+        }
+
+        .tldr-col {
+            flex: 1 1 0;
+            min-width: 0;
         }
 
         .tldr-col .tldr-label {
@@ -183,7 +188,7 @@
         .tldr-col p { font-size: 0.95rem; line-height: 1.55; margin: 0; }
 
         @media (max-width: 720px) {
-            .tldr-card { grid-template-columns: 1fr; gap: var(--spacing-lg); }
+            .tldr-card { flex-direction: column; gap: var(--spacing-lg); }
         }
 
         /* --- Sections --- */
@@ -630,7 +635,7 @@
             </div>
 
             <header class="case-hero">
-                <p class="case-hero-eyebrow">Research Community Platform · Dashboard</p>
+                <p class="case-hero-eyebrow">Research SaaS · Dashboard</p>
                 <h1>Revamped Dashboard Experience</h1>
                 <p class="case-hero-tagline">Replacing a data-analyst tool with a researcher-friendly dashboard.</p>
             </header>
@@ -644,7 +649,7 @@
 
             <section class="metadata-strip" aria-label="Project metadata">
                 <div class="metadata-row metadata-row--identity">
-                    <div class="metadata-cell"><span class="metadata-label">Product</span><p class="metadata-value">Research Community Platform</p></div>
+                    <div class="metadata-cell"><span class="metadata-label">Product</span><p class="metadata-value">Research SaaS</p></div>
                     <div class="metadata-cell"><span class="metadata-label">Area</span><p class="metadata-value">Dashboard</p></div>
                     <div class="metadata-cell"><span class="metadata-label">Timeline</span><p class="metadata-value">March – April 2026</p></div>
                 </div>
@@ -964,9 +969,9 @@
             </section>
 
             <nav class="case-nav" aria-label="Project navigation">
-                <a href="project_report-migration.html" class="prev">
+                <a href="project_data-mapping.html" class="prev">
                     <span class="case-nav-label"><i data-lucide="arrow-left" width="14" height="14" stroke-width="2.25"></i> Previous</span>
-                    <span class="case-nav-title">Reporting System Migration</span>
+                    <span class="case-nav-title">Data Mapping</span>
                 </a>
                 <a href="project_video-insights.html" class="next">
                     <span class="case-nav-label">Next <i data-lucide="arrow-right" width="14" height="14" stroke-width="2.25"></i></span>
